@@ -1,3 +1,6 @@
+import java.util.Map;
+import java.util.HashMap;
+
 
 class HelloWorld{
 
@@ -42,7 +45,7 @@ class HelloWorld{
 		COMMA,
 		LEFT_PARENTHESIS,
 		RIGHT_PARENTHESIS,
-		
+
 		NEW_LINE,
 		EQUALS_SIGN,
 		LOWER_SIGN,
@@ -81,6 +84,10 @@ class HelloWorld{
 		System.out.println(myStringArray);
 
 		System.out.println(HelloWorld.Day.SUNDAY);
+
+		Map<String, LexicalUnit> map = new HashMap<String, LexicalUnit>();
+
+		System.out.println(map);
 
 
 	// 	identification, division, program-id, author, . (a dot), nn
