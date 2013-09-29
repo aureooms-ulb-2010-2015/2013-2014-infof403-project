@@ -7,12 +7,14 @@ CLASSES = $(shell find $(SRC) | grep \\.java$$)
 .SUFFIXES: .java .class
 
 .java.class:
-	$(JC) $(JFLAGS) $*.java
+	$(JC) $(JFLAGS) $*.java -d class
 
+default: all
 
-default: classes
-
-classes: $(CLASSES:.java=.class)
+all: mkdir $(CLASSES:.java=.class)
 
 clean:
-	$(RM) *.class
+	$(RM) -r class
+
+mkdir:
+	mkdir class
