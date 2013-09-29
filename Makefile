@@ -1,20 +1,31 @@
 JFLAGS = -g
 JC = javac
+LINK = jar cvfm
 
+OUTPUT_NAME = dist/s_cobol_lexical_analysis.jar
 SRC = src
-CLASSES = $(shell find $(SRC) | grep \\.java$$)
+CLASS = class
+SOURCES = $(shell find $(SRC) | grep \\.java$$)
+CLASSES = $(patsubst $(SRC)/%,$(CLASS)/%,$(patsubst %.java,%.class,$(SOURCES)))
+MANIFEST = MANIFEST.MF
+
+REQUIRED_DIRS = class dist
+_MKDIRS := $(shell for d in $(REQUIRED_DIRS); \
+             do                               \
+               [ -d $$d ] || mkdir -p $$d;  \
+             done)
 
 .SUFFIXES: .java .class
 
-.java.class:
-	$(JC) $(JFLAGS) $*.java -d class
-
 default: all
 
-all: mkdir $(CLASSES:.java=.class)
+all: $(OUTPUT_NAME)
+
+$(OUTPUT_NAME): $(CLASSES)
+	$(LINK) $(OUTPUT_NAME) $(MANIFEST) -C $(CLASS) .
+
+$(CLASS)/%.class: $(SRC)/%.java
+	$(JC) $(JFLAGS) $^ -d class
 
 clean:
-	$(RM) -r class
-
-mkdir:
-	mkdir class
+	$(RM) -r $(REQUIRED_DIRS)

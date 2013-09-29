@@ -2,7 +2,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 
-class HelloWorld{
+public class HelloWorld{
 
 	public enum Day {
 		SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
