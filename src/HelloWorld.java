@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 import cs.lang.SCobol;
+import cs.lang.LexicalAnalyzer;
 
 public class HelloWorld{
 	
@@ -41,23 +42,8 @@ public class HelloWorld{
 		InputStream fis = new FileInputStream(file);
 		Scanner scanner = new Scanner(fis);
 
-		while(true){
-			String match = scanner.findWithinHorizon(pattern, 0);
-			if(match == null) break;
-			System.out.print("token : ");
-			System.out.print(match.replace("\n","\\n"));
-			System.out.print("\t");
-			System.out.print("lexical unit : ");
-			SCobol.LexicalUnit unit = null;
-			for(int j = 1; j <= scanner.match().groupCount(); ++j){
-				if(scanner.match().group(j) != null){
-					unit = units.get(j-1);
-					break;
-				}
-			}
-			System.out.print(unit);
-			System.out.print("\n");
-		}
+		LexicalAnalyzer analyzer = new LexicalAnalyzer();
+		analyzer.run(scanner, units, pattern);
 
 		fis.close();
 	}
