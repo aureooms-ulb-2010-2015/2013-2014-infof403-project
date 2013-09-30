@@ -1,6 +1,9 @@
 import java.util.Map;
 import java.util.HashMap;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -138,13 +141,13 @@ public class HelloWorld{
 				put("accept", LexicalUnit.ACCEPT_KEYWORD);
 				put("display", LexicalUnit.DISPLAY_KEYWORD);
 
-				put("*", LexicalUnit.ASTERISK);
+				put("\\*", LexicalUnit.ASTERISK);
 				put("/", LexicalUnit.SLASH);
-				put(".", LexicalUnit.DOT);
+				put("\\.", LexicalUnit.DOT);
 				put(",", LexicalUnit.COMMA);
-				put("(", LexicalUnit.LEFT_PARENTHESIS);
-				put(")", LexicalUnit.RIGHT_PARENTHESIS);
-				put("\n", LexicalUnit.NEW_LINE);
+				put("\\(", LexicalUnit.LEFT_PARENTHESIS);
+				put("\\)", LexicalUnit.RIGHT_PARENTHESIS);
+				put("\\n", LexicalUnit.NEW_LINE);
 
 				put("=", LexicalUnit.EQUALS_SIGN);
 				put("<", LexicalUnit.LOWER_SIGN);
@@ -157,7 +160,7 @@ public class HelloWorld{
 				put("[A-Za-z][0-9A-Za-z_-]{0,15}", LexicalUnit.IDENTIFIER);
 				put("s?9(\\([1-0][0-9]*\\))?(v9(\\([1-0][0-9]*\\))?)?", LexicalUnit.IMAGE);
 				put("(+|-)?[1-9][0-9]*", LexicalUnit.INTEGER);
-				put("(+|-)?([1-9][0-9]*(.[0-9]*[1-9])?)|(0.[0-9]*[1-9])", LexicalUnit.REAL);
+				put("(+|-)?([1-9][0-9]*(\\.[0-9]*[1-9])?)|(0.[0-9]*[1-9])", LexicalUnit.REAL);
 				put("'[0-9A-Za-z+-\\*/:!\\? ]*'", LexicalUnit.STRING);
 			}
 		};
@@ -173,7 +176,7 @@ public class HelloWorld{
 			unit.add(key);
 		}
 
-		System.out.println(key);
+		System.out.println(unit);
 
 
 		File file = new File("test/1");
