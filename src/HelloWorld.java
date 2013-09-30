@@ -164,6 +164,12 @@ public class HelloWorld{
 
 		System.out.println(map);
 
+		for (Map.Entry<String,LexicalUnit> entry : map.entrySet()) {
+			String key = entry.getKey();
+			LexicalUnit value = entry.getValue();
+			System.out.println(key + " : " + value);
+		}
+
 
 		File file = new File("test/1");
 		InputStream fis = new FileInputStream(file);
