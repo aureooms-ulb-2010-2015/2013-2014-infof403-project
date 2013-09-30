@@ -161,9 +161,9 @@ public class HelloWorld{
 				put(LexicalUnit.PLUS_SIGN, "\\+");
 
 				put(LexicalUnit.IDENTIFIER, "[A-Za-z][0-9A-Za-z_\\-]{0,15}");
-				put(LexicalUnit.IMAGE, "s?9(\\([1-9][0-9]*\\))?(v9(\\([1-9][0-9]*\\))?)?");
-				put(LexicalUnit.INTEGER, "(\\+|-)?[1-9][0-9]*");
-				put(LexicalUnit.REAL, "(\\+|\\-)?([1-9][0-9]*(\\.[0-9]*[1-9])?)|(0.[0-9]*[1-9])");
+				put(LexicalUnit.IMAGE, "s?9(?:\\([1-9][0-9]*\\))?(?:v9(?:\\([1-9][0-9]*\\))?)?");
+				put(LexicalUnit.INTEGER, "(?:\\+|-)?[1-9][0-9]*");
+				put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:[1-9][0-9]*(?:\\.[0-9]*[1-9])?)|(?:0.[0-9]*[1-9])");
 				put(LexicalUnit.STRING, "'[0-9A-Za-z\\+\\-\\*/:!\\? ]*'");
 			}
 		};
@@ -260,8 +260,9 @@ public class HelloWorld{
 		InputStream fis = new FileInputStream(file);
 		Scanner scanner = new Scanner(fis);
 
-		for(int i = 0; i < 10; ++i){
+		while(true){
 			String match = scanner.findWithinHorizon(pattern, 0);
+			if(match == null) break;
 			System.out.print("token : ");
 			System.out.print(match.replace("\n","\\n"));
 			System.out.print("\t");
