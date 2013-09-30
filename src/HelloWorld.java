@@ -99,14 +99,14 @@ public class HelloWorld{
 				put("division", LexicalUnit.DIVISION_KEYWORD);
 				put("program-id", LexicalUnit.PROGRAM_ID_KEYWORD);
 				put("author", LexicalUnit.AUTHOR_KEYWORD);
-				put("date_written", LexicalUnit.DATE_WRITTEN_KEYWORD);
+				put("date-written", LexicalUnit.DATE_WRITTEN_KEYWORD);
 				put("environment", LexicalUnit.ENVIRONMENT_KEYWORD);
 				put("configuration", LexicalUnit.CONFIGURATION_KEYWORD);
 				put("section", LexicalUnit.SECTION_KEYWORD);
 				put("source-computer", LexicalUnit.SOURCE_COMPUTER_KEYWORD);
 				put("object-computer", LexicalUnit.OBJECT_COMPUTER_KEYWORD);
 				put("data", LexicalUnit.DATA_KEYWORD);
-				put("working_storage", LexicalUnit.WORKING_STORAGE_KEYWORD);
+				put("working-storage", LexicalUnit.WORKING_STORAGE_KEYWORD);
 				put("pic", LexicalUnit.PIC_KEYWORD);
 				put("value", LexicalUnit.VALUE_KEYWORD);
 				put("procedure", LexicalUnit.PROCEDURE_KEYWORD);
@@ -154,7 +154,7 @@ public class HelloWorld{
 				put("-", LexicalUnit.MINUS_SIGN);
 				put("+", LexicalUnit.PLUS_SIGN);
 
-				put("[A-Za-z][0-9A-Za-z_-]{0-15}", LexicalUnit.IDENTIFIER);
+				put("[A-Za-z][0-9A-Za-z_-]{0,15}", LexicalUnit.IDENTIFIER);
 				put("s?9(\\([1-0][0-9]*\\))?(v9(\\([1-0][0-9]*\\))?)?", LexicalUnit.IMAGE);
 				put("(+|-)?[1-9][0-9]*", LexicalUnit.INTEGER);
 				put("(+|-)?([1-9][0-9]*(.[0-9]*[1-9])?)|(0.[0-9]*[1-9])", LexicalUnit.REAL);
@@ -169,8 +169,10 @@ public class HelloWorld{
 		InputStream fis = new FileInputStream(file);
 		Scanner scanner = new Scanner(fis);
 
-		while(scanner.hasNext()){
-			System.out.println(scanner.next());
+		for(int i = 0; i < 10; ++i){
+			String match = scanner.findWithinHorizon("(identification)|([A-Za-z][0-9A-Za-z_-]{0,15})", 0);
+			System.out.println(match);
+			System.out.println(scanner.match().group(1));
 		}
 
 		fis.close();
