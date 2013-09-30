@@ -26,7 +26,7 @@ public class HelloWorld{
 		VALUE_KEYWORD,
 		PROCEDURE_KEYWORD,
 		END_KEYWORD,
-		PROGRAM,
+		PROGRAM_KEYWORD,
 		STOP_KEYWORD,
 		RUN_KEYWORD,
 		MOVE_KEYWORD,
@@ -38,22 +38,6 @@ public class HelloWorld{
 		SUBTRACT_KEYWORD,
 		MULTIPLY_KEYWORD,
 		DIVIDE_KEYWORD,
-
-		ASTERISK,
-		SLASH,
-		DOT,
-		COMMA,
-		LEFT_PARENTHESIS,
-		RIGHT_PARENTHESIS,
-
-		NEW_LINE,
-		EQUALS_SIGN,
-		LOWER_SIGN,
-		LOWER_OR_EQUALS,
-		GREATER_SIGN,
-		GREATER_OR_EQUALS,
-		MINUS_SIGN,
-		PLUS_SIGN,
 
 		NOT_KEYWORD,
 		TRUE_KEYWORD,
@@ -68,6 +52,22 @@ public class HelloWorld{
 		UNTIL_KEYWORD,
 		ACCEPT_KEYWORD,
 		DISPLAY_KEYWORD,
+
+		ASTERISK,
+		SLASH,
+		DOT,
+		COMMA,
+		LEFT_PARENTHESIS,
+		RIGHT_PARENTHESIS,
+		NEW_LINE,
+
+		EQUALS_SIGN,
+		LOWER_SIGN,
+		LOWER_OR_EQUALS,
+		GREATER_SIGN,
+		GREATER_OR_EQUALS,
+		MINUS_SIGN,
+		PLUS_SIGN,
 
 		IDENTIFIER,
 		IMAGE,
@@ -87,8 +87,70 @@ public class HelloWorld{
 
 		Map<String,LexicalUnit> map = new HashMap<String,LexicalUnit>() {
 			{
-				put("key1", LexicalUnit.IDENTIFICATION_KEYWORD);
-				put("key2", LexicalUnit.NEW_LINE);
+				put("identification", LexicalUnit.IDENTIFICATION_KEYWORD);
+				put("division", LexicalUnit.DIVISION_KEYWORD);
+				put("program-id", LexicalUnit.PROGRAM_ID_KEYWORD);
+				put("author", LexicalUnit.AUTHOR_KEYWORD);
+				put("date_written", LexicalUnit.DATE_WRITTEN_KEYWORD);
+				put("environment", LexicalUnit.ENVIRONMENT_KEYWORD);
+				put("configuration", LexicalUnit.CONFIGURATION_KEYWORD);
+				put("section", LexicalUnit.SECTION_KEYWORD);
+				put("source-computer", LexicalUnit.SOURCE_COMPUTER_KEYWORD);
+				put("object-computer", LexicalUnit.OBJECT_COMPUTER_KEYWORD);
+				put("data", LexicalUnit.DATA_KEYWORD);
+				put("working_storage", LexicalUnit.WORKING_STORAGE_KEYWORD);
+				put("pic", LexicalUnit.PIC_KEYWORD);
+				put("value", LexicalUnit.VALUE_KEYWORD);
+				put("procedure", LexicalUnit.PROCEDURE_KEYWORD);
+				put("end", LexicalUnit.END_KEYWORD);
+				put("program", LexicalUnit.PROGRAM_KEYWORD);
+				put("stop", LexicalUnit.STOP_KEYWORD);
+				put("run", LexicalUnit.RUN_KEYWORD);
+				put("move", LexicalUnit.MOVE_KEYWORD);
+				put("to", LexicalUnit.TO_KEYWORD);
+				put("giving", LexicalUnit.GIVING_KEYWORD);
+
+				put("compute", LexicalUnit.COMPUTE_KEYWORD);
+				put("add", LexicalUnit.ADD_KEYWORD);
+				put("subtract", LexicalUnit.SUBTRACT_KEYWORD);
+				put("multiply", LexicalUnit.MULTIPLY_KEYWORD);
+				put("divide", LexicalUnit.DIVIDE_KEYWORD);
+
+				put("not", LexicalUnit.NOT_KEYWORD);
+				put("true", LexicalUnit.TRUE_KEYWORD);
+				put("false", LexicalUnit.FALSE_KEYWORD);
+				put("and", LexicalUnit.AND_KEYWORD);
+				put("or", LexicalUnit.OR_KEYWORD);
+
+				put("if", LexicalUnit.IF_KEYWORD);
+				put("else", LexicalUnit.ELSE_KEYWORD);
+				put("end-if", LexicalUnit.END_IF_KEYWORD);
+				put("perform", LexicalUnit.PERFORM_KEYWORD);
+				put("until", LexicalUnit.UNTIL_KEYWORD);
+				put("accept", LexicalUnit.ACCEPT_KEYWORD);
+				put("display", LexicalUnit.DISPLAY_KEYWORD);
+
+				put("*", LexicalUnit.ASTERISK);
+				put("/", LexicalUnit.SLASH);
+				put(".", LexicalUnit.DOT);
+				put(",", LexicalUnit.COMMA);
+				put("(", LexicalUnit.LEFT_PARENTHESIS);
+				put(")", LexicalUnit.RIGHT_PARENTHESIS);
+				put("\n", LexicalUnit.NEW_LINE);
+
+				put("=", LexicalUnit.EQUALS_SIGN);
+				put("<", LexicalUnit.LOWER_SIGN);
+				put("<=", LexicalUnit.LOWER_OR_EQUALS);
+				put(">", LexicalUnit.GREATER_SIGN);
+				put(">=", LexicalUnit.GREATER_OR_EQUALS);
+				put("-", LexicalUnit.MINUS_SIGN);
+				put("+", LexicalUnit.PLUS_SIGN);
+
+				put("[A-Za-z][0-9A-Za-z_-]{0-15}", LexicalUnit.IDENTIFIER);
+				put("s?9(\\([1-0][0-9]*\\))?(v9(\\([1-0][0-9]*\\))?)?", LexicalUnit.IMAGE);
+				put("(+|-)?[1-9][0-9]*", LexicalUnit.INTEGER);
+				put("(+|-)?([1-9][0-9]*(.[0-9]*[1-9])?)|(0.[0-9]*[1-9])", LexicalUnit.REAL);
+				put("'[0-9A-Za-z+-\\*/:!\\? ]*'", LexicalUnit.STRING);
 			}
 		};
 
