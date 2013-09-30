@@ -87,7 +87,9 @@ public class HelloWorld{
 		IMAGE,
 		INTEGER,
 		REAL,
-		STRING
+		STRING,
+
+		COMMENT
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException{
@@ -165,6 +167,8 @@ public class HelloWorld{
 				put(LexicalUnit.INTEGER, "(?:\\+|-)?[1-9][0-9]*");
 				put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:[1-9][0-9]*(?:\\.[0-9]*[1-9])?)|(?:0.[0-9]*[1-9])");
 				put(LexicalUnit.STRING, "'[0-9A-Za-z\\+\\-\\*/:!\\? ]*'");
+
+				put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
 			}
 		};
 
@@ -172,6 +176,8 @@ public class HelloWorld{
 
 		List<LexicalUnit> units = new ArrayList<LexicalUnit>() {
 			{
+				add(LexicalUnit.COMMENT);
+				
 				add(LexicalUnit.IDENTIFICATION_KEYWORD);
 				add(LexicalUnit.DIVISION_KEYWORD);
 				add(LexicalUnit.PROGRAM_ID_KEYWORD);
@@ -231,11 +237,12 @@ public class HelloWorld{
 				add(LexicalUnit.MINUS_SIGN);
 				add(LexicalUnit.PLUS_SIGN);
 
-				add(LexicalUnit.IDENTIFIER);
 				add(LexicalUnit.IMAGE);
 				add(LexicalUnit.INTEGER);
 				add(LexicalUnit.REAL);
 				add(LexicalUnit.STRING);
+				add(LexicalUnit.IDENTIFIER);
+
 			}
 		};
 
@@ -268,7 +275,7 @@ public class HelloWorld{
 			System.out.print("\t");
 			System.out.print("lexical unit : ");
 			LexicalUnit unit = null;
-			for(int j = 1; j < scanner.match().groupCount(); ++j){
+			for(int j = 1; j <= scanner.match().groupCount(); ++j){
 				if(scanner.match().group(j) != null){
 					unit = units.get(j-1);
 					break;
