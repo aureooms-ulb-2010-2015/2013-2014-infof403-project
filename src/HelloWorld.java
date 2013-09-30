@@ -36,10 +36,10 @@ public class HelloWorld{
 		InputStream fis = new FileInputStream(file);
 		Scanner scanner = new Scanner(fis);
 
-		LexicalAnalyzer analyzer = new LexicalAnalyzer();
+		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern);
 
 		while(true){
-			LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken(scanner, units, pattern);
+			LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
 			if(token == null) break;
 			System.out.print("token : ");
 			System.out.print(token.getValue());
