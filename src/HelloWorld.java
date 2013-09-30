@@ -155,15 +155,5 @@ public class HelloWorld{
 		};
 
 		System.out.println(map);
-
-
-	// 	identification, division, program-id, author, . (a dot), nn
-	// (a new line), date-written, environment, configuration, section, source-computer,
-	// object-computer, data, working-storage, pic, value, procedure, end, program,
-	// stop, run, move, to, compute, add, subtract, multiply, divide, giving, , (comma),
-	// ( (left parenthesis), ) (right parenthesis), - (minus sign), + (plus sign), = (equals sign), * (asterisk),
-	// / (slash), not, true, false, < (lower sign), > (greater sign), <= (lower or equals), >= (greater or
-	// equals), and, or, if, else, end-if, perform, until, accept, display, identiﬁer, image,
-	// integer, real and string
 	}
 }
