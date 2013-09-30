@@ -262,8 +262,19 @@ public class HelloWorld{
 
 		for(int i = 0; i < 10; ++i){
 			String match = scanner.findWithinHorizon(pattern, 0);
-			System.out.println(match);
-			System.out.println(scanner.match().group(1));
+			System.out.print("token : ");
+			System.out.print(match.replace("\n","\\n"));
+			System.out.print("\t");
+			System.out.print("lexical unit : ");
+			LexicalUnit unit = null;
+			for(int j = 1; j < scanner.match().groupCount(); ++j){
+				if(scanner.match().group(j) != null){
+					unit = units.get(j-1);
+					break;
+				}
+			}
+			System.out.print(unit);
+			System.out.print("\n");
 		}
 
 		fis.close();
