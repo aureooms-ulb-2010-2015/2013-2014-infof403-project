@@ -164,11 +164,16 @@ public class HelloWorld{
 
 		System.out.println(map);
 
+		List<String> unit = new ArrayList<String>();
+
 		for (Map.Entry<String,LexicalUnit> entry : map.entrySet()) {
 			String key = entry.getKey();
 			LexicalUnit value = entry.getValue();
 			System.out.println(key + " : " + value);
+			unit.add(key);
 		}
+
+		System.out.println(key);
 
 
 		File file = new File("test/1");
