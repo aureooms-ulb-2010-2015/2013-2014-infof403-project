@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 import cs.lang.SCobol;
+import cs.lang.LexicalRegex;
 import cs.lang.LexicalAnalyzer;
 
 public class HelloWorld{
@@ -20,17 +21,9 @@ public class HelloWorld{
 	public static void main(String[] args) throws FileNotFoundException, IOException{
 
 		List<SCobol.LexicalUnit> units = Arrays.asList(SCobol.LexicalUnit.values());
-
-		System.out.println(SCobol.PATTERNS);
-
-		String regex = "";
 		Iterator<SCobol.LexicalUnit> it = units.iterator();
-		if(it.hasNext()){
-			regex += "(" + SCobol.PATTERNS.get(it.next()) + ")";
-			while(it.hasNext()){
-				regex += "|" + "(" + SCobol.PATTERNS.get(it.next()) + ")";
-			}
-		}
+		
+		String regex = LexicalRegex.build(it, SCobol.PATTERNS);
 
 		System.out.println(units);
 		System.out.println(regex);
