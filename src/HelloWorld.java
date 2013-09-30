@@ -261,7 +261,7 @@ public class HelloWorld{
 		Scanner scanner = new Scanner(fis);
 
 		for(int i = 0; i < 10; ++i){
-			String match = scanner.findWithinHorizon("(identification)|([A-Za-z][0-9A-Za-z_-]{0,15})", 0);
+			String match = scanner.findWithinHorizon(pattern, 0);
 			System.out.println(match);
 			System.out.println(scanner.match().group(1));
 		}
