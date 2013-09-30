@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.Iterator;
 
 import java.io.File;
@@ -24,6 +24,8 @@ public class HelloWorld{
 	}
 
 	public enum LexicalUnit {
+		COMMENT,
+
 		IDENTIFICATION_KEYWORD,
 		DIVISION_KEYWORD,
 		PROGRAM_ID_KEYWORD,
@@ -83,13 +85,11 @@ public class HelloWorld{
 		MINUS_SIGN,
 		PLUS_SIGN,
 
-		IDENTIFIER,
 		IMAGE,
 		INTEGER,
 		REAL,
 		STRING,
-
-		COMMENT
+		IDENTIFIER
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException{
@@ -174,77 +174,7 @@ public class HelloWorld{
 
 
 
-		List<LexicalUnit> units = new ArrayList<LexicalUnit>() {
-			{
-				add(LexicalUnit.COMMENT);
-				
-				add(LexicalUnit.IDENTIFICATION_KEYWORD);
-				add(LexicalUnit.DIVISION_KEYWORD);
-				add(LexicalUnit.PROGRAM_ID_KEYWORD);
-				add(LexicalUnit.AUTHOR_KEYWORD);
-				add(LexicalUnit.DATE_WRITTEN_KEYWORD);
-				add(LexicalUnit.ENVIRONMENT_KEYWORD);
-				add(LexicalUnit.CONFIGURATION_KEYWORD);
-				add(LexicalUnit.SECTION_KEYWORD);
-				add(LexicalUnit.SOURCE_COMPUTER_KEYWORD);
-				add(LexicalUnit.OBJECT_COMPUTER_KEYWORD);
-				add(LexicalUnit.DATA_KEYWORD);
-				add(LexicalUnit.WORKING_STORAGE_KEYWORD);
-				add(LexicalUnit.PIC_KEYWORD);
-				add(LexicalUnit.VALUE_KEYWORD);
-				add(LexicalUnit.PROCEDURE_KEYWORD);
-				add(LexicalUnit.END_KEYWORD);
-				add(LexicalUnit.PROGRAM_KEYWORD);
-				add(LexicalUnit.STOP_KEYWORD);
-				add(LexicalUnit.RUN_KEYWORD);
-				add(LexicalUnit.MOVE_KEYWORD);
-				add(LexicalUnit.TO_KEYWORD);
-				add(LexicalUnit.GIVING_KEYWORD);
-
-				add(LexicalUnit.COMPUTE_KEYWORD);
-				add(LexicalUnit.ADD_KEYWORD);
-				add(LexicalUnit.SUBTRACT_KEYWORD);
-				add(LexicalUnit.MULTIPLY_KEYWORD);
-				add(LexicalUnit.DIVIDE_KEYWORD);
-
-				add(LexicalUnit.NOT_KEYWORD);
-				add(LexicalUnit.TRUE_KEYWORD);
-				add(LexicalUnit.FALSE_KEYWORD);
-				add(LexicalUnit.AND_KEYWORD);
-				add(LexicalUnit.OR_KEYWORD);
-
-				add(LexicalUnit.IF_KEYWORD);
-				add(LexicalUnit.ELSE_KEYWORD);
-				add(LexicalUnit.END_IF_KEYWORD);
-				add(LexicalUnit.PERFORM_KEYWORD);
-				add(LexicalUnit.UNTIL_KEYWORD);
-				add(LexicalUnit.ACCEPT_KEYWORD);
-				add(LexicalUnit.DISPLAY_KEYWORD);
-
-				add(LexicalUnit.ASTERISK);
-				add(LexicalUnit.SLASH);
-				add(LexicalUnit.DOT);
-				add(LexicalUnit.COMMA);
-				add(LexicalUnit.LEFT_PARENTHESIS);
-				add(LexicalUnit.RIGHT_PARENTHESIS);
-				add(LexicalUnit.NEW_LINE);
-
-				add(LexicalUnit.EQUALS_SIGN);
-				add(LexicalUnit.LOWER_SIGN);
-				add(LexicalUnit.LOWER_OR_EQUALS);
-				add(LexicalUnit.GREATER_SIGN);
-				add(LexicalUnit.GREATER_OR_EQUALS);
-				add(LexicalUnit.MINUS_SIGN);
-				add(LexicalUnit.PLUS_SIGN);
-
-				add(LexicalUnit.IMAGE);
-				add(LexicalUnit.INTEGER);
-				add(LexicalUnit.REAL);
-				add(LexicalUnit.STRING);
-				add(LexicalUnit.IDENTIFIER);
-
-			}
-		};
+		List<LexicalUnit> units = Arrays.asList(LexicalUnit.values());
 
 		System.out.println(map);
 
