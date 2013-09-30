@@ -85,7 +85,12 @@ public class HelloWorld{
 
 		System.out.println(HelloWorld.Day.SUNDAY);
 
-		Map<String, LexicalUnit> map = new HashMap<String, LexicalUnit>();
+		Map<String,LexicalUnit> map = new HashMap<String,LexicalUnit>() {
+			{
+				put("key1", LexicalUnit.IDENTIFICATION_KEYWORD);
+				put("key2", LexicalUnit.NEW_LINE);
+			}
+		};
 
 		System.out.println(map);
 
