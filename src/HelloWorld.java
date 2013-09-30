@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import cs.lang.SCobol;
 import cs.lang.LexicalRegex;
 import cs.lang.LexicalAnalyzer;
+import cs.lang.LexicalToken;
 
 public class HelloWorld{
 	
@@ -22,7 +23,7 @@ public class HelloWorld{
 
 		List<SCobol.LexicalUnit> units = Arrays.asList(SCobol.LexicalUnit.values());
 		Iterator<SCobol.LexicalUnit> it = units.iterator();
-		
+
 		String regex = LexicalRegex.build(it, SCobol.PATTERNS);
 
 		System.out.println(units);
@@ -36,7 +37,18 @@ public class HelloWorld{
 		Scanner scanner = new Scanner(fis);
 
 		LexicalAnalyzer analyzer = new LexicalAnalyzer();
-		analyzer.run(scanner, units, pattern);
+
+		while(true){
+			LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken(scanner, units, pattern);
+			if(token == null) break;
+			System.out.print("token : ");
+			System.out.print(token.getValue());
+			System.out.print("\t");
+			System.out.print("lexical unit : ");
+			System.out.print(token.getId());
+			System.out.print("\n");
+		}
+
 
 		fis.close();
 	}
