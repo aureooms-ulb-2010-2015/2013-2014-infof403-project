@@ -27,5 +27,5 @@ procedure division. /code of our program.
 		move a to b. /put the value of a into b.
 		move c to a. /put the value of c into a.
 	diff. /create a label called ’diff’.
-		* Compute a modulo b
+		* Compute a modulo b.
 		substract b from a. /a becomes a-b.

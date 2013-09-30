@@ -46,9 +46,10 @@ public class HelloWorld{
 
 		COMPUTE_KEYWORD,
 		ADD_KEYWORD,
-		SUBTRACT_KEYWORD,
+		SUBSTRACT_KEYWORD,
 		MULTIPLY_KEYWORD,
 		DIVIDE_KEYWORD,
+		FROM_KEYWORD,
 
 		NOT_KEYWORD,
 		TRUE_KEYWORD,
@@ -116,9 +117,10 @@ public class HelloWorld{
 
 				put(LexicalUnit.COMPUTE_KEYWORD, "compute");
 				put(LexicalUnit.ADD_KEYWORD, "add");
-				put(LexicalUnit.SUBTRACT_KEYWORD, "subtract");
+				put(LexicalUnit.SUBSTRACT_KEYWORD, "substract");
 				put(LexicalUnit.MULTIPLY_KEYWORD, "multiply");
 				put(LexicalUnit.DIVIDE_KEYWORD, "divide");
+				put(LexicalUnit.FROM_KEYWORD, "from");
 
 				put(LexicalUnit.NOT_KEYWORD, "not");
 				put(LexicalUnit.TRUE_KEYWORD, "true");
@@ -152,8 +154,8 @@ public class HelloWorld{
 
 				put(LexicalUnit.IDENTIFIER, "[A-Za-z][0-9A-Za-z_\\-]{0,15}");
 				put(LexicalUnit.IMAGE, "s?9(?:\\([1-9][0-9]*\\))?(?:v9(?:\\([1-9][0-9]*\\))?)?");
-				put(LexicalUnit.INTEGER, "(?:\\+|-)?[1-9][0-9]*");
-				put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:[1-9][0-9]*(?:\\.[0-9]*[1-9])?)|(?:0.[0-9]*[1-9])");
+				put(LexicalUnit.INTEGER, "(?:\\+|-)?(?:[1-9][0-9]*)|(?:0)");
+				put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:[1-9][0-9]*)|(?:0)(?:\\.[0-9]*[1-9])?");
 				put(LexicalUnit.STRING, "'[0-9A-Za-z\\+\\-\\*/:!\\? ]*'");
 
 				put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
