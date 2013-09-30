@@ -18,11 +18,6 @@ import java.io.FileNotFoundException;
 
 public class HelloWorld{
 
-	public enum Day {
-		SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-		THURSDAY, FRIDAY, SATURDAY 
-	}
-
 	public enum LexicalUnit {
 		COMMENT,
 
@@ -93,13 +88,6 @@ public class HelloWorld{
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException{
-		System.out.println("Hello world!");
-
-		String[] myStringArray = {"a","b","c"};
-
-		System.out.println(myStringArray);
-
-		System.out.println(HelloWorld.Day.SUNDAY);
 
 		Map<LexicalUnit,String> map = new HashMap<LexicalUnit,String>() {
 			{
