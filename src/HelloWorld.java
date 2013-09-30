@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import java.io.IOException;
 import java.io.FileNotFoundException;
 
 
@@ -83,7 +84,7 @@ public class HelloWorld{
 		STRING
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException{
+	public static void main(String[] args) throws FileNotFoundException, IOException{
 		System.out.println("Hello world!");
 
 		String[] myStringArray = {"a","b","c"};
@@ -165,7 +166,13 @@ public class HelloWorld{
 
 
 		File file = new File("test/1");
-		InputStream ifs = new FileInputStream(file);
-		Scanner scanner = new Scanner(ifs);
+		InputStream fis = new FileInputStream(file);
+		Scanner scanner = new Scanner(fis);
+
+		while(scanner.hasNext()){
+			System.out.println(scanner.next());
+		}
+
+		fis.close();
 	}
 }
