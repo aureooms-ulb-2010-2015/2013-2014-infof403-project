@@ -1,6 +1,13 @@
 import java.util.Map;
 import java.util.HashMap;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import java.io.FileNotFoundException;
+
 
 public class HelloWorld{
 
@@ -76,7 +83,7 @@ public class HelloWorld{
 		STRING
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException{
 		System.out.println("Hello world!");
 
 		String[] myStringArray = {"a","b","c"};
@@ -155,5 +162,10 @@ public class HelloWorld{
 		};
 
 		System.out.println(map);
+
+
+		File file = new File("test/1");
+		InputStream ifs = new FileInputStream(file);
+		Scanner scanner = new Scanner(ifs);
 	}
 }
