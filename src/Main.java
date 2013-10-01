@@ -44,9 +44,14 @@ public class Main{
 
 		Pattern pattern = Pattern.compile(regex);
 
-
-		File file = new File(params.get(0));
-		InputStream fis = new FileInputStream(file);
+		InputStream fis;
+		if(params.size() > 0){
+			File file = new File(params.get(0));
+			fis = new FileInputStream(file);
+		}
+		else{
+			fis = System.in;
+		}
 		Scanner scanner = new Scanner(fis);
 
 		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern);
