@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +26,19 @@ import cs.lang.LexicalToken;
 import lib.Pinput;
 
 public class Main{
+
+	public enum LocalState{
+		NONE,
+		IDENTIFIER,
+		PROCEDURE,
+		DATA
+	}
+
+	public enum State{
+		HEADER,
+		VARIABLES,
+		LABELS
+	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException{
 		
@@ -56,6 +70,14 @@ public class Main{
 
 		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern);
 
+		Map<String, String> variables = new TreeMap<String, String>();
+		Map<String, String> labels = new TreeMap<String, String>();
+
+		State state = State.HEADER;
+		LocalState localState = LocalState.NONE;
+		String variable = "";
+		String label = "";
+
 		while(true){
 			LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
 			if(token == null) break;
@@ -65,9 +87,54 @@ public class Main{
 			System.out.print("lexical unit : ");
 			System.out.print(token.getId());
 			System.out.print("\n");
+
+			if(token.getValue().equals("data")){
+				localState = LocalState.DATA;
+				continue;
+			}
+			else if(token.getValue().equals("procedure")){
+				localState = LocalState.PROCEDURE;
+				continue;
+			}
+			else if(state == State.VARIABLES && token.getId() == SCobol.LexicalUnit.IDENTIFIER){
+				localState = LocalState.IDENTIFIER;
+				variable = token.getValue();
+				continue;
+			}
+			else if(state == State.LABELS && token.getId() == SCobol.LexicalUnit.IDENTIFIER){
+				localState = LocalState.IDENTIFIER;
+				label = token.getValue();
+				continue;
+			}
+
+			if(localState == LocalState.DATA && token.getValue().equals("division")){
+				state = State.VARIABLES;
+			}
+			else if(localState == LocalState.PROCEDURE && token.getValue().equals("division")){
+				state = State.LABELS;
+			}
+
+			if(state == State.VARIABLES && localState == LocalState.IDENTIFIER){
+				if(token.getId() == SCobol.LexicalUnit.IMAGE)
+					variables.put(variable, token.getValue());
+				localState = LocalState.NONE;
+			}
+
+			if(state == State.LABELS && localState == LocalState.IDENTIFIER){
+				if(token.getId() != SCobol.LexicalUnit.SECTION_KEYWORD){
+					if(!variables.containsKey(label))
+						labels.put(label, "0");
+				}
+				localState = LocalState.NONE;
+			}
 		}
 
 
 		fis.close();
+
+		System.out.println("variables");
+		System.out.println(variables);
+		System.out.println("labels");
+		System.out.println(labels);
 	}
 }
