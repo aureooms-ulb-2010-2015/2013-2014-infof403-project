@@ -68,8 +68,8 @@ public class SCobol{
 		PLUS_SIGN,
 
 		IMAGE,
-		INTEGER,
 		REAL,
+		INTEGER,
 		STRING,
 		IDENTIFIER
 	}
