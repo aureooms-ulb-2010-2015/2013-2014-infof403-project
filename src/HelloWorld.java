@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -17,9 +22,23 @@ import cs.lang.LexicalRegex;
 import cs.lang.LexicalAnalyzer;
 import cs.lang.LexicalToken;
 
+import lib.Pinput;
+
 public class HelloWorld{
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException{
+		
+		List<String> params = new ArrayList<String>();
+		Map<String,List<String>> options = new HashMap<String,List<String>>();
+		Set<String> flags = new HashSet<String>();
+		Set<String> flagSet = new HashSet<String>();
+		flagSet.add("-h");
+		flagSet.add("--help");
+		flagSet.add("-v");
+		Pinput.parse(args, params, options, flags, flagSet);
+		System.out.println(params);
+		System.out.println(options);
+		System.out.println(flags);
 
 		List<SCobol.LexicalUnit> units = Arrays.asList(SCobol.LexicalUnit.values());
 		Iterator<SCobol.LexicalUnit> it = units.iterator();
