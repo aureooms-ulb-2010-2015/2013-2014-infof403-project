@@ -3,10 +3,13 @@ package cs.lang;
 public class LexicalToken<T>{
 	private T id;
 	private String value;
+	private int pos;
 
-	public LexicalToken(T id, String value){
+
+	public LexicalToken(T id, String value, int pos){
 		this.id = id;
 		this.value = value;
+		this.pos = pos;
 	}
 
 	public T getId() {
@@ -17,4 +20,7 @@ public class LexicalToken<T>{
 		return this.value;
 	}
 
+	public int getPos() {
+		return this.pos;
+	}
  }

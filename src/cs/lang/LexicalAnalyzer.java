@@ -23,13 +23,15 @@ public class LexicalAnalyzer<T>{
 		if(match == null) return null;
 
 		T unit = null;
+		int pos = 0;
 		for(int j = 1; j <= scanner.match().groupCount(); ++j){
 			if(scanner.match().group(j) != null){
 				unit = units.get(j-1);
+				pos = scanner.match().start(j);
 				break;
 			}
 		}
 
-		return new LexicalToken<T>(unit, match.replace("\n","\\n"));
+		return new LexicalToken<T>(unit, match.replace("\n","\\n"), pos);
 	}
 }

@@ -84,7 +84,7 @@ public class Main{
 			if(token == null) break;
 			else if(token.getId() == SCobol.LexicalUnit.WHITE_SPACE) continue;
 			else if(token.getId() == SCobol.LexicalUnit.BAD_TOKEN){
-				System.out.printf("ERROR : BAD_TOKEN line '%d' pos 0 '%s'\n", line, token.getValue());
+				System.out.printf("ERROR : BAD_TOKEN '%s' [line '%d' pos '%d']\n", token.getValue(), line, token.getPos());
 				break;
 			}
 			else if(token.getId() == SCobol.LexicalUnit.NEW_LINE
