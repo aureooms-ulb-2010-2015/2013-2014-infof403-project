@@ -73,6 +73,7 @@ public class SCobol{
 		STRING,
 		IDENTIFIER,
 
+		WHITE_SPACE,
 		BAD_TOKEN
 	}
 
@@ -147,6 +148,7 @@ public class SCobol{
 
 			put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
 
+			put(LexicalUnit.WHITE_SPACE, "[ \\t]");
 			put(LexicalUnit.BAD_TOKEN, ".");
 		}
 	};
