@@ -40,6 +40,8 @@
 	},
 	"file_history":
 	[
+		"/home/gchaste/infof403/src/cs/lang/SCobol.java",
+		"/home/gchaste/.gitignore_global",
 		"/home/gchaste/infof403/src/HelloWorld.java",
 		"/home/gchaste/Documents/cours/BA1/c++ py/setup.py",
 		"/home/gchaste/Documents/cours/BA1/algo/projet2.py",
@@ -142,16 +144,20 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"",
+				"/home/gchaste/infof404/infof404.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 234.0,
 	"status_bar_visible": true
 }
