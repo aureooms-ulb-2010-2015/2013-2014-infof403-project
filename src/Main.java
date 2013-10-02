@@ -87,6 +87,9 @@ public class Main{
 				System.out.printf("ERROR : BAD_TOKEN line '%d' pos 0 '%s'\n", line, token.getValue());
 				break;
 			}
+			else if(token.getId() == SCobol.LexicalUnit.NEW_LINE
+				|| token.getId() == SCobol.LexicalUnit.COMMENT) ++line;
+
 			System.out.print("token : ");
 			System.out.print(token.getValue());
 			System.out.print("\t");
@@ -129,7 +132,7 @@ public class Main{
 			if(state == State.LABELS && localState == LocalState.IDENTIFIER){
 				if(token.getId() != SCobol.LexicalUnit.SECTION_KEYWORD){
 					if(!variables.containsKey(label))
-						labels.put(label, "0");
+						labels.put(label, String.valueOf(line));
 				}
 				localState = LocalState.NONE;
 			}
