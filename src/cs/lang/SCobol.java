@@ -71,7 +71,9 @@ public class SCobol{
 		REAL,
 		INTEGER,
 		STRING,
-		IDENTIFIER
+		IDENTIFIER,
+
+		BAD_TOKEN
 	}
 
 
@@ -144,6 +146,8 @@ public class SCobol{
 			put(LexicalUnit.STRING, "’[0-9A-Za-z\\+\\-\\*/:!\\? ]*’");
 
 			put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
+
+			put(LexicalUnit.BAD_TOKEN, ".");
 		}
 	};
 }
