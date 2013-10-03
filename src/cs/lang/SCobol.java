@@ -154,7 +154,7 @@ public class SCobol{
 			put(LexicalUnit.IDENTIFIER, "[A-Za-z][0-9A-Za-z_\\-]{0,15}");
 			put(LexicalUnit.IMAGE, "s?9(?:\\([1-9][0-9]*\\))?(?:v9(?:\\([1-9][0-9]*\\))?)?");
 			put(LexicalUnit.INTEGER, "(?:\\+|-)?(?:[1-9][0-9]*)|(?:0)");
-			put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:(?:[1-9][0-9]*)|(?:0))(?:\\.[0-9]*)");
+			put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:(?:[1-9][0-9]*)|(?:0))(?:\\.[0-9]+)");
 			put(LexicalUnit.STRING, "’[0-9A-Za-z\\+\\-\\*/:!\\? ]*’");
 
 			put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
