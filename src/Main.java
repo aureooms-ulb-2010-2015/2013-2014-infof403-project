@@ -77,21 +77,18 @@ public class Main{
 		LocalState localState = LocalState.NONE;
 		String variable = "";
 		String label = "";
-		int line = 1;
 
 		while(true){
 			LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
 			if(token == null) break;
 			else if(token.getId() == SCobol.LexicalUnit.WHITE_SPACE) continue;
 			else if(token.getId() == SCobol.LexicalUnit.BAD_TOKEN){
-				System.out.printf("ERROR : BAD_TOKEN '%s' [line '%d' pos '%d']\n", token.getValue(), line, token.getPos());
+				System.out.printf("ERROR : BAD_TOKEN '%s' LINE %d COL %d]\n", token.getValue(), analyzer.getLine(), analyzer.getCol());
 				break;
 			}
-			else if(token.getId() == SCobol.LexicalUnit.NEW_LINE
-				|| token.getId() == SCobol.LexicalUnit.COMMENT) ++line;
 
 			System.out.print("token : ");
-			System.out.print(token.getValue());
+			System.out.print(token.getValue().replace("\n","\\n"));
 			System.out.print("\t");
 			System.out.print("lexical unit : ");
 			System.out.print(token.getId());
@@ -132,7 +129,7 @@ public class Main{
 			if(state == State.LABELS && localState == LocalState.IDENTIFIER){
 				if(token.getId() != SCobol.LexicalUnit.SECTION_KEYWORD){
 					if(!variables.containsKey(label))
-						labels.put(label, String.valueOf(line));
+						labels.put(label, String.valueOf(analyzer.getLine()));
 				}
 				localState = LocalState.NONE;
 			}
