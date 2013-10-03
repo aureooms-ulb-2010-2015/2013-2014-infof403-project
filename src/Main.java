@@ -58,15 +58,15 @@ public class Main{
 
 		Pattern pattern = Pattern.compile(regex);
 
-		InputStream fis;
+		InputStream stream;
 		if(params.size() > 0){
 			File file = new File(params.get(0));
-			fis = new FileInputStream(file);
+			stream = new FileInputStream(file);
 		}
 		else{
-			fis = System.in;
+			stream = System.in;
 		}
-		Scanner scanner = new Scanner(fis);
+		Scanner scanner = new Scanner(stream);
 
 		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
 
@@ -131,7 +131,7 @@ public class Main{
 		}
 
 
-		fis.close();
+		stream.close();
 
 		System.out.println("variables");
 		for (Map.Entry<String, String> entry : variables.entrySet()){
