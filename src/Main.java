@@ -68,7 +68,7 @@ public class Main{
 		}
 		Scanner scanner = new Scanner(fis);
 
-		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern);
+		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
 
 		Map<String, String> variables = new TreeMap<String, String>();
 		Map<String, String> labels = new TreeMap<String, String>();

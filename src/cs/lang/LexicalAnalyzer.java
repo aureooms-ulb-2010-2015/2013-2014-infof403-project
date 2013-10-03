@@ -11,24 +11,17 @@ public class LexicalAnalyzer<T>{
 	private Scanner scanner;
 	private List<T> units;
 	private Pattern pattern;
-	private String sep;
+	private List<T> sep_l;
 
 	private int total = 0;
 	private int line = 1;
 	private int col = 1;
 
-	public LexicalAnalyzer(Scanner scanner, List<T> units, Pattern pattern){
+	public LexicalAnalyzer(Scanner scanner, List<T> units, Pattern pattern, List<T> sep_l){
 		this.scanner = scanner;
 		this.units = units;
 		this.pattern = pattern;
-		this.sep = "\n";
-	}
-
-	public LexicalAnalyzer(Scanner scanner, List<T> units, Pattern pattern, String sep){
-		this.scanner = scanner;
-		this.units = units;
-		this.pattern = pattern;
-		this.sep = sep;
+		this.sep_l = sep_l;
 	}
 
 	public LexicalToken<T> nextToken(){
@@ -41,9 +34,12 @@ public class LexicalAnalyzer<T>{
 				unit = units.get(j-1);
 				col = scanner.match().start(j) - total + 1;
 
-				if(match.equals(sep)){
-					++line;
-					total = scanner.match().end(j);
+				for(T sep : sep_l){
+					if(unit == sep){
+						++line;
+						total = scanner.match().end(j);
+						break;
+					}
 				}
 				break;
 			}

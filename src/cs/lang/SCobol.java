@@ -1,5 +1,8 @@
 package cs.lang;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -76,6 +79,14 @@ public class SCobol{
 		WHITE_SPACE,
 		BAD_TOKEN
 	}
+
+
+	public static final List<LexicalUnit> SEP_L = new ArrayList<LexicalUnit>(){
+		{
+			add(LexicalUnit.NEW_LINE);
+			add(LexicalUnit.COMMENT);
+		}
+	};
 
 
 	public static final Map<LexicalUnit,String> PATTERNS = new HashMap<LexicalUnit,String>() {
