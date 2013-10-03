@@ -87,7 +87,7 @@ public class Main{
 				break;
 			}
 
-			System.out.printf("token : %s\tlexical unit : %s\n",token.getValue().replace("\n","\\n"), token.getId());
+			System.out.printf("token : %-42s    lexical unit : %-15s\n",token.getValue().replace("\n","\\n"), token.getId());
 
 			if(token.getValue().equals("data")){
 				localState = LocalState.DATA;
@@ -135,11 +135,11 @@ public class Main{
 
 		System.out.println("variables");
 		for (Map.Entry<String, String> entry : variables.entrySet()){
-			System.out.printf("%s\t%s\n", entry.getKey(), entry.getValue());
+			System.out.printf("%-20s    %-15s\n", entry.getKey(), entry.getValue());
 		}
 		System.out.println("labels");
 		for (Map.Entry<String, String> entry : labels.entrySet()){
-			System.out.printf("%s\t%s\n", entry.getKey(), entry.getValue());
+			System.out.printf("%-20s    %-15s\n", entry.getKey(), entry.getValue());
 		}
 	}
 }
