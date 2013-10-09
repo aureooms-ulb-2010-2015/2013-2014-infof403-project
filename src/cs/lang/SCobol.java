@@ -163,4 +163,28 @@ public class SCobol{
 			put(LexicalUnit.BAD_TOKEN, ".");
 		}
 	};
+
+
+	public enum DFAState {
+		D,
+		DI,
+		DIV,
+		DIVI,
+		DIVIS,
+		DIVISI,
+		DIVISIO,
+		DIVISION
+	}
+
+	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
+		{
+
+		}
+	};
+
+	public static final Map<DFAState, LexicalUnit> TOKEN_M = new HashMap<DFAState, LexicalUnit>(){
+		{
+
+		}
+	};
 }
