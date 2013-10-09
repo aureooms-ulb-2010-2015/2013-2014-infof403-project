@@ -1,12 +1,14 @@
 package cs.lang;
 
+import cs.lang.LexicalAnalyzer;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.List;
 
 import cs.lang.LexicalToken;
 
-public class LexicalAnalyzer2<T>{
+public class LexicalAnalyzer2<T> implements LexicalAnalyzer<T>{
 
 	private Scanner scanner;
 	private List<T> units;
