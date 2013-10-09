@@ -1,5 +1,7 @@
 package cs.lang;
 
+import cs.lang.LexicalAnalyzer;
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.io.IOException;
 
 import cs.lang.LexicalToken;
 
-public class Scanner<T, S>{
+public class Scanner<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
 	private Map<S, Map<Character, S>> transition;
