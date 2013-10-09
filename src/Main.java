@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 
 import cs.lang.SCobol;
 import cs.lang.LexicalRegex;
-import cs.lang.LexicalAnalyzer;
+import cs.lang.LexicalAnalyzer2;
 import cs.lang.LexicalToken;
 
 import lib.Pinput;
@@ -68,7 +68,7 @@ public class Main{
 		}
 		Scanner scanner = new Scanner(stream);
 
-		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
+		LexicalAnalyzer2<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
 
 		Map<String, String> variables = new TreeMap<String, String>();
 		Map<String, String> labels = new TreeMap<String, String>();

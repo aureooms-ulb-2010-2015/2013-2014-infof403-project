@@ -6,7 +6,7 @@ import java.util.List;
 
 import cs.lang.LexicalToken;
 
-public class LexicalAnalyzer<T>{
+public class LexicalAnalyzer2<T>{
 
 	private Scanner scanner;
 	private List<T> units;
@@ -17,7 +17,7 @@ public class LexicalAnalyzer<T>{
 	private int line = 1;
 	private int col = 1;
 
-	public LexicalAnalyzer(Scanner scanner, List<T> units, Pattern pattern, List<T> sep_l){
+	public LexicalAnalyzer2(Scanner scanner, List<T> units, Pattern pattern, List<T> sep_l){
 		this.scanner = scanner;
 		this.units = units;
 		this.pattern = pattern;
