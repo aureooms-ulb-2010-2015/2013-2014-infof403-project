@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import cs.lang.LexicalToken;
 
-public class Scanner<T, S> implements LexicalAnalyzer<T>{
+public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
 	private Map<S, Map<Character, S>> transition;
@@ -28,7 +28,7 @@ public class Scanner<T, S> implements LexicalAnalyzer<T>{
 	private String[] buffer = new String[2];
 	private LinkedList<Character> streamBuffer;
 
-	public Scanner(InputStream stream, Map<S, Map<Character, S>> transition, Map<S, T> token_m, List<T> sep_l){
+	public LexicalAnalyzer1(InputStream stream, Map<S, Map<Character, S>> transition, Map<S, T> token_m, List<T> sep_l){
 		this.stream = stream;
 		this.transition = transition;
 		this.token_m = token_m;
