@@ -23,26 +23,29 @@ public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 	private int line = 1;
 	private int col = 1;
 
+	private S init;
 	private S last;
 	private S current;
-	private String[] buffer = new String[2];
-	private LinkedList<Character> streamBuffer;
+	private String[] buffer = {"", ""};
+	private LinkedList<Character> streamBuffer = new LinkedList<Character>();
 
-	public LexicalAnalyzer1(InputStream stream, Map<S, Map<Character, S>> transition, Map<S, T> token_m, List<T> sep_l){
+	public LexicalAnalyzer1(InputStream stream, Map<S, Map<Character, S>> transition, Map<S, T> token_m, List<T> sep_l, S init){
 		this.stream = stream;
 		this.transition = transition;
 		this.token_m = token_m;
 		this.sep_l = sep_l;
+		this.init = init;
 	}
 
 	public LexicalToken<T> nextToken() throws IOException{
-		T unit = null;
-		String match = "";
+		current = last = init;
 		Character c;
+		int d = -1;
 		while(true){
 			c = streamBuffer.poll();
-			if(c == null) c = (char)stream.read();
-			if(c == -1) return null;
+			if(c == null) d = stream.read();
+			if(d == -1) return null;
+			c = (char)d;
 
 			S next = transition.get(last).get(c);
 			if(next != null){

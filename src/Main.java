@@ -68,9 +68,11 @@ public class Main{
 		else{
 			stream = System.in;
 		}
-		Scanner scanner = new Scanner(stream);
 
-		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
+		// Scanner scanner = new Scanner(stream);
+		// LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
+
+		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
 
 		Map<String, String> variables = new TreeMap<String, String>();
 		Map<String, String> labels = new TreeMap<String, String>();

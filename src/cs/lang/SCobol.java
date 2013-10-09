@@ -166,6 +166,7 @@ public class SCobol{
 
 
 	public enum DFAState {
+		INIT,
 		D,
 		DI,
 		DIV,
@@ -178,13 +179,65 @@ public class SCobol{
 
 	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
 		{
+			put(DFAState.INIT, new HashMap<Character, DFAState>(){
+				{
+					put('d', DFAState.D);
+				}
+			});
+			put(DFAState.D, new HashMap<Character, DFAState>(){
+				{
+					put('i', DFAState.DI);
+				}
+			});
+			put(DFAState.DI, new HashMap<Character, DFAState>(){
+				{
+					put('v', DFAState.DIV);
+				}
+			});
+			put(DFAState.DIV, new HashMap<Character, DFAState>(){
+				{
+					put('i', DFAState.DIVI);
+				}
+			});
+			put(DFAState.DIVI, new HashMap<Character, DFAState>(){
+				{
+					put('s', DFAState.DIVIS);
+				}
+			});
+			put(DFAState.DIVIS, new HashMap<Character, DFAState>(){
+				{
+					put('i', DFAState.DIVISI);
+				}
+			});
+			put(DFAState.DIVISI, new HashMap<Character, DFAState>(){
+				{
+					put('o', DFAState.DIVISIO);
+				}
+			});
+			put(DFAState.DIVISIO, new HashMap<Character, DFAState>(){
+				{
+					put('n', DFAState.DIVISION);
+				}
+			});
+			put(DFAState.DIVISION, new HashMap<Character, DFAState>(){
+				{
 
+				}
+			});
 		}
 	};
 
 	public static final Map<DFAState, LexicalUnit> TOKEN_M = new HashMap<DFAState, LexicalUnit>(){
 		{
-
+			put(DFAState.INIT, null);
+			put(DFAState.D, LexicalUnit.IDENTIFIER);
+			put(DFAState.DI, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIV, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIVI, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIVIS, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIVISI, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIVISIO, LexicalUnit.IDENTIFIER);
+			put(DFAState.DIVISION, LexicalUnit.DIVISION_KEYWORD);
 		}
 	};
 }
