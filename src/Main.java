@@ -75,10 +75,10 @@ public class Main{
 		// LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
 
 		// MAP
-		 LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
+		// LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
 
 		// CLASS
-		//LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer3<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.STATE, SCobol.SEP_L, SCobol.DFAState.INIT);
+		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer3<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.STATE, SCobol.SEP_L, SCobol.DFAState.INIT);
 
 		Map<String, String> variables = new TreeMap<String, String>();
 		Map<String, String> labels = new TreeMap<String, String>();

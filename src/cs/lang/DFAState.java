@@ -8,7 +8,9 @@ public class DFAState<S,T,L>{
 	private T token;
 	protected Map<L, S> transition = new HashMap<L, S>();
 
-	public DFAState(T token){}
+	public DFAState(T token){
+		this.token = token;
+	}
 
 	public T token(){
 		return token;

@@ -37,7 +37,8 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 	}
 
 	public LexicalToken<T> nextToken() throws IOException{
-		current = last = init;
+		last = null;
+		current = init;
 		Character c;
 		int d = -1;
 		while(true){
@@ -48,11 +49,12 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				c = (char)d;
 			}
 
-			S next = state.get(last).next(c);
+			S next = state.get(current).next(c);
 			if(next != null){
 				current = next;
 				if(state.get(next).token() == null){
-					buffer[1] += c;
+					if(last != null) buffer[1] += c;
+					else buffer[0] += c;
 				}
 				else{
 					buffer[0] += buffer[1] + c;
@@ -61,17 +63,24 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				}
 			}
 			else{
-				for(int i = 0; i < buffer[1].length(); ++i){
-					streamBuffer.push(buffer[1].charAt(i));
+
+
+				if(last == null && state.get(current).token() != null){
+					last = current;
 				}
 
-				if(buffer[0].length() > 0){
+				if(last != null){
+					for(int i = 0; i < buffer[1].length(); ++i){
+						streamBuffer.push(buffer[1].charAt(i));
+					}
 					streamBuffer.push(c);
 				}
-				else buffer[0] += c;
+				else{
+					buffer[0] += c;
+					last = current;
+				}
 				LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
 				buffer[0] = buffer[1] = "";
-				current = last;
 				return token;
 			}
 		}

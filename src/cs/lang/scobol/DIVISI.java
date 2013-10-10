@@ -5,7 +5,7 @@ import cs.lang.DFAState;
 
 public class DIVISI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public DIVISI(){
-		super(null);
+		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('o', SCobol.DFAState.DIVISIO);
 	}
 }

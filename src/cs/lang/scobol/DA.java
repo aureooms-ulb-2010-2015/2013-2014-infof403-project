@@ -5,7 +5,7 @@ import cs.lang.DFAState;
 
 public class DA extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public DA(){
-		super(null);
+		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('t', SCobol.DFAState.DAT);
 	}
 }
