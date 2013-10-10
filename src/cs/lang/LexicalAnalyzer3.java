@@ -11,12 +11,12 @@ import java.lang.Character;
 import java.io.IOException;
 
 import cs.lang.LexicalToken;
+import cs.lang.DFAState;
 
-public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
+public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
-	private Map<S, Map<Character, S>> transition;
-	private Map<S, T> token_m;
+	private Map<S, DFAState<S, T, Character>> state;
 	private List<T> sep_l;
 
 	private int total = 0;
@@ -29,10 +29,9 @@ public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 	private String[] buffer = {"", ""};
 	private LinkedList<Character> streamBuffer = new LinkedList<Character>();
 
-	public LexicalAnalyzer1(InputStream stream, Map<S, Map<Character, S>> transition, Map<S, T> token_m, List<T> sep_l, S init){
+	public LexicalAnalyzer3(InputStream stream, Map<S, DFAState<S, T, Character>> state, List<T> sep_l, S init){
 		this.stream = stream;
-		this.transition = transition;
-		this.token_m = token_m;
+		this.state = state;
 		this.sep_l = sep_l;
 		this.init = init;
 	}
@@ -49,10 +48,10 @@ public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 				c = (char)d;
 			}
 
-			S next = transition.get(last).get(c);
+			S next = state.get(last).next(c);
 			if(next != null){
 				current = next;
-				if(token_m.get(next) == null){
+				if(state.get(next).token() == null){
 					buffer[1] += c;
 				}
 				else{
@@ -70,7 +69,7 @@ public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 					streamBuffer.push(c);
 				}
 				else buffer[0] += c;
-				LexicalToken<T> token = new LexicalToken<T>(token_m.get(last), buffer[0]);
+				LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
 				buffer[0] = buffer[1] = "";
 				current = last;
 				return token;

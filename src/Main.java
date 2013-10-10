@@ -23,6 +23,7 @@ import cs.lang.LexicalRegex;
 import cs.lang.LexicalAnalyzer;
 import cs.lang.LexicalAnalyzer1;
 import cs.lang.LexicalAnalyzer2;
+import cs.lang.LexicalAnalyzer3;
 import cs.lang.LexicalToken;
 
 import lib.Pinput;
@@ -69,10 +70,15 @@ public class Main{
 			stream = System.in;
 		}
 
+		// REGEX
 		// Scanner scanner = new Scanner(stream);
 		// LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
 
-		LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
+		// MAP
+		 LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
+
+		// CLASS
+		//LexicalAnalyzer<SCobol.LexicalUnit> analyzer = new LexicalAnalyzer3<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.STATE, SCobol.SEP_L, SCobol.DFAState.INIT);
 
 		Map<String, String> variables = new TreeMap<String, String>();
 		Map<String, String> labels = new TreeMap<String, String>();
@@ -91,7 +97,7 @@ public class Main{
 				break;
 			}
 
-			System.out.printf("token : %-42s    lexical unit : %-15s\n",token.getValue().replace("\n","\\n"), token.getId());
+			System.out.printf("token : %-42s    lexical unit : %-15s\n",token.getValue().replace("\n","\\n").replace("\t","\\t"), token.getId());
 
 			if(token.getValue().equals("data")){
 				localState = LocalState.DATA;

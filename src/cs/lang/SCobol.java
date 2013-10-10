@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+import cs.lang.DFAState;
+import cs.lang.scobol.*;
+
 public class SCobol{
 	public enum LexicalUnit {
 		COMMENT,
@@ -174,7 +177,10 @@ public class SCobol{
 		DIVIS,
 		DIVISI,
 		DIVISIO,
-		DIVISION
+		DIVISION,
+		DA,
+		DAT,
+		DATA
 	}
 
 	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
@@ -187,6 +193,22 @@ public class SCobol{
 			put(DFAState.D, new HashMap<Character, DFAState>(){
 				{
 					put('i', DFAState.DI);
+					put('a', DFAState.DA);
+				}
+			});
+			put(DFAState.DA, new HashMap<Character, DFAState>(){
+				{
+					put('t', DFAState.DAT);
+				}
+			});
+			put(DFAState.DAT, new HashMap<Character, DFAState>(){
+				{
+					put('a', DFAState.DATA);
+				}
+			});
+			put(DFAState.DATA, new HashMap<Character, DFAState>(){
+				{
+					
 				}
 			});
 			put(DFAState.DI, new HashMap<Character, DFAState>(){
@@ -231,6 +253,9 @@ public class SCobol{
 		{
 			put(DFAState.INIT, null);
 			put(DFAState.D, LexicalUnit.IDENTIFIER);
+			put(DFAState.DA, LexicalUnit.IDENTIFIER);
+			put(DFAState.DAT, LexicalUnit.IDENTIFIER);
+			put(DFAState.DATA, LexicalUnit.DATA_KEYWORD);
 			put(DFAState.DI, LexicalUnit.IDENTIFIER);
 			put(DFAState.DIV, LexicalUnit.IDENTIFIER);
 			put(DFAState.DIVI, LexicalUnit.IDENTIFIER);
@@ -238,6 +263,25 @@ public class SCobol{
 			put(DFAState.DIVISI, LexicalUnit.IDENTIFIER);
 			put(DFAState.DIVISIO, LexicalUnit.IDENTIFIER);
 			put(DFAState.DIVISION, LexicalUnit.DIVISION_KEYWORD);
+		}
+	};
+
+	public static final Map<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>> STATE
+	= new HashMap<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>>(){
+		{
+			put(DFAState.INIT, new INIT());
+			put(DFAState.D, new D());
+			put(DFAState.DA, new DA());
+			put(DFAState.DAT, new DAT());
+			put(DFAState.DATA, new DATA());
+			put(DFAState.DI, new DI());
+			put(DFAState.DIV, new DIV());
+			put(DFAState.DIVI, new DIVI());
+			put(DFAState.DIVIS, new DIVIS());
+			put(DFAState.DIVISI, new DIVISI());
+			put(DFAState.DIVISIO, new DIVISIO());
+			put(DFAState.DIVISION, new DIVISION());
+
 		}
 	};
 }

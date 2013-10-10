@@ -1,4 +1,4 @@
-package cs.lang.scobol;
+package cs.lang;
 
 import java.util.Map;
 import java.util.HashMap;
