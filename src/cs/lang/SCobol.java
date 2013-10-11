@@ -170,6 +170,9 @@ public class SCobol{
 
 	public enum DFAState {
 		INIT,
+		COMMENT_INSIDE,
+		COMMENT_DOT,
+		COMMENT_END,
 		D,
 		DI,
 		DIV,
@@ -252,6 +255,7 @@ public class SCobol{
 	public static final Map<DFAState, LexicalUnit> TOKEN_M = new HashMap<DFAState, LexicalUnit>(){
 		{
 			put(DFAState.INIT, null);
+			put(DFAState.COMMENT_END, LexicalUnit.COMMENT);
 			put(DFAState.D, LexicalUnit.IDENTIFIER);
 			put(DFAState.DA, LexicalUnit.IDENTIFIER);
 			put(DFAState.DAT, LexicalUnit.IDENTIFIER);
@@ -270,6 +274,9 @@ public class SCobol{
 	= new HashMap<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>>(){
 		{
 			put(DFAState.INIT, new INIT());
+			put(DFAState.COMMENT_INSIDE, new COMMENT_INSIDE());
+			put(DFAState.COMMENT_DOT, new COMMENT_DOT());
+			put(DFAState.COMMENT_END, new COMMENT_END());
 			put(DFAState.D, new D());
 			put(DFAState.DA, new DA());
 			put(DFAState.DAT, new DAT());

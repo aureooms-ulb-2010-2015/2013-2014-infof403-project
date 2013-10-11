@@ -3,7 +3,7 @@ package cs.lang;
 import java.util.List;
 import java.util.ArrayList;
 
-class Alphabet{
+public class Alphabet{
 	private static String LOWER_S = "azertyuiopqsdfghjklmwxcvbn";
 	private static String DIGIT_S = "1234567890";
 
