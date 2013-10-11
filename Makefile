@@ -1,8 +1,10 @@
 JFLAGS = -g
 JC = javac
+JDOC = javadoc
 LINK = jar cvfm
 
 OUTPUT_NAME = dist/s_cobol_lexical_analysis.jar
+DOCDIR = doc/java
 SRC = src
 CLASS = class
 SOURCES = $(shell find $(SRC) | grep \\.java$$)
@@ -24,6 +26,9 @@ $(OUTPUT_NAME): $(CLASSES)
 
 $(CLASS)/%.class: $(SRC)/%.java
 	$(JC) $(JFLAGS) $(SOURCES) -d $(CLASS)
+
+doc: $(SOURCES)
+	javadoc $(SOURCES) -d $(DOCDIR)
 
 clean:
 	$(RM) -r $(REQUIRED_DIRS)
