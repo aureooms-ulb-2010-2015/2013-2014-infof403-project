@@ -1,8 +1,5 @@
 package cs.lang.scobol;
 
-import cs.lang.DFATools;
-import cs.lang.Alphabet;
-
 import cs.lang.SCobol;
 import cs.lang.DFAState;
 

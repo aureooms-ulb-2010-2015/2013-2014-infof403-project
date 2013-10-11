@@ -183,7 +183,9 @@ public class SCobol{
 		DIVISION,
 		DA,
 		DAT,
-		DATA
+		DATA,
+		STRING_END,
+		STRING_INSIDE
 	}
 
 	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
@@ -288,6 +290,8 @@ public class SCobol{
 			put(DFAState.DIVISI, new DIVISI());
 			put(DFAState.DIVISIO, new DIVISIO());
 			put(DFAState.DIVISION, new DIVISION());
+			put(DFAState.STRING_END, new STRING_END());
+			put(DFAState.STRING_INSIDE, new STRING_INSIDE());
 
 		}
 	};
