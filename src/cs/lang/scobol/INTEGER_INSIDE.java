@@ -13,7 +13,7 @@ public class INTEGER_INSIDE  extends DFAState<SCobol.DFAState, SCobol.LexicalUni
 		super(null);
 		transition.put('0', SCobol.DFAState.INTEGER_FINAL_1);
 
-		DFATools.fill(transistion, Alphabet.NON_NULL_DIGIT_S , INTEGER_FINAL_2);
+		DFATools.fill(transition, Alphabet.NON_NULL_DIGIT , SCobol.DFAState.INTEGER_FINAL_2);
 
 
 	}

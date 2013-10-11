@@ -7,11 +7,11 @@ import cs.lang.DFATools;
 * q34
 */
 public class INTEGER_FINAL_2 extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
-	public INTEGER_FINAL_2 ()){
-		super(SCobol.LexicalUnit.LexicalUnit.INTEGER);
+	public INTEGER_FINAL_2 (){
+		super(SCobol.LexicalUnit.INTEGER);
 		transition.put('.', SCobol.DFAState.REAL_INSIDE);
 
-		DFATools.fill(transistion, Alphabet.DIGIT_S , INTEGER_FINAL_2);
+		DFATools.fill(transition, Alphabet.DIGIT , SCobol.DFAState.INTEGER_FINAL_2);
 
 
 

@@ -183,7 +183,14 @@ public class SCobol{
 		DIVISION,
 		DA,
 		DAT,
-		DATA
+		DATA,
+		INTEGER_INSIDE,
+		INTEGER_FINAL_NINE,
+		INTEGER_FINAL_1,
+		INTEGER_FINAL_2,
+		REAL_INSIDE,
+		REAL_FINAL,
+
 	}
 
 	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
@@ -288,6 +295,12 @@ public class SCobol{
 			put(DFAState.DIVISI, new DIVISI());
 			put(DFAState.DIVISIO, new DIVISIO());
 			put(DFAState.DIVISION, new DIVISION());
+			put(DFAState.INTEGER_INSIDE, new INTEGER_INSIDE());
+			put(DFAState.INTEGER_FINAL_1, new INTEGER_FINAL_1());
+			put(DFAState.INTEGER_FINAL_2, new INTEGER_FINAL_2());
+			put(DFAState.REAL_INSIDE, new REAL_INSIDE());
+			put(DFAState.REAL_FINAL, new REAL_FINAL());
+			put(DFAState.INTEGER_FINAL_NINE, new INTEGER_FINAL_NINE());
 
 		}
 	};

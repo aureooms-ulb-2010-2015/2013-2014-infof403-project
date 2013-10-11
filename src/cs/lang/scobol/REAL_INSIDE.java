@@ -14,7 +14,7 @@ public class REAL_INSIDE extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, C
 	public REAL_INSIDE(){
 		super(null);
 
-		DFATools.fill(transistion, Alphabet.DIGIT_S , REAL_FINAL);
+		DFATools.fill(transition, Alphabet.DIGIT , SCobol.DFAState.REAL_FINAL);
 
--	}
+	}
 }

@@ -10,10 +10,9 @@ import cs.lang.DFAState;
  */
 public class REAL_FINAL extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public REAL_FINAL(){
-		super(LexicalUnit.REAL);
-		transition.put('0', SCobol.DFAState.REAL_INSIDE_2);
+		super(SCobol.LexicalUnit.REAL);
 
-		DFATools.fill(transistion, Alphabet.NON_NULL_DIGIT_S , REAL_FINAL);
+		DFATools.fill(transition, Alphabet.DIGIT , SCobol.DFAState.REAL_FINAL);
 
--	}
+	}
 }

@@ -3,7 +3,7 @@ package cs.lang.scobol;
 import cs.lang.SCobol;
 import cs.lang.DFAState;
 import cs.lang.DFATools;
-import cs.lang.ALphabet;
+import cs.lang.Alphabet;
 
 
 
@@ -17,9 +17,12 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('0', SCobol.DFAState.INTEGER_FINAL_1);
 		transition.put('*', SCobol.DFAState.COMMENT_INSIDE);
 		transition.put('/', SCobol.DFAState.COMMENT_INSIDE);
+		transition.put('9', SCobol.DFAState.INTEGER_FINAL_NINE);
 
 
-		DFATools.fill(transistion, Alphabet.ONE_HEIGHT_DIGIT_S , INTEGER_FINAL_3);
+
+
+		DFATools.fill(transition, Alphabet.ONE_HEIGHT_DIGIT , SCobol.DFAState.INTEGER_FINAL_2);
 
 
 
