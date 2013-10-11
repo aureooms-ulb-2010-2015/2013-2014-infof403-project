@@ -19,7 +19,7 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('/', SCobol.DFAState.COMMENT_INSIDE);
 
 
-		DFATools.fill(transistion, Alphabet.NON_NULL_DIGIT_S , INTEGER_FINAL_3);
+		DFATools.fill(transistion, Alphabet.ONE_HEIGHT_DIGIT_S , INTEGER_FINAL_3);
 
 
 
