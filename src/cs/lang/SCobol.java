@@ -190,6 +190,13 @@ public class SCobol{
 		INTEGER_FINAL_2,
 		REAL_INSIDE,
 		REAL_FINAL,
+		S,
+		SE,
+		SEC,
+		SECT,
+		SECTI,
+		SECTIO,
+		SECTION,
 		STRING_END,
 		STRING_INSIDE,
 	}
@@ -296,6 +303,13 @@ public class SCobol{
 			put(DFAState.DIVISI, new DIVISI());
 			put(DFAState.DIVISIO, new DIVISIO());
 			put(DFAState.DIVISION, new DIVISION());
+			put(DFAState.S, new S());
+			put(DFAState.SE, new SE());
+			put(DFAState.SEC, new SEC());
+			put(DFAState.SECT, new SECT());
+			put(DFAState.SECTI, new SECTI());
+			put(DFAState.SECTIO, new SECTIO());
+			put(DFAState.SECTION, new SECTION());
 			put(DFAState.INTEGER_INSIDE, new INTEGER_INSIDE());
 			put(DFAState.INTEGER_FINAL_1, new INTEGER_FINAL_1());
 			put(DFAState.INTEGER_FINAL_2, new INTEGER_FINAL_2());
