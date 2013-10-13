@@ -1,10 +1,18 @@
-import sys
+#!/usr/bin/python
+
+import fileinput
+
+
+kws = []
+for line in fileinput.input():
+	if line.strip():
+		kws.append(line.strip())
 
 states_m = {}
 
-for kw in sys.argv[1:]:
+for kw in kws:
 	for i in range(len(kw)):
-		states_m[kw[:i+1].upper()] = True
+		states_m[kw[:i+1].upper().replace('-','_')] = True
 
 states = []
 for state in states_m:

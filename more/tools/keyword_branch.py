@@ -1,5 +1,6 @@
+#!/usr/bin/python
 
-import sys
+import fileinput
 import subprocess
 
 def state_text(current, transition, next, token, max_l):
@@ -37,28 +38,36 @@ public class """+current+""" extends DFAState<SCobol.DFAState, SCobol.LexicalUni
 """
 	return head + body + foot
 
-print(sys.argv[1:])
+
+
+kws = []
+for line in fileinput.input():
+	if line.strip():
+		kws.append(line.strip())
+
+print(kws)
 
 
 states_m = {}
 identifier_max_length = 16
 
-for kw in sys.argv[1:]:
+for kw in kws:
 	for i in range(len(kw)):
-		current = kw[:i+1].upper()
+		current = kw[:i+1].upper().replace('-','_')
 		states_m[current] = [[], [], "SCobol.LexicalUnit.IDENTIFIER"]
 		if i >= identifier_max_length:
 			states_m[current][2] = "null"
 
-for kw in sys.argv[1:]:
+for kw in kws:
 	for i in range(len(kw)-1):
-		current = kw[:i+1].upper()
+		current = kw[:i+1].upper().replace('-','_')
 		transition = kw[i+1]
-		next = kw[:i+2].upper()
-		states_m[current][0].append(transition)
-		states_m[current][1].append(next)
+		next = kw[:i+2].upper().replace('-','_')
+		if transition not in states_m[current][0]:
+			states_m[current][0].append(transition)
+			states_m[current][1].append(next)
 
-	current = kw.upper()
+	current = kw.upper().replace('-','_')
 	states_m[current][2] = "SCobol.LexicalUnit."+current
 
 
