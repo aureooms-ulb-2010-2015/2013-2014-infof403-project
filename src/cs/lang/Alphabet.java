@@ -36,6 +36,14 @@ public class Alphabet{
 			for(char c : s) add(c);
 		}
 	};
+	public static List<Character> IDENTIFIER = new ArrayList<Character>(){
+		{
+			addAll(LETTER);
+			addAll(DIGIT);
+			add('-');
+			add('_');
+		}
+	};
 
 	public static List<Character> NON_NULL_DIGIT = new ArrayList<Character>(){
 		{

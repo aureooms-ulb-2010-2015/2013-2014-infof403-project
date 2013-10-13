@@ -10,8 +10,25 @@ import cs.lang.Alphabet;
 public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public INIT(){
 		super(null);
+		transition.put('a', SCobol.DFAState.A);
+		transition.put('b', SCobol.DFAState.B);
+		transition.put('c', SCobol.DFAState.C);
 		transition.put('d', SCobol.DFAState.D);
+		transition.put('e', SCobol.DFAState.E);
+		transition.put('f', SCobol.DFAState.F);
+		transition.put('g', SCobol.DFAState.G);
+		transition.put('i', SCobol.DFAState.I);
+		transition.put('m', SCobol.DFAState.M);
+		transition.put('n', SCobol.DFAState.N);
+		transition.put('o', SCobol.DFAState.O);
+		transition.put('p', SCobol.DFAState.P);
+		transition.put('r', SCobol.DFAState.R);
 		transition.put('s', SCobol.DFAState.S);
+		transition.put('t', SCobol.DFAState.T);
+		transition.put('u', SCobol.DFAState.U);
+		transition.put('v', SCobol.DFAState.V);
+		transition.put('w', SCobol.DFAState.W);
+
 
 		transition.put('+', SCobol.DFAState.INTEGER_INSIDE);
 		transition.put('-', SCobol.DFAState.INTEGER_INSIDE);

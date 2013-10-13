@@ -68,7 +68,7 @@ for kw in kws:
 			states_m[current][1].append(next)
 
 	current = kw.upper().replace('-','_')
-	states_m[current][2] = "SCobol.LexicalUnit."+current
+	states_m[current][2] = "SCobol.LexicalUnit."+current+"_KEYWORD"
 
 
 for state in states_m:
