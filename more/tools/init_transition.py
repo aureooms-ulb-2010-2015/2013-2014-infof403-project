@@ -19,5 +19,5 @@ for state in states_m:
 states.sort()
 
 for state in states:
-	print("transition.put('"+state.lower()+"', SCobol.DFAState."+state+")")
+	print("transition.put('"+state.lower()+"', SCobol.DFAState."+state+");")
 	
