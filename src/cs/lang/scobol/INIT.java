@@ -50,8 +50,6 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 
 
 
-		transition.put('+', SCobol.DFAState.INTEGER_INSIDE);
-		transition.put('-', SCobol.DFAState.INTEGER_INSIDE);
 		transition.put('0', SCobol.DFAState.INTEGER_FINAL_1);
 		transition.put('\'', SCobol.DFAState.STRING_INSIDE);
 		transition.put('9', SCobol.DFAState.INTEGER_FINAL_NINE);
