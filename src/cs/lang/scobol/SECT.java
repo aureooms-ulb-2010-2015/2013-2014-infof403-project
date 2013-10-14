@@ -10,6 +10,6 @@ public class SECT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public SECT(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('i', SCobol.DFAState.SECTI);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

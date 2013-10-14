@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class ADD extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public ADD(){
 		super(SCobol.LexicalUnit.ADD_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

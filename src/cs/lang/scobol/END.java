@@ -10,6 +10,6 @@ public class END extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public END(){
 		super(SCobol.LexicalUnit.END_KEYWORD);
 		transition.put('-', SCobol.DFAState.END_);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

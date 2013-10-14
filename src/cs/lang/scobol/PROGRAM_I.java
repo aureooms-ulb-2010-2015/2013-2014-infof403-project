@@ -10,6 +10,6 @@ public class PROGRAM_I extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Cha
 	public PROGRAM_I(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('d', SCobol.DFAState.PROGRAM_ID);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_9);
 	}
 }

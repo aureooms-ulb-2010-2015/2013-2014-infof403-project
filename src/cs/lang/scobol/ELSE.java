@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class ELSE extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public ELSE(){
 		super(SCobol.LexicalUnit.ELSE_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

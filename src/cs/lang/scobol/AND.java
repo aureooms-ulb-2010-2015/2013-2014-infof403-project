@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class AND extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public AND(){
 		super(SCobol.LexicalUnit.AND_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

@@ -10,6 +10,6 @@ public class VALU extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public VALU(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('e', SCobol.DFAState.VALUE);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

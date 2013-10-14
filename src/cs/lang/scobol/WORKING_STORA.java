@@ -10,6 +10,6 @@ public class WORKING_STORA extends DFAState<SCobol.DFAState, SCobol.LexicalUnit,
 	public WORKING_STORA(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('g', SCobol.DFAState.WORKING_STORAG);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_13);
 	}
 }

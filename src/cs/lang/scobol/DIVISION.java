@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class DIVISION extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public DIVISION(){
 		super(SCobol.LexicalUnit.DIVISION_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_8);
 	}
 }

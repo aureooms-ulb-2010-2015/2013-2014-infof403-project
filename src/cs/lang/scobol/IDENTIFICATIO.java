@@ -10,6 +10,6 @@ public class IDENTIFICATIO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit,
 	public IDENTIFICATIO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('n', SCobol.DFAState.IDENTIFICATION);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_13);
 	}
 }

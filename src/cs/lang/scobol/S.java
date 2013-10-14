@@ -15,6 +15,6 @@ public class S extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 		transition.put('u', SCobol.DFAState.SU);
 		transition.put('9', SCobol.DFAState.IMAGE_ONE);
 
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_1);
 	}
 }

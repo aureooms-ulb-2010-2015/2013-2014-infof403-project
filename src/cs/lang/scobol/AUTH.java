@@ -10,6 +10,6 @@ public class AUTH extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public AUTH(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('o', SCobol.DFAState.AUTHO);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

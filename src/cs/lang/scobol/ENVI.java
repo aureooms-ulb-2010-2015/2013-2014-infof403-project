@@ -10,6 +10,6 @@ public class ENVI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public ENVI(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('r', SCobol.DFAState.ENVIR);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

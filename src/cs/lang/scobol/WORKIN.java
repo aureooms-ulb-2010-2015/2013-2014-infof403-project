@@ -10,6 +10,6 @@ public class WORKIN extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charac
 	public WORKIN(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('g', SCobol.DFAState.WORKING);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_6);
 	}
 }

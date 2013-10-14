@@ -10,6 +10,6 @@ public class MULTIPL extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public MULTIPL(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('y', SCobol.DFAState.MULTIPLY);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

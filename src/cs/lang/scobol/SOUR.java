@@ -10,6 +10,6 @@ public class SOUR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public SOUR(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('c', SCobol.DFAState.SOURC);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

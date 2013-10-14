@@ -10,6 +10,6 @@ public class SUBSTRA extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public SUBSTRA(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('c', SCobol.DFAState.SUBSTRAC);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

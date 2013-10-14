@@ -10,6 +10,6 @@ public class W extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public W(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('o', SCobol.DFAState.WO);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_1);
 	}
 }

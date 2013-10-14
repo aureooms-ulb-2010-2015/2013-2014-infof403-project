@@ -10,6 +10,6 @@ public class CONFIGU extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public CONFIGU(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('r', SCobol.DFAState.CONFIGUR);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

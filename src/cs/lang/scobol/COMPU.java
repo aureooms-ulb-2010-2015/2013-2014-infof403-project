@@ -10,6 +10,6 @@ public class COMPU extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public COMPU(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('t', SCobol.DFAState.COMPUT);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

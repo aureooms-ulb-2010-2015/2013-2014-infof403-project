@@ -10,6 +10,6 @@ public class ELS extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public ELS(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('e', SCobol.DFAState.ELSE);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

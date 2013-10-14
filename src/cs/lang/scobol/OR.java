@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class OR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public OR(){
 		super(SCobol.LexicalUnit.OR_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_2);
 	}
 }

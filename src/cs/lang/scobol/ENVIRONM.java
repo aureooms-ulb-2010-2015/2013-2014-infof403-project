@@ -10,6 +10,6 @@ public class ENVIRONM extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Char
 	public ENVIRONM(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('e', SCobol.DFAState.ENVIRONME);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_8);
 	}
 }

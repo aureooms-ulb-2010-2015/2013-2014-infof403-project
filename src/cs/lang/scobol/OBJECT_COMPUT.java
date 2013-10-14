@@ -10,6 +10,6 @@ public class OBJECT_COMPUT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit,
 	public OBJECT_COMPUT(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('e', SCobol.DFAState.OBJECT_COMPUTE);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_13);
 	}
 }

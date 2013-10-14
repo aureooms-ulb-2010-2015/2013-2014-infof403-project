@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class ACCEPT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public ACCEPT(){
 		super(SCobol.LexicalUnit.ACCEPT_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_6);
 	}
 }

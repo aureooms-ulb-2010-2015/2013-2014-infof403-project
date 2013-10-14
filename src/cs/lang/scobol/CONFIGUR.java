@@ -10,6 +10,6 @@ public class CONFIGUR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Char
 	public CONFIGUR(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('a', SCobol.DFAState.CONFIGURA);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_8);
 	}
 }

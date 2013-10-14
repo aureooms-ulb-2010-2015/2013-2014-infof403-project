@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class PIC extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public PIC(){
 		super(SCobol.LexicalUnit.PIC_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }
