@@ -13,6 +13,13 @@ import java.io.IOException;
 import cs.lang.LexicalToken;
 import cs.lang.DFAState;
 
+/**
+ * Implementation of LexicalAnalyzer using classes.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;

@@ -28,6 +28,14 @@ import cs.lang.LexicalToken;
 
 import lib.Pinput;
 
+/**
+ * 'Main' class.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
+
 public class Main{
 
 	public enum LocalState{

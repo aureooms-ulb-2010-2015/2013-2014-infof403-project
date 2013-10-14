@@ -8,6 +8,13 @@ import java.util.List;
 
 import cs.lang.LexicalToken;
 
+/**
+ * Implementation of LexicalAnalyzer using the Pattern class.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class LexicalAnalyzer2<T> implements LexicalAnalyzer<T>{
 
 	private Scanner scanner;

@@ -9,6 +9,14 @@ import java.util.HashMap;
 import cs.lang.DFAState;
 import cs.lang.scobol.*;
 
+/**
+ * Static data describing the S-COBOL language.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class SCobol{
 	public enum LexicalUnit {
 		COMMENT,
@@ -84,7 +92,9 @@ public class SCobol{
 		BAD_TOKEN
 	}
 
-
+	/**
+	 * List of tokens announcing the end of a line.
+	 */
 	public static final List<LexicalUnit> SEP_L = new ArrayList<LexicalUnit>(){
 		{
 			add(LexicalUnit.NEW_LINE);
@@ -92,6 +102,11 @@ public class SCobol{
 		}
 	};
 
+	/**
+	 * Used with LexicalAnalyzer2.
+	 *
+	 * @see LexicalAnalyzer2
+	 */
 
 	public static final Map<LexicalUnit,String> PATTERNS = new HashMap<LexicalUnit,String>() {
 		{
@@ -456,8 +471,13 @@ public class SCobol{
 		WORKING_STORAGE,
 	}
 
+	/**
+	 * Used with LexicalAnalyzer1 (incomplete).
+	 *
+	 * @see LexicalAnalyzer1
+	 *
+	 */
 
-	//TRASH
 	public static final Map<DFAState, Map<Character, DFAState>> TRANSITION = new HashMap<DFAState, Map<Character, DFAState>>(){
 		{
 			put(DFAState.INIT, new HashMap<Character, DFAState>(){
@@ -524,6 +544,13 @@ public class SCobol{
 		}
 	};
 
+	/**
+	 * Used with LexicalAnalyzer1 (incomplete).
+	 *
+	 * @see LexicalAnalyzer1
+	 *
+	 */
+
 	public static final Map<DFAState, LexicalUnit> TOKEN_M = new HashMap<DFAState, LexicalUnit>(){
 		{
 			put(DFAState.INIT, null);
@@ -541,6 +568,13 @@ public class SCobol{
 			put(DFAState.DIVISION, LexicalUnit.DIVISION_KEYWORD);
 		}
 	};
+
+
+	/**
+	 * Used with LexicalAnalyzer3.
+	 *
+	 * @see LexicalAnalyzer3
+	 */
 
 	public static final Map<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>> STATE
 	= new HashMap<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>>(){
