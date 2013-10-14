@@ -153,7 +153,9 @@ public class SCobol{
 			put(LexicalUnit.LOWER_OR_EQUALS, "<=");
 			put(LexicalUnit.GREATER_SIGN, ">");
 			put(LexicalUnit.GREATER_OR_EQUALS, ">=");
-			put(LexicalUnit.MINUS_SIGN, "\\-");
+
+
+			put(LexicalUnit.MINUS_SIGN, "\\-");//gauvain start from here next time!
 			put(LexicalUnit.PLUS_SIGN, "\\+");
 
 			put(LexicalUnit.IDENTIFIER, "[A-Za-z][0-9A-Za-z_\\-]{0,15}");
@@ -187,6 +189,10 @@ public class SCobol{
 		NEW_LINE,
 		WHITE_SPACE,
 		EQUALS_SIGN,
+		LOWER_OR_EQUALS,
+		LOWER_SIGN,
+		GREATER_SIGN,
+		GREATER_OR_EQUALS,
 
 
 		ASTERISK,
@@ -528,7 +534,15 @@ public class SCobol{
 			put(DFAState.STRING_END, new STRING_END());
 			put(DFAState.STRING_INSIDE, new STRING_INSIDE());
 			put(DFAState.IDENTIFIER, new IDENTIFIER());
+
 			put(DFAState.EQUALS_SIGN, new EQUALS_SIGN());
+			put(DFAState.LOWER_OR_EQUALS, new LOWER_OR_EQUALS());
+			put(DFAState.LOWER_SIGN, new LOWER_SIGN());
+			put(DFAState.GREATER_SIGN, new GREATER_SIGN());
+			put(DFAState.GREATER_OR_EQUALS, new GREATER_OR_EQUALS());
+
+
+			
 
 
 			put(DFAState.NEW_LINE, new NEW_LINE());
