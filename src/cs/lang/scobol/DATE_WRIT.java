@@ -10,6 +10,6 @@ public class DATE_WRIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Cha
 	public DATE_WRIT(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('t', SCobol.DFAState.DATE_WRITT);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_9);
 	}
 }

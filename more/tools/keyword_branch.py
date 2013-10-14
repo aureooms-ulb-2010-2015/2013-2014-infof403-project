@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import fileinput
-import subprocess
 
 def state_text(current, transition, next, token, max_l):
 	head = \
@@ -32,7 +31,7 @@ public class """+current+""" extends DFAState<SCobol.DFAState, SCobol.LexicalUni
 	if len(current) < max_l:
 		foot = \
 """\
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_"""+str(len(current))+""");
 	}
 }
 """

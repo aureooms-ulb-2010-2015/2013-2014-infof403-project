@@ -10,6 +10,6 @@ public class FAL extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public FAL(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('s', SCobol.DFAState.FALS);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

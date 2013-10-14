@@ -10,6 +10,6 @@ public class WORKING_S extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Cha
 	public WORKING_S(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('t', SCobol.DFAState.WORKING_ST);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_9);
 	}
 }

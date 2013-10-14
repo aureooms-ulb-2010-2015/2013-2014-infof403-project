@@ -10,6 +10,6 @@ public class PERFO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public PERFO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('r', SCobol.DFAState.PERFOR);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

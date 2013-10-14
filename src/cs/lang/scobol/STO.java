@@ -10,6 +10,6 @@ public class STO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public STO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('p', SCobol.DFAState.STOP);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

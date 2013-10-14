@@ -10,6 +10,6 @@ public class DATE_WR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public DATE_WR(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('i', SCobol.DFAState.DATE_WRI);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

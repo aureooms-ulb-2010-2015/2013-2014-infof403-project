@@ -67,6 +67,7 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 
 
 		DFATools.fill(transition, Alphabet.ONE_HEIGHT_DIGIT , SCobol.DFAState.INTEGER_FINAL_2);
+		DFATools.fill(transition, Alphabet.IDENTIFIER , SCobol.DFAState.IDENTIFIER_0);
 
 
 	}

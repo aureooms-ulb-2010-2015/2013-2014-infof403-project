@@ -10,6 +10,6 @@ public class SOURCE extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charac
 	public SOURCE(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('-', SCobol.DFAState.SOURCE_);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_6);
 	}
 }

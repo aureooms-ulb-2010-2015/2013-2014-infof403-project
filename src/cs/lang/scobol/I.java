@@ -11,6 +11,6 @@ public class I extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('d', SCobol.DFAState.ID);
 		transition.put('f', SCobol.DFAState.IF);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_1);
 	}
 }

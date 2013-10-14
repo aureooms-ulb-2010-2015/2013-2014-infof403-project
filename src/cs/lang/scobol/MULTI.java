@@ -10,6 +10,6 @@ public class MULTI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public MULTI(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('p', SCobol.DFAState.MULTIP);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

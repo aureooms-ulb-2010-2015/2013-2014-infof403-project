@@ -10,6 +10,6 @@ public class PROCE extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public PROCE(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('d', SCobol.DFAState.PROCED);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

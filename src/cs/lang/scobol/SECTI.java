@@ -10,6 +10,6 @@ public class SECTI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public SECTI(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('o', SCobol.DFAState.SECTIO);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

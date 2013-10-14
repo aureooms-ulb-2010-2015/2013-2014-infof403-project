@@ -10,6 +10,6 @@ public class OBJECT_COM extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Ch
 	public OBJECT_COM(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('p', SCobol.DFAState.OBJECT_COMP);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_10);
 	}
 }

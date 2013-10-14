@@ -10,6 +10,6 @@ public class SUBSTR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charac
 	public SUBSTR(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('a', SCobol.DFAState.SUBSTRA);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_6);
 	}
 }

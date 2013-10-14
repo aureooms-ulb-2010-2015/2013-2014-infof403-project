@@ -10,6 +10,6 @@ public class FRO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public FRO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('m', SCobol.DFAState.FROM);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

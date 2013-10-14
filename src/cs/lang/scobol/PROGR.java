@@ -10,6 +10,6 @@ public class PROGR extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public PROGR(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('a', SCobol.DFAState.PROGRA);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

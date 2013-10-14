@@ -13,6 +13,6 @@ public class S extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 		transition.put('o', SCobol.DFAState.SO);
 		transition.put('t', SCobol.DFAState.ST);
 		transition.put('u', SCobol.DFAState.SU);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_1);
 	}
 }

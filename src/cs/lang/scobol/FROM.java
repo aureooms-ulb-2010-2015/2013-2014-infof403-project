@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class FROM extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public FROM(){
 		super(SCobol.LexicalUnit.FROM_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

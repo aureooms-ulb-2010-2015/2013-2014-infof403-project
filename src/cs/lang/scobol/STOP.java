@@ -9,6 +9,6 @@ import cs.lang.DFATools;
 public class STOP extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
 	public STOP(){
 		super(SCobol.LexicalUnit.STOP_KEYWORD);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

@@ -11,6 +11,6 @@ public class CO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('m', SCobol.DFAState.COM);
 		transition.put('n', SCobol.DFAState.CON);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_2);
 	}
 }

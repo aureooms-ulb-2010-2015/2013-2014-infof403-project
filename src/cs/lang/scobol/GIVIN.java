@@ -10,6 +10,6 @@ public class GIVIN extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public GIVIN(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('g', SCobol.DFAState.GIVING);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

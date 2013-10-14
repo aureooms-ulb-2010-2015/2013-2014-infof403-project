@@ -10,6 +10,6 @@ public class PER extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character
 	public PER(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('f', SCobol.DFAState.PERF);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_3);
 	}
 }

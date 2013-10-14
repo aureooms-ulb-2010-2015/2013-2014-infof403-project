@@ -10,6 +10,6 @@ public class DISPL extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public DISPL(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('a', SCobol.DFAState.DISPLA);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

@@ -10,6 +10,6 @@ public class SOURCE_COMPU extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, 
 	public SOURCE_COMPU(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('t', SCobol.DFAState.SOURCE_COMPUT);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_12);
 	}
 }

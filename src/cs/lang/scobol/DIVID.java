@@ -10,6 +10,6 @@ public class DIVID extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public DIVID(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('e', SCobol.DFAState.DIVIDE);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

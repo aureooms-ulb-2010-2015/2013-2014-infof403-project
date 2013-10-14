@@ -10,6 +10,6 @@ public class GIVI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public GIVI(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('n', SCobol.DFAState.GIVIN);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

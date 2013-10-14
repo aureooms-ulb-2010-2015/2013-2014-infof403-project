@@ -10,6 +10,6 @@ public class PROGRAM extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public PROGRAM(){
 		super(SCobol.LexicalUnit.PROGRAM_KEYWORD);
 		transition.put('-', SCobol.DFAState.PROGRAM_);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

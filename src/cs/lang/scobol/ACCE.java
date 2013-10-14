@@ -10,6 +10,6 @@ public class ACCE extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public ACCE(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('p', SCobol.DFAState.ACCEP);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

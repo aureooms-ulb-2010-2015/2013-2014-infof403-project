@@ -10,6 +10,6 @@ public class DIVISIO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Chara
 	public DIVISIO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('n', SCobol.DFAState.DIVISION);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_7);
 	}
 }

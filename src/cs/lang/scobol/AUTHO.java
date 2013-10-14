@@ -10,6 +10,6 @@ public class AUTHO extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Charact
 	public AUTHO(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('r', SCobol.DFAState.AUTHOR);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_5);
 	}
 }

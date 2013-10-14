@@ -10,6 +10,6 @@ public class UNTI extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 	public UNTI(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('l', SCobol.DFAState.UNTIL);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_4);
 	}
 }

@@ -10,6 +10,6 @@ public class IDENTIFIC extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Cha
 	public IDENTIFIC(){
 		super(SCobol.LexicalUnit.IDENTIFIER);
 		transition.put('a', SCobol.DFAState.IDENTIFICA);
-		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER);
+		DFATools.fill(transition, Alphabet.IDENTIFIER, SCobol.DFAState.IDENTIFIER_9);
 	}
 }
