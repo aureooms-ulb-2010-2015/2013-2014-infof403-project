@@ -594,25 +594,6 @@ public class SCobol{
 
 			
 
-			
-
-			
-
-			
-
-			
-
-			
-
-
-			
-
-
-
-
-
-
-			
 			put(DFAState.NEW_LINE, new NEW_LINE());
 			put(DFAState.WHITE_SPACE, new WHITE_SPACE());
 
