@@ -188,6 +188,14 @@ public class SCobol{
 		WHITE_SPACE,
 		EQUALS_SIGN,
 
+
+		ASTERISK,
+		SLASH,
+		COMMA,
+		DOT,
+		LEFT_PARENTHESIS,
+		RIGHT_PARENTHESIS,
+
 		A,
 		AC,
 		ACC,
@@ -525,6 +533,13 @@ public class SCobol{
 
 			put(DFAState.NEW_LINE, new NEW_LINE());
 			put(DFAState.WHITE_SPACE, new WHITE_SPACE());
+
+			put(DFAState.ASTERISK, new ASTERISK());
+			put(DFAState.SLASH, new SLASH());
+			put(DFAState.COMMA, new COMMA());
+			put(DFAState.DOT, new DOT());
+			put(DFAState.LEFT_PARENTHESIS, new LEFT_PARENTHESIS());
+			put(DFAState.RIGHT_PARENTHESIS, new RIGHT_PARENTHESIS());
 
 
 			put(DFAState.A, new A());
