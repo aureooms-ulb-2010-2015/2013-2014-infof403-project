@@ -37,6 +37,11 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('=', SCobol.DFAState.EQUALS_SIGN);
 		transition.put('<', SCobol.DFAState.LOWER_SIGN);
 		transition.put('>', SCobol.DFAState.GREATER_SIGN);
+		transition.put('-', SCobol.DFAState.MINUS_SIGN);
+		transition.put('+', SCobol.DFAState.PLUS_SIGN);
+
+
+
 		
 
 		

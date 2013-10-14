@@ -193,6 +193,8 @@ public class SCobol{
 		LOWER_SIGN,
 		GREATER_SIGN,
 		GREATER_OR_EQUALS,
+		MINUS_SIGN,
+		PLUS_SIGN,
 
 
 		ASTERISK,
@@ -540,6 +542,10 @@ public class SCobol{
 			put(DFAState.LOWER_SIGN, new LOWER_SIGN());
 			put(DFAState.GREATER_SIGN, new GREATER_SIGN());
 			put(DFAState.GREATER_OR_EQUALS, new GREATER_OR_EQUALS());
+			put(DFAState.PLUS_SIGN, new PLUS_SIGN());
+			put(DFAState.MINUS_SIGN, new MINUS_SIGN());
+
+			
 
 
 			
