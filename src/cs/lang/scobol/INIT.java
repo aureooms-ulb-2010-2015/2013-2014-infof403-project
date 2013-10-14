@@ -29,6 +29,10 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('v', SCobol.DFAState.V);
 		transition.put('w', SCobol.DFAState.W);
 
+		transition.put('\n', SCobol.DFAState.NEW_LINE);
+		transition.put(' ', SCobol.DFAState.WHITE_SPACE);
+		transition.put('\t', SCobol.DFAState.WHITE_SPACE);
+
 
 		transition.put('+', SCobol.DFAState.INTEGER_INSIDE);
 		transition.put('-', SCobol.DFAState.INTEGER_INSIDE);

@@ -184,6 +184,8 @@ public class SCobol{
 		STRING_END,
 		STRING_INSIDE,
 		IDENTIFIER,
+		NEW_LINE,
+		WHITE_SPACE,
 
 		A,
 		AC,
@@ -517,6 +519,9 @@ public class SCobol{
 			put(DFAState.STRING_END, new STRING_END());
 			put(DFAState.STRING_INSIDE, new STRING_INSIDE());
 			put(DFAState.IDENTIFIER, new IDENTIFIER());
+
+			put(DFAState.NEW_LINE, new NEW_LINE());
+			put(DFAState.WHITE_SPACE, new WHITE_SPACE());
 
 
 			put(DFAState.A, new A());
