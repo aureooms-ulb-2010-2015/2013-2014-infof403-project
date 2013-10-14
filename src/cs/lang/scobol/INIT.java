@@ -34,6 +34,10 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('\t', SCobol.DFAState.WHITE_SPACE);
 
 
+		transition.put('=', SCobol.DFAState.EQUALS_SIGN);
+
+
+
 		transition.put('+', SCobol.DFAState.INTEGER_INSIDE);
 		transition.put('-', SCobol.DFAState.INTEGER_INSIDE);
 		transition.put('0', SCobol.DFAState.INTEGER_FINAL_1);
@@ -41,6 +45,7 @@ public class INIT extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Characte
 		transition.put('/', SCobol.DFAState.COMMENT_INSIDE);
 		transition.put('\'', SCobol.DFAState.STRING_INSIDE);
 		transition.put('9', SCobol.DFAState.INTEGER_FINAL_NINE);
+
 
 
 
