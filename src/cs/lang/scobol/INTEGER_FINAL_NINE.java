@@ -12,7 +12,7 @@ public class INTEGER_FINAL_NINE  extends DFAState<SCobol.DFAState, SCobol.Lexica
 	public INTEGER_FINAL_NINE (){
 		super(SCobol.LexicalUnit.INTEGER);
 		transition.put('.', SCobol.DFAState.REAL_INSIDE);
-		// ADD V TRANSITION TO IMAGES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		transition.put('(', SCobol.DFAState.IMAGE_TWO);
 		DFATools.fill(transition, Alphabet.NON_NULL_DIGIT , SCobol.DFAState.INTEGER_FINAL_2);
 
 
