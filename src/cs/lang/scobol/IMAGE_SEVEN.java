@@ -12,7 +12,7 @@ public class IMAGE_SEVEN extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, C
 	public IMAGE_SEVEN(){
 		super(null);
 
-
-		DFATools.fill(transition, Alphabet.DIGIT, SCobol.DFAState.IMAGE_HEIGHT);
+		transition.put(')', SCobol.DFAState.IMAGE_FINAL_TWO);
+		DFATools.fill(transition, Alphabet.DIGIT, SCobol.DFAState.IMAGE_SEVEN);
 	}
 }

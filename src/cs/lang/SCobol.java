@@ -215,7 +215,6 @@ public class SCobol{
 		IMAGE_FIVE,
 		IMAGE_SIX,
 		IMAGE_SEVEN,
-		IMAGE_HEIGHT,
 		IMAGE_FINAL_TWO,
 
 
@@ -589,7 +588,6 @@ public class SCobol{
 			put(DFAState.IMAGE_FIVE, new IMAGE_FIVE());
 			put(DFAState.IMAGE_SIX, new IMAGE_SIX());
 			put(DFAState.IMAGE_SEVEN, new IMAGE_SEVEN());
-			put(DFAState.IMAGE_HEIGHT, new IMAGE_HEIGHT());
 			put(DFAState.IMAGE_FINAL_TWO, new IMAGE_FINAL_TWO());
 
 			
