@@ -7,8 +7,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Arrays;
 
+/**
+ * Factory that instantiates Lexical Analyzers for the SCobol language.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class SCobolLexicalAnalyzerFactory implements LexicalAnalyzerFactory<SCobol.LexicalUnit> {
-	
+
+	/**
+	 * @return a new LA
+	 *
+	 * @param id name of the LA
+	 * @param stream the stream to read from
+	 *
+	 */
+
 	public LexicalAnalyzer<SCobol.LexicalUnit> get(String id, InputStream stream){
 		if(id != null){
 			if(id.equals("regex")){

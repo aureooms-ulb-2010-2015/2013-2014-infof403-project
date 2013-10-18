@@ -4,6 +4,13 @@ import cs.lang.SCobol;
 import cs.lang.LexicalToken;
 import java.util.Map;
 
+/**
+ * Stub class to parse token sequences .
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class SCobolParser{
 
 	private enum LocalState{
@@ -23,6 +30,16 @@ public class SCobolParser{
 	private LocalState localState = LocalState.NONE;
 	private String variable = "";
 	private String label = "";
+
+	/**
+	 * Feeds the var and label tables with tokens.
+	 *
+	 * @param token current token
+	 * @param variables variables map
+	 * @param labels labels map
+	 * @param line current line
+	 *
+	 */
 
 	public void feed(LexicalToken<SCobol.LexicalUnit> token, Map<String, String> variables, Map<String, String> labels, int line){
 
