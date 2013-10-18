@@ -3,6 +3,13 @@ package cs.lang;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Provides static class of characters for SCobol language
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class Alphabet{
 	private static String LOWER_S = "azertyuiopqsdfghjklmwxcvbn";
 	private static String DIGIT_S = "1234567890";
@@ -34,6 +41,14 @@ public class Alphabet{
 		{
 			char[] s = DIGIT_S.toCharArray();
 			for(char c : s) add(c);
+		}
+	};
+	public static List<Character> IDENTIFIER = new ArrayList<Character>(){
+		{
+			addAll(LETTER);
+			addAll(DIGIT);
+			add('-');
+			add('_');
 		}
 	};
 

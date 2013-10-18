@@ -28,6 +28,14 @@ import cs.lang.LexicalToken;
 
 import lib.Pinput;
 
+/**
+ * 'Main' class.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
+
 public class Main{
 
 	public enum LocalState{
@@ -133,7 +141,7 @@ public class Main{
 
 			if(state == State.LABELS && localState == LocalState.IDENTIFIER){
 				if(token.getId() != SCobol.LexicalUnit.SECTION_KEYWORD){
-					if(!variables.containsKey(label))
+					if(!variables.containsKey(label) && !labels.containsKey(label))
 						labels.put(label, String.valueOf(analyzer.getLine()));
 				}
 				localState = LocalState.NONE;

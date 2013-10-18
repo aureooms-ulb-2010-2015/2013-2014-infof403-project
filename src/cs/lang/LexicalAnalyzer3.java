@@ -13,13 +13,20 @@ import java.io.IOException;
 import cs.lang.LexicalToken;
 import cs.lang.DFAState;
 
+/**
+ * Implementation of LexicalAnalyzer using classes.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
 	private Map<S, DFAState<S, T, Character>> state;
 	private List<T> sep_l;
 
-	private int total = 0;
+	private int cursor = 0;
 	private int line = 1;
 	private int col = 1;
 
@@ -47,6 +54,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				d = stream.read();
 				if(d == -1) return null;
 				c = (char)d;
+				++cursor;
 			}
 
 			S next = state.get(current).next(c);
@@ -60,6 +68,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 					buffer[0] += buffer[1] + c;
 					buffer[1] = "";
 					last = next;
+					col = cursor;
 				}
 			}
 			else{
@@ -79,6 +88,15 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 					buffer[0] += c;
 					last = current;
 				}
+
+				for(T sep : sep_l){
+					if(state.get(last).token() == sep){
+						++line;
+						cursor = 1;
+						break;
+					}
+				}
+
 				LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
 				buffer[0] = buffer[1] = "";
 				return token;

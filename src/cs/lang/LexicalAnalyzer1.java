@@ -12,6 +12,13 @@ import java.io.IOException;
 
 import cs.lang.LexicalToken;
 
+/**
+ * Implementation of LexicalAnalyzer using HashMaps.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
+
 public class LexicalAnalyzer1<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
