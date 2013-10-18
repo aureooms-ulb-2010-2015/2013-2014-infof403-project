@@ -26,6 +26,8 @@ import cs.lang.LexicalAnalyzer2;
 import cs.lang.LexicalAnalyzer3;
 import cs.lang.LexicalToken;
 
+import cs.lang.SCobolLexicalAnalyzerFactory;
+
 import lib.Pinput;
 
 /**
@@ -50,6 +52,8 @@ public class Main{
 		VARIABLES,
 		LABELS
 	}
+
+	private static LexicalAnalyzer<SCobol.LexicalUnit>
 	
 	public static void main(String[] args){
 
@@ -61,12 +65,6 @@ public class Main{
 			Set<String> flagSet = new HashSet<String>();
 			Pinput.parse(args, params, options, flags, flagSet);
 
-			List<SCobol.LexicalUnit> units = Arrays.asList(SCobol.LexicalUnit.values());
-			Iterator<SCobol.LexicalUnit> it = units.iterator();
-
-			String regex = LexicalRegex.build(it, SCobol.PATTERNS);
-
-			Pattern pattern = Pattern.compile(regex);
 
 			InputStream stream;
 			if(params.size() > 0){
@@ -77,31 +75,15 @@ public class Main{
 				stream = System.in;
 			}
 
-			LexicalAnalyzer<SCobol.LexicalUnit> analyzer;
-
 			String mode = null;
 			if(options.containsKey("--mode") && !options.get("--mode").isEmpty()){
 				mode = options.get("--mode").get(0);
 			}
 
-			if(mode != null){
-				if(mode.equals("regex")){
-					Scanner scanner = new Scanner(stream);
-					analyzer = new LexicalAnalyzer2<SCobol.LexicalUnit>(scanner, units, pattern, SCobol.SEP_L);
-				}
-				else if(mode.equals("map")){
-					analyzer = new LexicalAnalyzer1<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.TRANSITION, SCobol.TOKEN_M, SCobol.SEP_L, SCobol.DFAState.INIT);
-				}
-				else if(mode.equals("class")){
-					analyzer = new LexicalAnalyzer3<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.STATE, SCobol.SEP_L, SCobol.DFAState.INIT);
-				}
-				else{
-					throw new Exception("--mode : " + mode + ", no such mode [regex|map|class]");
-				}
-			}
-			else{
-				analyzer = new LexicalAnalyzer3<SCobol.LexicalUnit, SCobol.DFAState>(stream, SCobol.STATE, SCobol.SEP_L, SCobol.DFAState.INIT);
-			}
+			LexicalAnalyzerFactoryr<SCobol.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
+			LexicalAnalyzer<SCobol.LexicalUnit> analyzer = factory.get(mode);
+
+			if(analyzer == null) throw new Exception("--mode : " + mode + ", no such mode [regex|map|class]");
 
 			Map<String, String> variables = new TreeMap<String, String>();
 			Map<String, String> labels = new TreeMap<String, String>();
