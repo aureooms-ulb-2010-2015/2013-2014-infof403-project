@@ -66,9 +66,6 @@ public class Main{
 
 			String regex = LexicalRegex.build(it, SCobol.PATTERNS);
 
-			System.out.println(units);
-			System.out.println(regex);
-
 			Pattern pattern = Pattern.compile(regex);
 
 			InputStream stream;
