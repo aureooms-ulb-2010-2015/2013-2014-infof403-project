@@ -17,9 +17,6 @@ import java.io.FileNotFoundException;
 import cs.lang.SCobol;
 import cs.lang.LexicalRegex;
 import cs.lang.LexicalAnalyzer;
-import cs.lang.LexicalAnalyzer1;
-import cs.lang.LexicalAnalyzer2;
-import cs.lang.LexicalAnalyzer3;
 import cs.lang.LexicalToken;
 
 import cs.lang.LexicalAnalyzerFactory;
