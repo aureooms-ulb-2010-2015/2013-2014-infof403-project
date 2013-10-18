@@ -25,6 +25,8 @@ import cs.lang.LexicalToken;
 import cs.lang.LexicalAnalyzerFactory;
 import cs.lang.SCobolLexicalAnalyzerFactory;
 
+import cs.lang.SCobolParser;
+
 import lib.Pinput;
 
 /**
@@ -36,19 +38,6 @@ import lib.Pinput;
 
 
 public class Main{
-
-	public enum LocalState{
-		NONE,
-		IDENTIFIER,
-		PROCEDURE,
-		DATA
-	}
-
-	public enum State{
-		HEADER,
-		VARIABLES,
-		LABELS
-	}
 	
 	public static void main(String[] args){
 
@@ -80,13 +69,10 @@ public class Main{
 
 			if(analyzer == null) throw new Exception("--mode : " + mode + ", no such mode [regex|map|class]");
 
+
+			SCobolParser parser = new SCobolParser();
 			Map<String, String> variables = new TreeMap<String, String>();
 			Map<String, String> labels = new TreeMap<String, String>();
-
-			State state = State.HEADER;
-			LocalState localState = LocalState.NONE;
-			String variable = "";
-			String label = "";
 
 			while(true){
 				LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
@@ -96,50 +82,12 @@ public class Main{
 					System.out.printf("ERROR : BAD_TOKEN '%s' LINE %d COL %d\n", token.getValue(), analyzer.getLine(), analyzer.getCol());
 					break;
 				}
-
-				System.out.printf("token : %-42s    lexical unit : %-15s\n",token.getValue().replace("\n","\\n").replace("\t","\\t"), token.getId());
-
-				if(token.getValue().equals("data")){
-					localState = LocalState.DATA;
-					continue;
-				}
-				else if(token.getValue().equals("procedure")){
-					localState = LocalState.PROCEDURE;
-					continue;
-				}
-				else if(state == State.VARIABLES && token.getId() == SCobol.LexicalUnit.IDENTIFIER){
-					localState = LocalState.IDENTIFIER;
-					variable = token.getValue();
-					continue;
-				}
-				else if(state == State.LABELS && token.getId() == SCobol.LexicalUnit.IDENTIFIER){
-					localState = LocalState.IDENTIFIER;
-					label = token.getValue();
-					continue;
-				}
-
-				if(localState == LocalState.DATA && token.getValue().equals("division")){
-					state = State.VARIABLES;
-				}
-				else if(localState == LocalState.PROCEDURE && token.getValue().equals("division")){
-					state = State.LABELS;
-				}
-
-				if(state == State.VARIABLES && localState == LocalState.IDENTIFIER){
-					if(token.getId() == SCobol.LexicalUnit.IMAGE)
-						variables.put(variable, token.getValue());
-					localState = LocalState.NONE;
-				}
-
-				if(state == State.LABELS && localState == LocalState.IDENTIFIER){
-					if(token.getId() != SCobol.LexicalUnit.SECTION_KEYWORD){
-						if(!variables.containsKey(label) && !labels.containsKey(label))
-							labels.put(label, String.valueOf(analyzer.getLine()));
-					}
-					localState = LocalState.NONE;
+				else{
+					String token_repr = token.getValue().replace("\n","\\n").replace("\t","\\t");
+					System.out.printf("token : %-42s    lexical unit : %-15s\n", token_repr, token.getId());
+					parser.feed(token, variables, labels, analyzer.getLine());
 				}
 			}
-
 
 			stream.close();
 

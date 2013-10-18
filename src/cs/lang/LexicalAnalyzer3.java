@@ -52,7 +52,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 			c = streamBuffer.poll();
 			if(c == null){
 				d = stream.read();
-				if(d == -1) return null;
+				if(d == -1) return endToken(null);
 				c = (char)d;
 				++cursor;
 			}
@@ -71,38 +71,42 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				}
 			}
 			else{
-
-
-				if(last == null && state.get(current).token() != null){
-					last = current;
-					col = cursor;
-				}
-
-				if(last != null){
-					for(int i = 0; i < buffer[1].length(); ++i){
-						streamBuffer.push(buffer[1].charAt(i));
-					}
-					streamBuffer.push(c);
-				}
-				else{
-					buffer[0] += c;
-					last = current;
-				}
-
-				for(T sep : sep_l){
-					if(state.get(last).token() == sep){
-						++line;
-						cursor = 0;
-						break;
-					}
-				}
-
-				if(state.get(last).token() == null) col = cursor;
-				LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
-				buffer[0] = buffer[1] = "";
-				return token;
+				return endToken(c);
 			}
 		}
+	}
+
+	private LexicalToken<T> endToken(Character c){
+		if(buffer[0].isEmpty() && c == null) return null;
+
+		if(last == null && state.get(current).token() != null){
+			last = current;
+			col = cursor;
+		}
+
+		if(last != null){
+			for(int i = 0; i < buffer[1].length(); ++i){
+				streamBuffer.push(buffer[1].charAt(i));
+			}
+			streamBuffer.push(c);
+		}
+		else{
+			buffer[0] += c;
+			last = current;
+		}
+
+		for(T sep : sep_l){
+			if(state.get(last).token() == sep){
+				++line;
+				cursor = 0;
+				break;
+			}
+		}
+
+		if(state.get(last).token() == null) col = cursor;
+		LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
+		buffer[0] = buffer[1] = "";
+		return token;
 	}
 
 	public int getLine(){
