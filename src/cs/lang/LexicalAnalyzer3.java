@@ -68,7 +68,6 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 					buffer[0] += buffer[1] + c;
 					buffer[1] = "";
 					last = next;
-					col = cursor;
 				}
 			}
 			else{
@@ -76,6 +75,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 				if(last == null && state.get(current).token() != null){
 					last = current;
+					col = cursor;
 				}
 
 				if(last != null){
@@ -92,11 +92,12 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				for(T sep : sep_l){
 					if(state.get(last).token() == sep){
 						++line;
-						cursor = 1;
+						cursor = 0;
 						break;
 					}
 				}
 
+				if(state.get(last).token() == null) col = cursor;
 				LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
 				buffer[0] = buffer[1] = "";
 				return token;

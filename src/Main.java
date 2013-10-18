@@ -118,7 +118,7 @@ public class Main{
 				LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
 				if(token == null) break;
 				else if(token.getId() == SCobol.LexicalUnit.WHITE_SPACE) continue;
-				else if(token.getId() == null){
+				else if(token.getId() == SCobol.LexicalUnit.BAD_TOKEN || token.getId() == null){
 					System.out.printf("ERROR : BAD_TOKEN '%s' LINE %d COL %d\n", token.getValue(), analyzer.getLine(), analyzer.getCol());
 					break;
 				}
