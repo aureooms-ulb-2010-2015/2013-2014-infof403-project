@@ -1,7 +1,5 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -12,8 +10,6 @@ import java.util.TreeMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -26,6 +22,7 @@ import cs.lang.LexicalAnalyzer2;
 import cs.lang.LexicalAnalyzer3;
 import cs.lang.LexicalToken;
 
+import cs.lang.LexicalAnalyzerFactory;
 import cs.lang.SCobolLexicalAnalyzerFactory;
 
 import lib.Pinput;
@@ -52,8 +49,6 @@ public class Main{
 		VARIABLES,
 		LABELS
 	}
-
-	private static LexicalAnalyzer<SCobol.LexicalUnit>
 	
 	public static void main(String[] args){
 
@@ -80,8 +75,8 @@ public class Main{
 				mode = options.get("--mode").get(0);
 			}
 
-			LexicalAnalyzerFactoryr<SCobol.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
-			LexicalAnalyzer<SCobol.LexicalUnit> analyzer = factory.get(mode);
+			LexicalAnalyzerFactory<SCobol.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
+			LexicalAnalyzer<SCobol.LexicalUnit> analyzer = factory.get(mode, stream);
 
 			if(analyzer == null) throw new Exception("--mode : " + mode + ", no such mode [regex|map|class]");
 
