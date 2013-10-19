@@ -14,15 +14,14 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import cs.lang.SCobol;
-import cs.lang.LexicalRegex;
+import cs.lang.scobol.Language;
 import cs.lang.LexicalAnalyzer;
 import cs.lang.LexicalToken;
 
 import cs.lang.LexicalAnalyzerFactory;
-import cs.lang.SCobolLexicalAnalyzerFactory;
+import cs.lang.scobol.SCobolLexicalAnalyzerFactory;
 
-import cs.lang.SCobolParser;
+import cs.lang.scobol.Parser;
 
 import lib.Pinput;
 
@@ -61,21 +60,21 @@ public class Main{
 				mode = options.get("--mode").get(0);
 			}
 
-			LexicalAnalyzerFactory<SCobol.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
-			LexicalAnalyzer<SCobol.LexicalUnit> analyzer = factory.get(mode, stream);
+			LexicalAnalyzerFactory<Language.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
+			LexicalAnalyzer<Language.LexicalUnit> analyzer = factory.get(mode, stream);
 
 			if(analyzer == null) throw new Exception("--mode : " + mode + ", no such mode [regex|map|class]");
 
 
-			SCobolParser parser = new SCobolParser();
+			Parser parser = new Parser();
 			Map<String, String> variables = new TreeMap<String, String>();
 			Map<String, String> labels = new TreeMap<String, String>();
 
 			while(true){
-				LexicalToken<SCobol.LexicalUnit> token = analyzer.nextToken();
+				LexicalToken<Language.LexicalUnit> token = analyzer.nextToken();
 				if(token == null) break;
-				else if(token.getId() == SCobol.LexicalUnit.WHITE_SPACE) continue;
-				else if(token.getId() == SCobol.LexicalUnit.BAD_TOKEN || token.getId() == null){
+				else if(token.getId() == Language.LexicalUnit.WHITE_SPACE) continue;
+				else if(token.getId() == Language.LexicalUnit.BAD_TOKEN || token.getId() == null){
 					System.out.printf("ERROR : BAD_TOKEN '%s' LINE %d COL %d\n", token.getValue(), analyzer.getLine(), analyzer.getCol());
 					break;
 				}
