@@ -6,8 +6,24 @@ import java.util.Set;
 
 import java.util.ArrayList;
 
+/**
+ * Provides functions to parse command line arguments.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ */
 
 public class Pinput {
+	/**
+	 * Splits an array of String into parameters, flags and optional parameters.
+	 *
+	 * @param args (input)
+	 * @param params parameters (output)
+	 * @param options map of optional parameters (output)
+	 * @param flags set of flags (output)
+	 * @param flagSet set of available flags (input)
+	 *
+	 */
 	public static void parse (String[] args, List<String> params, Map<String, List<String>> options, Set<String> flags, Set<String> flagSet){
 		
 		String optionalParameterKey = "";

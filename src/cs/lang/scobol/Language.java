@@ -105,7 +105,7 @@ public class Language{
 	/**
 	 * Used with LexicalAnalyzer2.
 	 *
-	 * @see LexicalAnalyzer2
+	 * @see cs.lang.LexicalAnalyzer2
 	 */
 
 	public static final Map<LexicalUnit,String> PATTERNS = new HashMap<LexicalUnit,String>() {
@@ -473,7 +473,7 @@ public class Language{
 	/**
 	 * Used with LexicalAnalyzer1 (incomplete).
 	 *
-	 * @see LexicalAnalyzer1
+	 * @see cs.lang.LexicalAnalyzer1
 	 *
 	 */
 
@@ -546,7 +546,7 @@ public class Language{
 	/**
 	 * Used with LexicalAnalyzer1 (incomplete).
 	 *
-	 * @see LexicalAnalyzer1
+	 * @see cs.lang.LexicalAnalyzer1
 	 *
 	 */
 
@@ -572,7 +572,7 @@ public class Language{
 	/**
 	 * Used with LexicalAnalyzer3.
 	 *
-	 * @see LexicalAnalyzer3
+	 * @see cs.lang.LexicalAnalyzer3
 	 */
 
 	public static final Map<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>> STATE

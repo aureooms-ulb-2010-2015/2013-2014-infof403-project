@@ -7,7 +7,8 @@ OUTPUT_NAME = dist/s_cobol_lexical_analysis.jar
 DOCDIR = doc/java
 SRC = src
 CLASS = class
-SOURCES = $(shell find $(SRC) | grep \\.java$$)
+DOCSOURCES = $(shell find $(SRC) | grep \\.java$$)
+SOURCES = $(shell find $(SRC) | grep \\.java$$ | grep -v package-info\\.java$$)
 CLASSES = $(patsubst $(SRC)/%,$(CLASS)/%,$(patsubst %.java,%.class,$(SOURCES)))
 MANIFEST = MANIFEST.MF
 
@@ -27,8 +28,8 @@ $(OUTPUT_NAME): $(CLASSES)
 $(CLASS)/%.class: $(SRC)/%.java
 	$(JC) $(JFLAGS) $(SOURCES) -d $(CLASS)
 
-doc: $(SOURCES)
-	javadoc $(SOURCES) -d $(DOCDIR)
+doc: $(DOCSOURCES)
+	javadoc $(DOCSOURCES) -d $(DOCDIR)
 
 clean:
 	$(RM) -r $(REQUIRED_DIRS)
