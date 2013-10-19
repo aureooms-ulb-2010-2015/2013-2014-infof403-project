@@ -1,5 +1,5 @@
 /**
- * lib includes utility tools.
+ * Provides utility tools.
  */
 package lib;
 
