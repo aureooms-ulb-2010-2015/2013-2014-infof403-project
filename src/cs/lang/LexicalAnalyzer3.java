@@ -59,6 +59,8 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 			S next = state.get(current).next(c);
 			if(next != null){
+				System.out.println("current:"+current);
+
 				current = next;
 				if(state.get(next).token() == null){
 					if(last != null) buffer[1] += c;
