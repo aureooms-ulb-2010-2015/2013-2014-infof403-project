@@ -10,7 +10,7 @@ public class  IMAGE_FOUR extends DFAState<Language.DFAState, Language.LexicalUni
 	public IMAGE_FOUR (){
 		super(null);
 		
-		transition.put('9', Language.DFAState.IMAGE_FIVE);
+		transition.put('(', Language.DFAState.IMAGE_FIVE);
 
 
 

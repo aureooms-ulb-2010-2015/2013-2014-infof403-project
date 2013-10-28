@@ -1,3 +1,4 @@
+
 package cs.lang.scobol.dfa;
 
 import cs.lang.scobol.Language;
@@ -11,6 +12,12 @@ public class IMAGE_TWO extends DFAState<Language.DFAState, Language.LexicalUnit,
 		super(null);
 
 
-		DFATools.fill(transition, Alphabet.NON_NULL_DIGIT, Language.DFAState.IMAGE_THREE);
+		DFATools.fill(transition, Alphabet.DIGIT, Language.DFAState.IMAGE_TWO);
+		transition.put(')', Language.DFAState.IMAGE_FINAL_ONE);
+
+		
+
+
+
 	}
 }

@@ -12,7 +12,7 @@ public class IMAGE_FINAL_ONE extends DFAState<Language.DFAState, Language.Lexica
 		super(Language.LexicalUnit.IMAGE);
 
 
-		transition.put('v', Language.DFAState.IMAGE_FOUR);
+		transition.put('v', Language.DFAState.IMAGE_THREE);
 
 	}
 }
