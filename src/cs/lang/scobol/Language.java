@@ -236,13 +236,14 @@ public class Language{
 		GREATER_OR_EQUALS,
 		MINUS_SIGN,
 		PLUS_SIGN,
+		IMAGE_ONE,
 		IMAGE_TWO,
 		IMAGE_THREE,
 		IMAGE_FINAL_ONE,
 		IMAGE_FOUR,
 		IMAGE_FIVE,
 		IMAGE_SIX,
-		IMAGE_ONE,
+		IMAGE_SEVEN,
 		IMAGE_FINAL_TWO,
 
 
@@ -627,11 +628,12 @@ public class Language{
 			put(DFAState.MINUS_SIGN, new MINUS_SIGN());
 			put(DFAState.IMAGE_ONE, new IMAGE_ONE());
 			put(DFAState.IMAGE_TWO, new IMAGE_TWO());
-			put(DFAState.IMAGE_FINAL_ONE, new IMAGE_FINAL_ONE());
 			put(DFAState.IMAGE_THREE, new IMAGE_THREE());
+			put(DFAState.IMAGE_FINAL_ONE, new IMAGE_FINAL_ONE());
 			put(DFAState.IMAGE_FOUR, new IMAGE_FOUR());
 			put(DFAState.IMAGE_FIVE, new IMAGE_FIVE());
 			put(DFAState.IMAGE_SIX, new IMAGE_SIX());
+			put(DFAState.IMAGE_SEVEN, new IMAGE_SEVEN());
 			put(DFAState.IMAGE_FINAL_TWO, new IMAGE_FINAL_TWO());
 
 			

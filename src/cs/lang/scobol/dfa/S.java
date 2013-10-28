@@ -13,7 +13,7 @@ public class S extends DFAState<Language.DFAState, Language.LexicalUnit, Charact
 		transition.put('o', Language.DFAState.SO);
 		transition.put('t', Language.DFAState.ST);
 		transition.put('u', Language.DFAState.SU);
-		transition.put('9', Language.DFAState.IDENTIFIER_1);
+		transition.put('9', Language.DFAState.IMAGE_ONE);
 
 		DFATools.fill(transition, Alphabet.IDENTIFIER, Language.DFAState.IDENTIFIER_1);
 	}

@@ -1,5 +1,3 @@
-
-
 package cs.lang.scobol.dfa;
 
 import cs.lang.scobol.Language;
@@ -11,8 +9,6 @@ import cs.lang.DFATools;
 public class IMAGE_SIX extends DFAState<Language.DFAState, Language.LexicalUnit, Character>{
 	public IMAGE_SIX(){
 		super(null);
-
-		transition.put(')', Language.DFAState.IMAGE_FINAL_TWO);
-		DFATools.fill(transition, Alphabet.DIGIT, Language.DFAState.IMAGE_SIX);
+		DFATools.fill(transition, Alphabet.NON_NULL_DIGIT, Language.DFAState.IMAGE_SEVEN);
 	}
 }

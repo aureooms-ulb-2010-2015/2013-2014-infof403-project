@@ -9,8 +9,5 @@ import cs.lang.DFATools;
 public class IMAGE_FINAL_TWO extends DFAState<Language.DFAState, Language.LexicalUnit, Character>{
 	public IMAGE_FINAL_TWO(){
 		super(Language.LexicalUnit.IMAGE);
-
-
-
 	}
 }

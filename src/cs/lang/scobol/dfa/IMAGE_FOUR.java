@@ -9,10 +9,6 @@ import cs.lang.DFATools;
 public class  IMAGE_FOUR extends DFAState<Language.DFAState, Language.LexicalUnit, Character>{
 	public IMAGE_FOUR (){
 		super(null);
-		
-		transition.put('(', Language.DFAState.IMAGE_FIVE);
-
-
-
+		transition.put('9', Language.DFAState.IMAGE_FIVE);
 	}
 }

@@ -52,13 +52,19 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 	public LexicalToken<T> nextToken() throws IOException{
 		Character c = null;
+
 		if(beginOfLine){
 			c = runDFA(stateB, initB);
+			if(last != null || stateB.get(current).token() != null) return endToken(stateB, c);
 		}
-		if(last == null && state.get(current).token() == null){
-			c = runDFA(state, init);
+
+		for(int i = 0; i < buffer[1].length(); ++i){
+			streamBuffer.addLast(buffer[1].charAt(i));
 		}
-		return endToken(c);
+		if(c != null) streamBuffer.addLast(c);
+
+		c = runDFA(state, init);
+		return endToken(state, c);
 	}
 
 	private Character runDFA(Map<S, DFAState<S, T, Character>> state, S init) throws IOException{
@@ -68,10 +74,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 		int d = -1;
 		while(true){
 			c = streamBuffer.poll();
-			
 			if(c == null){
-				
-
 				d = stream.read();
 				if(d == -1) return null;
 				c = (char)d;
@@ -98,7 +101,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 		}
 	}
 
-	private LexicalToken<T> endToken(Character c){
+	private LexicalToken<T> endToken(Map<S, DFAState<S, T, Character>> state, Character c){
 		if(buffer[0].isEmpty() && c == null) return null;
 
 		if(last == null && state.get(current).token() != null){
@@ -117,24 +120,26 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 			last = current;
 		}
 
-		beginOfLine = false;
+		boolean newBeginOfLine = false;
 
 		for(T sep : sep_l){
 			if(state.get(last).token() == sep){
 				++line;
 				cursor = 0;
-				beginOfLine = true;
+				newBeginOfLine = true;
 				break;
 			}
 		}
-		if(!beginOfLine){
+		if(!newBeginOfLine && beginOfLine){
 			for(T skip : skip_l){
 				if(state.get(last).token() == skip){
-					beginOfLine = true;
+					newBeginOfLine = true;
 					break;
 				}
 			}
 		}
+
+		beginOfLine = newBeginOfLine;
 
 		if(state.get(last).token() == null) col = cursor;
 		LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);

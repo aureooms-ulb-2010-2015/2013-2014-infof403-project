@@ -1,41 +1,41 @@
-\section{Regular Expressions}
+\subsection{Regular Expressions}
 
-\subsection{Identifier}
+\subsubsection{Identifier}
 
 \begin{verbatim}
 [A-Za-z][0-9A-Za-z_\-]{0,15}
 \end{verbatim}
 
 
-\subsection{Image}
+\subsubsection{Image}
 
 \begin{verbatim}
 s?9(\([1-9][0-9]*\))?(v9(\([1-9][0-9]*\))?)?
 \end{verbatim}
 
 
-\subsection{Integer}
+\subsubsection{Integer}
 
 \begin{verbatim}
 (\+|-)?([1-9][0-9]*)|(0)
 \end{verbatim}
 
 
-\subsection{Real}
+\subsubsection{Real}
 
 \begin{verbatim}
 (integer)(\.[0-9]+)
 \end{verbatim}
 
 
-\subsection{String}
+\subsubsection{String}
 
 \begin{verbatim}
 '[0-9A-Za-z\+\-\*/:!\? ]*'
 \end{verbatim}
 
 
-\subsection{Comment}
+\subsubsection{Comment}
 
 \begin{verbatim}
 (\*|/).*\.\n;

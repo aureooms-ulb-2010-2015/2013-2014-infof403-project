@@ -10,14 +10,6 @@ import cs.lang.DFATools;
 public class IMAGE_TWO extends DFAState<Language.DFAState, Language.LexicalUnit, Character>{
 	public IMAGE_TWO(){
 		super(null);
-
-
-		DFATools.fill(transition, Alphabet.DIGIT, Language.DFAState.IMAGE_TWO);
-		transition.put(')', Language.DFAState.IMAGE_FINAL_ONE);
-
-		
-
-
-
+		DFATools.fill(transition, Alphabet.NON_NULL_DIGIT, Language.DFAState.IMAGE_THREE);
 	}
 }
