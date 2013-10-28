@@ -50,16 +50,18 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 		int d = -1;
 		while(true){
 			c = streamBuffer.poll();
+			
 			if(c == null){
+				
+
 				d = stream.read();
 				if(d == -1) return endToken(null);
 				c = (char)d;
-				++cursor;
+				cursor++;
 			}
 
 			S next = state.get(current).next(c);
 			if(next != null){
-				System.out.println("current:"+current);
 
 				current = next;
 				if(state.get(next).token() == null){
@@ -88,9 +90,9 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 		if(last != null){
 			for(int i = 0; i < buffer[1].length(); ++i){
-				streamBuffer.push(buffer[1].charAt(i));
+				streamBuffer.addLast(buffer[1].charAt(i));
 			}
-			streamBuffer.push(c);
+			streamBuffer.addLast(c);
 		}
 		else{
 			buffer[0] += c;
