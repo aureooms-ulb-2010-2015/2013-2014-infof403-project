@@ -13,7 +13,7 @@ import java.io.IOException;
 import cs.lang.LexicalToken;
 
 /**
- * Implementation of LexicalAnalyzer using HashMaps.
+ * Implementation of LexicalAnalyzer using Maps.
  *
  * @author  Chaste Gauvain
  * @author  Ooms Aurélien

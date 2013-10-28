@@ -24,26 +24,44 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 	private InputStream stream;
 	private Map<S, DFAState<S, T, Character>> state;
+	private Map<S, DFAState<S, T, Character>> stateB;
 	private List<T> sep_l;
+	private List<T> skip_l;
 
 	private int cursor = 0;
 	private int line = 1;
 	private int col = 1;
+	private boolean beginOfLine = true;
 
 	private S init;
+	private S initB;
 	private S last;
 	private S current;
 	private String[] buffer = {"", ""};
 	private LinkedList<Character> streamBuffer = new LinkedList<Character>();
 
-	public LexicalAnalyzer3(InputStream stream, Map<S, DFAState<S, T, Character>> state, List<T> sep_l, S init){
+	public LexicalAnalyzer3(InputStream stream, Map<S, DFAState<S, T, Character>> state, Map<S, DFAState<S, T, Character>> stateB, List<T> sep_l, List<T> skip_l, S init, S initB){
 		this.stream = stream;
 		this.state = state;
+		this.stateB = stateB;
 		this.sep_l = sep_l;
+		this.skip_l = skip_l;
 		this.init = init;
+		this.initB = initB;
 	}
 
 	public LexicalToken<T> nextToken() throws IOException{
+		Character c = null;
+		if(beginOfLine){
+			c = runDFA(stateB, initB);
+		}
+		if(last == null && state.get(current).token() == null){
+			c = runDFA(state, init);
+		}
+		return endToken(c);
+	}
+
+	private Character runDFA(Map<S, DFAState<S, T, Character>> state, S init) throws IOException{
 		last = null;
 		current = init;
 		Character c;
@@ -52,7 +70,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 			c = streamBuffer.poll();
 			if(c == null){
 				d = stream.read();
-				if(d == -1) return endToken(null);
+				if(d == -1) return null;
 				c = (char)d;
 				++cursor;
 			}
@@ -71,7 +89,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 				}
 			}
 			else{
-				return endToken(c);
+				return c;
 			}
 		}
 	}
@@ -86,20 +104,31 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 		if(last != null){
 			for(int i = 0; i < buffer[1].length(); ++i){
-				streamBuffer.push(buffer[1].charAt(i));
+				streamBuffer.addLast(buffer[1].charAt(i));
 			}
-			streamBuffer.push(c);
+			streamBuffer.addLast(c);
 		}
 		else{
 			buffer[0] += c;
 			last = current;
 		}
 
+		beginOfLine = false;
+
 		for(T sep : sep_l){
 			if(state.get(last).token() == sep){
 				++line;
 				cursor = 0;
+				beginOfLine = true;
 				break;
+			}
+		}
+		if(!beginOfLine){
+			for(T skip : skip_l){
+				if(state.get(last).token() == skip){
+					beginOfLine = true;
+					break;
+				}
 			}
 		}
 

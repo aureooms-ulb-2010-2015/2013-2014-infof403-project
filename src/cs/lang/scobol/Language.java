@@ -66,6 +66,7 @@ public class Language{
 		ACCEPT_KEYWORD,
 		DISPLAY_KEYWORD,
 
+		END_OF_INSTRUCTION,
 		ASTERISK,
 		SLASH,
 		DOT,
@@ -99,6 +100,16 @@ public class Language{
 		{
 			add(LexicalUnit.NEW_LINE);
 			add(LexicalUnit.COMMENT);
+			add(LexicalUnit.END_OF_INSTRUCTION);
+		}
+	};
+
+	/**
+	 * List of tokens not containing any data.
+	 */
+	public static final List<LexicalUnit> SKIP_L = new ArrayList<LexicalUnit>(){
+		{
+			add(LexicalUnit.WHITE_SPACE);
 		}
 	};
 
@@ -155,6 +166,7 @@ public class Language{
 			put(LexicalUnit.ACCEPT_KEYWORD, "accept");
 			put(LexicalUnit.DISPLAY_KEYWORD, "display");
 
+			put(LexicalUnit.END_OF_INSTRUCTION, "\\.\\n");
 			put(LexicalUnit.ASTERISK, "\\*");
 			put(LexicalUnit.SLASH, "/");
 			put(LexicalUnit.DOT, "\\.");
@@ -187,6 +199,8 @@ public class Language{
 
 	public enum DFAState {
 		INIT,
+		INITB,
+		COMMENT_BEGIN,
 		COMMENT_END,
 		COMMENT_DOT,
 		COMMENT_INSIDE,
@@ -239,6 +253,7 @@ public class Language{
 		DOT,
 		LEFT_PARENTHESIS,
 		RIGHT_PARENTHESIS,
+		END_OF_INSTRUCTION,
 
 		A,
 		AC,
@@ -579,9 +594,6 @@ public class Language{
 	= new HashMap<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>>(){
 		{
 			put(DFAState.INIT, new INIT());
-			put(DFAState.COMMENT_INSIDE, new COMMENT_INSIDE());
-			put(DFAState.COMMENT_DOT, new COMMENT_DOT());
-			put(DFAState.COMMENT_END, new COMMENT_END());
 			put(DFAState.INTEGER_FINAL_1, new INTEGER_FINAL_1());
 			put(DFAState.INTEGER_FINAL_2, new INTEGER_FINAL_2());
 			put(DFAState.REAL_INSIDE, new REAL_INSIDE());
@@ -635,6 +647,7 @@ public class Language{
 			put(DFAState.DOT, new DOT());
 			put(DFAState.LEFT_PARENTHESIS, new LEFT_PARENTHESIS());
 			put(DFAState.RIGHT_PARENTHESIS, new RIGHT_PARENTHESIS());
+			put(DFAState.END_OF_INSTRUCTION, new END_OF_INSTRUCTION());
 
 
 			put(DFAState.A, new A());
@@ -866,6 +879,23 @@ public class Language{
 			put(DFAState.WORKING_STORAG, new WORKING_STORAG());
 			put(DFAState.WORKING_STORAGE, new WORKING_STORAGE());
 
+		}
+	};
+
+	/**
+	 * Used with LexicalAnalyzer3.
+	 *
+	 * @see cs.lang.LexicalAnalyzer3
+	 */
+
+	public static final Map<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>> STATEB
+	= new HashMap<DFAState, cs.lang.DFAState<DFAState, LexicalUnit, Character>>(){
+		{
+			put(DFAState.INITB, new INITB());
+			put(DFAState.COMMENT_BEGIN, new COMMENT_INSIDE());
+			put(DFAState.COMMENT_INSIDE, new COMMENT_INSIDE());
+			put(DFAState.COMMENT_DOT, new COMMENT_DOT());
+			put(DFAState.COMMENT_END, new COMMENT_END());
 		}
 	};
 }

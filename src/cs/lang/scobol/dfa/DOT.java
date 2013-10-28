@@ -9,5 +9,6 @@ import cs.lang.DFATools;
 public class DOT extends DFAState<Language.DFAState, Language.LexicalUnit, Character>{
 	public DOT(){
 		super(Language.LexicalUnit.DOT);
+		transition.put('\n', Language.DFAState.END_OF_INSTRUCTION);
 	}
 }

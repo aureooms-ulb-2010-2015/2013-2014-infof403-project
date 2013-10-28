@@ -7,9 +7,4 @@ public class SLASH extends DFAState<Language.DFAState, Language.LexicalUnit, Cha
 	public SLASH(){
 		super(Language.LexicalUnit.SLASH);
 	}
-
-	public Language.DFAState next(Character l){
-		if(l == '.') return Language.DFAState.COMMENT_DOT;
-		else return Language.DFAState.COMMENT_INSIDE;
-	}
 }

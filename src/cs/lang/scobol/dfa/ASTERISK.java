@@ -7,9 +7,4 @@ public class ASTERISK extends DFAState<Language.DFAState, Language.LexicalUnit, 
 	public ASTERISK(){
 		super(Language.LexicalUnit.ASTERISK);
 	}
-
-	public Language.DFAState next(Character l){
-		if(l == '.') return Language.DFAState.COMMENT_DOT;
-		else return Language.DFAState.COMMENT_INSIDE;
-	}
 }

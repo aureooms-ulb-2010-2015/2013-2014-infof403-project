@@ -30,6 +30,7 @@ public class Parser{
 	private LocalState localState = LocalState.NONE;
 	private String variable = "";
 	private String label = "";
+	private int currentLine = 1;
 
 	/**
 	 * Feeds the var and label tables with tokens.
@@ -54,6 +55,7 @@ public class Parser{
 			variable = token.getValue();
 		}
 		else if(state == State.LABELS && token.getId() == Language.LexicalUnit.IDENTIFIER){
+			currentLine = line;
 			localState = LocalState.IDENTIFIER;
 			label = token.getValue();
 		}
@@ -75,7 +77,7 @@ public class Parser{
 			if(state == State.LABELS && localState == LocalState.IDENTIFIER){
 				if(token.getId() != Language.LexicalUnit.SECTION_KEYWORD){
 					if(!variables.containsKey(label) && !labels.containsKey(label))
-						labels.put(label, String.valueOf(line));
+						labels.put(label, String.valueOf(currentLine));
 				}
 				localState = LocalState.NONE;
 			}

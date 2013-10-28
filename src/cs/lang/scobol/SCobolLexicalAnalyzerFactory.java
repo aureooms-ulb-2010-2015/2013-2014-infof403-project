@@ -47,14 +47,14 @@ public class SCobolLexicalAnalyzerFactory implements LexicalAnalyzerFactory<Lang
 				return new LexicalAnalyzer1<Language.LexicalUnit, Language.DFAState>(stream, Language.TRANSITION, Language.TOKEN_M, Language.SEP_L, Language.DFAState.INIT);
 			}
 			else if(id.equals("class")){
-				return new LexicalAnalyzer3<Language.LexicalUnit, Language.DFAState>(stream, Language.STATE, Language.SEP_L, Language.DFAState.INIT);
+				return new LexicalAnalyzer3<Language.LexicalUnit, Language.DFAState>(stream, Language.STATE, Language.STATEB, Language.SEP_L, Language.SKIP_L, Language.DFAState.INIT, Language.DFAState.INITB);
 			}
 			else{
 				return null;
 			}
 		}
 		else{
-			return new LexicalAnalyzer3<Language.LexicalUnit, Language.DFAState>(stream, Language.STATE, Language.SEP_L, Language.DFAState.INIT);
+			return new LexicalAnalyzer3<Language.LexicalUnit, Language.DFAState>(stream, Language.STATE, Language.STATEB, Language.SEP_L, Language.SKIP_L, Language.DFAState.INIT, Language.DFAState.INITB);
 		}
 	}
 }
