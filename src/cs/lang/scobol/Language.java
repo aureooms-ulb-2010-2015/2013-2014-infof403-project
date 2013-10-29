@@ -76,18 +76,19 @@ public class Language{
 		NEW_LINE,
 
 		EQUALS_SIGN,
-		LOWER_SIGN,
 		LOWER_OR_EQUALS,
-		GREATER_SIGN,
+		LOWER_SIGN,
 		GREATER_OR_EQUALS,
-		MINUS_SIGN,
-		PLUS_SIGN,
+		GREATER_SIGN,
 
-		IMAGE,
 		REAL,
 		INTEGER,
 		STRING,
 		IDENTIFIER,
+		IMAGE,
+		
+		PLUS_SIGN,
+		MINUS_SIGN,
 
 		WHITE_SPACE,
 		BAD_TOKEN
@@ -185,7 +186,7 @@ public class Language{
 
 			put(LexicalUnit.IDENTIFIER, "[A-Za-z][0-9A-Za-z_\\-]{0,15}");
 			put(LexicalUnit.IMAGE, "s?9(?:\\([1-9][0-9]*\\))?(?:v9(?:\\([1-9][0-9]*\\))?)?");
-			put(LexicalUnit.INTEGER, "(?:\\+|-)?(?:[1-9][0-9]*)|(?:0)");
+			put(LexicalUnit.INTEGER, "(?:\\+|-)?(?:(?:[1-9][0-9]*)|(?:0))");
 			put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:(?:[1-9][0-9]*)|(?:0))(?:\\.[0-9]+)");
 			put(LexicalUnit.STRING, "'[0-9A-Za-z\\+\\-\\*/:!\\? ]*'");
 

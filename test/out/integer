@@ -2,8 +2,7 @@ token : 0                                             lexical unit : INTEGER
 token : \n                                            lexical unit : NEW_LINE       
 token : 1                                             lexical unit : INTEGER        
 token : \n                                            lexical unit : NEW_LINE       
-token : 9                                             lexical unit : INTEGER        
-token : 0                                             lexical unit : INTEGER        
+token : 90                                            lexical unit : INTEGER        
 token : \n                                            lexical unit : NEW_LINE       
 token : 9                                             lexical unit : INTEGER        
 token : \n                                            lexical unit : NEW_LINE       
