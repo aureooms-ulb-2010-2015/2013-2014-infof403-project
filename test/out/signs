@@ -1,0 +1,13 @@
+token : +                                             lexical unit : PLUS_SIGN      
+token : \n                                            lexical unit : NEW_LINE       
+token : -                                             lexical unit : MINUS_SIGN     
+token : \n                                            lexical unit : NEW_LINE       
+token : <                                             lexical unit : LOWER_SIGN     
+token : \n                                            lexical unit : NEW_LINE       
+token : <=                                            lexical unit : LOWER_OR_EQUALS
+token : \n                                            lexical unit : NEW_LINE       
+token : >=                                            lexical unit : GREATER_OR_EQUALS
+token : \n                                            lexical unit : NEW_LINE       
+token : >                                             lexical unit : GREATER_SIGN   
+variables
+labels

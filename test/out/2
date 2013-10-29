@@ -1,0 +1,12 @@
+token : accept                                        lexical unit : ACCEPT_KEYWORD 
+token : a                                             lexical unit : IDENTIFIER     
+token : .\n                                           lexical unit : END_OF_INSTRUCTION
+token : perform                                       lexical unit : PERFORM_KEYWORD
+token : find                                          lexical unit : IDENTIFIER     
+token : until                                         lexical unit : UNTIL_KEYWORD  
+token : b                                             lexical unit : IDENTIFIER     
+token : =                                             lexical unit : EQUALS_SIGN    
+token : 0                                             lexical unit : INTEGER        
+token : .\n                                           lexical unit : END_OF_INSTRUCTION
+variables
+labels
