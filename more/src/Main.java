@@ -42,7 +42,11 @@ public class Main{
 			List<String> params = new ArrayList<String>();
 			Map<String,List<String>> options = new HashMap<String,List<String>>();
 			Set<String> flags = new HashSet<String>();
-			Set<String> flagSet = new HashSet<String>();
+			Set<String> flagSet = new HashSet<String>(){
+				{
+					add("--comment");
+				}
+			};
 			Pinput.parse(args, params, options, flags, flagSet);
 
 
@@ -59,6 +63,8 @@ public class Main{
 			if(options.containsKey("--mode") && !options.get("--mode").isEmpty()){
 				mode = options.get("--mode").get(0);
 			}
+
+			boolean printComments = flags.contains("--comment");
 
 			LexicalAnalyzerFactory<Language.LexicalUnit> factory = new SCobolLexicalAnalyzerFactory();
 			LexicalAnalyzer<Language.LexicalUnit> analyzer = factory.get(mode, stream);
@@ -79,8 +85,10 @@ public class Main{
 					break;
 				}
 				else{
-					String token_repr = token.getValue().replace("\n","\\n").replace("\t","\\t");
-					System.out.printf("token : %-42s    lexical unit : %-15s\n", token_repr, token.getId());
+					if(printComments || token.getId() != Language.LexicalUnit.COMMENT){
+						String token_repr = token.getValue().replace("\n","\\n").replace("\t","\\t");
+						System.out.printf("token : %-42s    lexical unit : %-15s\n", token_repr, token.getId());
+					}
 					parser.feed(token, variables, labels, analyzer.getLine());
 				}
 			}
