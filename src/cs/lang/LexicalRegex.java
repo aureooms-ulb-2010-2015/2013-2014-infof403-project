@@ -27,9 +27,9 @@ public class LexicalRegex{
 
 		String regex = "";
 		if(units.hasNext()){
-			regex += "(" + patterns.get(units.next()) + ")";
+			regex += patterns.get(units.next());
 			while(units.hasNext()){
-				regex += "|" + "(" + patterns.get(units.next()) + ")";
+				regex += "|" + patterns.get(units.next());
 			}
 		}
 
