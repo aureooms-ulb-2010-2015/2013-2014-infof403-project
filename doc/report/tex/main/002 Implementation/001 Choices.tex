@@ -1,1 +1,24 @@
 \subsection{Choices}
+
+In order to maintain efficiency or to avoid ambiguity we have added a certain number of constraints on the S-COBOL language. Here is the exaustive list of our arbitrary choices and the reasons why we have made them.
+
+\subsubsection{Signed numbers vs arithmetic expressions}
+
+To avoid ambiguity an arithmetic expression will only be considered as one if a space is present between the operator and the operand. If no space can be found between the two, the token will be taken as an integer or a real.
+
+\subsubsection{Comments}
+
+Comments have to be on their own line. This way the / and * characters will not be seen as operators.
+
+\subsubsection{Images vs Identifier}
+
+We chose to make the parentheses in an image mandatory. This constraint can be made without loss of generality and ensure a more intuitive system:
+
+\begin{itemize}
+	\item Token 9 can be interpreted as an integer and is no longer cause of ambiguity.
+	\item Token s9 can be used as an identifier while the image representation s9(1) still exists.  
+	
+\end{itemize}
+
+
+
