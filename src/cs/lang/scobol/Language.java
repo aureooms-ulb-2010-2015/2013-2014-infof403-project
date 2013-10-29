@@ -189,7 +189,7 @@ public class Language{
 			put(LexicalUnit.REAL, "(?:\\+|\\-)?(?:(?:[1-9][0-9]*)|(?:0))(?:\\.[0-9]+)");
 			put(LexicalUnit.STRING, "'[0-9A-Za-z\\+\\-\\*/:!\\? ]*'");
 
-			put(LexicalUnit.COMMENT, "(?:\\*|/).*\\.\\n");
+			put(LexicalUnit.COMMENT, "^[ \\t]*(?:\\*|/).*\\.\\n");
 
 			put(LexicalUnit.WHITE_SPACE, "[ \\t]");
 			put(LexicalUnit.BAD_TOKEN, ".");

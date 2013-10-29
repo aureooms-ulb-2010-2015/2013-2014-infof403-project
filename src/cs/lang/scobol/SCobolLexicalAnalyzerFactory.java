@@ -39,7 +39,7 @@ public class SCobolLexicalAnalyzerFactory implements LexicalAnalyzerFactory<Lang
 				List<Language.LexicalUnit> units = Arrays.asList(Language.LexicalUnit.values());
 				Iterator<Language.LexicalUnit> it = units.iterator();
 				String regex = LexicalRegex.build(it, Language.PATTERNS);
-				Pattern pattern = Pattern.compile(regex);
+				Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 				Scanner scanner = new Scanner(stream);
 				return new LexicalAnalyzer2<Language.LexicalUnit>(scanner, units, pattern, Language.SEP_L);
 			}
