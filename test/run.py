@@ -22,7 +22,7 @@ def main():
 	for t in test:
 		for m in mode:
 			for c in comment:
-				print('[', format.format(str(i)), '/', n, ']', t, '--mode ', m, end = ' ')
+				print('[', format.format(str(i)), '/', n, ']', t, '--mode ', m, c['f'], end = ' ')
 				diff = subprocess.getoutput('bash -c \'diff <(java -jar dist/s_cobol_lexical_analysis.jar test/in/' + t + ' --mode ' + m + c['f'] +') test/' + c['r'] + '/' + t +'\'')
 				if(diff == ''):
 					print(OKGREEN + '✔' + ENDC)

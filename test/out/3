@@ -1,0 +1,14 @@
+token : a                                             lexical unit : IDENTIFIER     
+token : =                                             lexical unit : EQUALS_SIGN    
+token : b                                             lexical unit : IDENTIFIER     
+token : /                                             lexical unit : SLASH          
+token : c                                             lexical unit : IDENTIFIER     
+token : .\n                                           lexical unit : END_OF_INSTRUCTION
+token : a                                             lexical unit : IDENTIFIER     
+token : =                                             lexical unit : EQUALS_SIGN    
+token : b                                             lexical unit : IDENTIFIER     
+token : *                                             lexical unit : ASTERISK       
+token : c                                             lexical unit : IDENTIFIER     
+token : .\n                                           lexical unit : END_OF_INSTRUCTION
+variables
+labels
