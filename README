@@ -1,3 +1,4 @@
+# CONTENT
 
 
 doc: 
@@ -15,13 +16,16 @@ dist:
 	s_cobol_lexical_analyzer.jar : program
 
 more:
-	src   : source code of the program
-	tools : scripts to generate DFA classes
+	MANIFEST.MF : manifest for the program
+	src         : source code of the program
+	tools       : scripts to generate DFA classes
 
 README   : this file
 Makefile : the Makefile
 
 
+
+# USAGE
 
 
 clean it   : make clean

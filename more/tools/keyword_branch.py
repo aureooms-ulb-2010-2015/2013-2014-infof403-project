@@ -5,12 +5,12 @@ import fileinput
 def state_text(current, transition, next, token, max_l):
 	head = \
 """\
-package cs.lang.scobol;
+package cs.lang.scobol.dfa;
 
-import cs.lang.SCobol;
+import cs.lang.scobol.Language;
 import cs.lang.DFAState;
 
-import cs.lang.Alphabet;
+import cs.lang.scobol.Alphabet;
 import cs.lang.DFATools;
 
 public class """+current+""" extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
