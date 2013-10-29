@@ -1,0 +1,36 @@
+token : 9(3)                                          lexical unit : IMAGE          
+token : s9(141)                                       lexical unit : IMAGE          
+token : s9(5)                                         lexical unit : IMAGE          
+token : 9(9)v9(6)                                     lexical unit : IMAGE          
+token : s9(192)v9(6)                                  lexical unit : IMAGE          
+token : s9(5)v9(6)                                    lexical unit : IMAGE          
+token : \n                                            lexical unit : NEW_LINE       
+token : 9                                             lexical unit : INTEGER        
+token : 9                                             lexical unit : INTEGER        
+token : (                                             lexical unit : LEFT_PARENTHESIS
+token : 0                                             lexical unit : INTEGER        
+token : )                                             lexical unit : RIGHT_PARENTHESIS
+token : 9                                             lexical unit : INTEGER        
+token : v9                                            lexical unit : IDENTIFIER     
+token : s9v9                                          lexical unit : IDENTIFIER     
+token : s9                                            lexical unit : IDENTIFIER     
+token : s9                                            lexical unit : IDENTIFIER     
+token : (                                             lexical unit : LEFT_PARENTHESIS
+token : 0                                             lexical unit : INTEGER        
+token : )                                             lexical unit : RIGHT_PARENTHESIS
+token : v9                                            lexical unit : IDENTIFIER     
+token : (                                             lexical unit : LEFT_PARENTHESIS
+token : 0                                             lexical unit : INTEGER        
+token : )                                             lexical unit : RIGHT_PARENTHESIS
+token : 9                                             lexical unit : INTEGER        
+token : (                                             lexical unit : LEFT_PARENTHESIS
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 7                                             lexical unit : INTEGER        
+token : )                                             lexical unit : RIGHT_PARENTHESIS
+token : s9                                            lexical unit : IDENTIFIER     
+token : (                                             lexical unit : LEFT_PARENTHESIS
+token : 0                                             lexical unit : INTEGER        
+token : )                                             lexical unit : RIGHT_PARENTHESIS
+variables
+labels
