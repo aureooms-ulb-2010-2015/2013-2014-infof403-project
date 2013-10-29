@@ -8,9 +8,10 @@ doc:
 dfa: deterministic automaton
 
 test:
-	in  : input example files
-	out : expected output from the example files
-	run : test script
+	in      : input example files
+	out     : expected output for the file examples
+	comment : expected output for the file examples with the --comment flag 
+	run     : test script
 
 dist:
 	s_cobol_lexical_analyzer.jar : program
@@ -32,4 +33,4 @@ clean it   : make clean
 compile it : make
 doc it     : make doc
 test it    : python3 test/run
-run it     : java -jar dist/s_cobol_lexical_analyzer.jar [<filename>] [--mode class|regex|map]
+run it     : java -jar dist/s_cobol_lexical_analyzer.jar [<filename>] [--mode class|regex|map] [--comment]
