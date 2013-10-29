@@ -1,0 +1,5 @@
+token : 'iqhsdufghiefsaze!'                           lexical unit : STRING         
+token : \n                                            lexical unit : NEW_LINE       
+ERROR : BAD_TOKEN ''' LINE 2 COL 1
+variables
+labels
