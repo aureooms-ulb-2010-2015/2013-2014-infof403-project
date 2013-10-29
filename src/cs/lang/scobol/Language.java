@@ -585,7 +585,7 @@ public class Language{
 
 
 	/**
-	 * Used with LexicalAnalyzer3.
+	 * Used with LexicalAnalyzer3 to recognize all tokens except for comments.
 	 *
 	 * @see cs.lang.LexicalAnalyzer3
 	 */
@@ -883,7 +883,7 @@ public class Language{
 	};
 
 	/**
-	 * Used with LexicalAnalyzer3.
+	 * Used with LexicalAnalyzer3 to recognize comments standing alone on a line.
 	 *
 	 * @see cs.lang.LexicalAnalyzer3
 	 */
