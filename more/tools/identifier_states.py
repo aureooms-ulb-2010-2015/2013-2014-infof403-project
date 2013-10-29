@@ -5,12 +5,12 @@ import sys
 def state(i):
 	return \
 """\
-package cs.lang.scobol;
+package cs.lang.scobol.dfa;
 
-import cs.lang.SCobol;
+import cs.lang.scobol.Language;
 import cs.lang.DFAState;
 
-import cs.lang.Alphabet;
+import cs.lang.scobol.Alphabet;
 import cs.lang.DFATools;
 
 public class IDENTIFIER_"""+str(i)+""" extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
@@ -24,12 +24,12 @@ public class IDENTIFIER_"""+str(i)+""" extends DFAState<SCobol.DFAState, SCobol.
 def laststate(i):
 	return \
 """\
-package cs.lang.scobol;
+package cs.lang.scobol.dfa;
 
-import cs.lang.SCobol;
+import cs.lang.scobol.Language;
 import cs.lang.DFAState;
 
-import cs.lang.Alphabet;
+import cs.lang.scobol.Alphabet;
 import cs.lang.DFATools;
 
 public class IDENTIFIER_"""+str(i)+""" extends DFAState<SCobol.DFAState, SCobol.LexicalUnit, Character>{
