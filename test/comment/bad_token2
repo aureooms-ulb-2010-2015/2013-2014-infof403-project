@@ -1,0 +1,5 @@
+token : s                                             lexical unit : IDENTIFIER     
+token : =                                             lexical unit : EQUALS_SIGN    
+ERROR : BAD_TOKEN ''' LINE 1 COL 5
+variables
+labels

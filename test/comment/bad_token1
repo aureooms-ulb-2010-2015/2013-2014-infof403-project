@@ -1,0 +1,5 @@
+token : aaaaaaaaaaaaaaaa                              lexical unit : IDENTIFIER     
+token : aaaaa                                         lexical unit : IDENTIFIER     
+ERROR : BAD_TOKEN '#' LINE 1 COL 22
+variables
+labels

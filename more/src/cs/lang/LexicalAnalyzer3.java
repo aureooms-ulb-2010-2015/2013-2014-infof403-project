@@ -71,16 +71,12 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 		last = null;
 		current = init;
 		Character c;
-		int d = -1;
-		while(true){
-			c = streamBuffer.poll();
-			if(c == null){
-				d = stream.read();
-				if(d == -1) return null;
-				c = (char)d;
-				cursor++;
-			}
 
+		c = getChar();
+		if(c == null) return null;
+		col = cursor - streamBuffer.size();
+
+		while(true){
 			S next = state.get(current).next(c);
 			if(next != null){
 
@@ -98,16 +94,27 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 			else{
 				return c;
 			}
+
+			c = getChar();
+			if(c == null) return null;
 		}
+	}
+
+	private Character getChar() throws IOException{
+		Character c = streamBuffer.poll();
+		if(c == null){
+			int d = stream.read();
+			if(d == -1) return null;
+			c = (char)d;
+			++cursor;
+		}
+		return c;
 	}
 
 	private LexicalToken<T> endToken(Map<S, DFAState<S, T, Character>> state, Character c){
 		if(buffer[0].isEmpty() && c == null) return null;
 
-		if(last == null && state.get(current).token() != null){
-			last = current;
-			col = cursor;
-		}
+		if(last == null && state.get(current).token() != null) last = current;
 
 		if(last != null){
 			for(int i = 0; i < buffer[1].length(); ++i){
@@ -125,7 +132,7 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 		for(T sep : sep_l){
 			if(state.get(last).token() == sep){
 				++line;
-				cursor = 0;
+				cursor = streamBuffer.size();
 				newBeginOfLine = true;
 				break;
 			}
@@ -141,7 +148,13 @@ public class LexicalAnalyzer3<T, S> implements LexicalAnalyzer<T>{
 
 		beginOfLine = newBeginOfLine;
 
-		if(state.get(last).token() == null) col = cursor;
+		if(state.get(last).token() == null){
+			for(int i = buffer[0].length() - 1; i > 0; --i){
+				streamBuffer.addFirst(buffer[0].charAt(i));
+			}
+			buffer[0] = Character.toString(buffer[0].charAt(0));
+		}
+
 		LexicalToken<T> token = new LexicalToken<T>(state.get(last).token(), buffer[0]);
 		buffer[0] = buffer[1] = "";
 		return token;
