@@ -10,7 +10,7 @@ CLASS = more/class
 DOCSOURCES = $(shell find $(SRC) | grep \\.java$$)
 SOURCES = $(shell find $(SRC) | grep \\.java$$ | grep -v package-info\\.java$$)
 CLASSES = $(patsubst $(SRC)/%,$(CLASS)/%,$(patsubst %.java,%.class,$(SOURCES)))
-MANIFEST = MANIFEST.MF
+MANIFEST = more/MANIFEST.MF
 
 REQUIRED_DIRS = $(CLASS) dist
 _MKDIRS := $(shell for d in $(REQUIRED_DIRS); \
