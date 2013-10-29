@@ -1,0 +1,18 @@
+token : s9v9                                          lexical unit : IDENTIFIER     
+token : abcde                                         lexical unit : IDENTIFIER     
+token : zuehau                                        lexical unit : IDENTIFIER     
+token : UHEZ72                                        lexical unit : IDENTIFIER     
+token : jY2E7T27                                      lexical unit : IDENTIFIER     
+token : u                                             lexical unit : IDENTIFIER     
+token : 2                                             lexical unit : INTEGER        
+token : YE92GD9                                       lexical unit : IDENTIFIER     
+token : \n                                            lexical unit : NEW_LINE       
+token : 7                                             lexical unit : INTEGER        
+token : GH2E7GH                                       lexical unit : IDENTIFIER     
+token : 778                                           lexical unit : INTEGER        
+token : HU2EGHU2GEG2EUGE                              lexical unit : IDENTIFIER     
+token : U2IU2GHEUG2UEGU2                              lexical unit : IDENTIFIER     
+token : GEU                                           lexical unit : IDENTIFIER     
+token : division                                      lexical unit : DIVISION_KEYWORD
+variables
+labels

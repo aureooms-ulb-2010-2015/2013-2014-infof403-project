@@ -1,0 +1,36 @@
+token : 1.2                                           lexical unit : REAL           
+token : 0.4                                           lexical unit : REAL           
+token : +0.5                                          lexical unit : REAL           
+token : -923.92098                                    lexical unit : REAL           
+token : -2397                                         lexical unit : INTEGER        
+token : +9                                            lexical unit : INTEGER        
+token : 9                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : \n                                            lexical unit : NEW_LINE       
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0.02                                          lexical unit : REAL           
+token : +0                                            lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 23                                            lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 1                                             lexical unit : INTEGER        
+token : -0                                            lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : 0                                             lexical unit : INTEGER        
+token : +                                             lexical unit : PLUS_SIGN      
+token : 29                                            lexical unit : INTEGER        
+variables
+labels
