@@ -38,9 +38,11 @@ public class LexicalAnalyzer2<T> implements LexicalAnalyzer<T>{
 		if(match == null) return null;
 
 		T unit = null;
-		for(int j = 1; j <= scanner.match().groupCount(); ++j){
-			match = scanner.match().group(j);
-			if(match != null){
+		int count = scanner.match().groupCount();
+		for(int j = 1; j <= count; ++j){
+			int end = scanner.match().end(j);
+			if(end != -1){
+				match = scanner.match().group(j);
 				unit = units.get(j-1);
 				col = scanner.match().start(j) - total + 1;
 

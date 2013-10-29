@@ -8,7 +8,13 @@ To avoid ambiguity an arithmetic expression will only be considered as one if a 
 
 \subsubsection{Comments}
 
-Comments have to be on their own line. This way the / and * characters will not be seen as operators.
+Comments have to be on their own line (only space and tab characters are allowed). This way the / and * characters will not be seen as operators.
+
+The RE for comments becomes:
+
+\begin{verbatim}
+^[ \t]*(\*|/).*\.\n;
+\end{verbatim}
 
 \subsubsection{Images vs Identifier}
 
