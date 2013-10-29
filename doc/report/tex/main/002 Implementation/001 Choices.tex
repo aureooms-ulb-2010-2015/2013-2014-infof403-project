@@ -20,5 +20,17 @@ We chose to make the parentheses in an image mandatory. This constraint can be m
 	
 \end{itemize}
 
+Then the RE for Images becomes:
+
+\begin{verbatim}
+s?9(\([1-9][0-9]*\))(v9(\([1-9][0-9]*\)))?
+\end{verbatim}
+
+\subsubsection{Ascii only}
+
+Our program will only recognise ASCII characters but could easily be extended to utf-8 charset.
+
+
+
 
 
