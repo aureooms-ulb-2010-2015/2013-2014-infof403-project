@@ -16,8 +16,7 @@ We chose to make the parentheses in an image mandatory. This constraint can be m
 
 \begin{itemize}
 	\item Token 9 can be interpreted as an integer and is no longer cause of ambiguity.
-	\item Token s9 can be used as an identifier while the image representation s9(1) still exists.  
-	
+	\item Tokens s9 and s9v9 can be used as identifiers while image representations s9(1) and s9(1)v9(1) still exist.  
 \end{itemize}
 
 Then the RE for Images becomes:
@@ -26,7 +25,7 @@ Then the RE for Images becomes:
 s?9(\([1-9][0-9]*\))(v9(\([1-9][0-9]*\)))?
 \end{verbatim}
 
-\subsubsection{Ascii only}
+\subsubsection{ASCII only}
 
 Our program will only recognise ASCII characters but could easily be extended to utf-8 charset.
 

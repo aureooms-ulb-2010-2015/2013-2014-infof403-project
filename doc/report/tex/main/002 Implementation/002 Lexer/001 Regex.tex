@@ -1,10 +1,9 @@
 \subsubsection{Regex}
 
-The first implementation uses one big RE which is the product of the disjunction of all lexical units' RE.
+The first implementation uses one big RE which is the product of the disjunction of all lexical units RE.
 
 \begin{verbatim}
 (A)|(B)|(C)|...
-
 \end{verbatim}
 
 The order in which they are concatenated is chosen to make sure no ambiguity is possible.
