@@ -5,8 +5,8 @@ LINK = jar cvfm
 
 OUTPUT_NAME = dist/s_cobol_lexical_analysis.jar
 DOCDIR = doc/java
-SRC = src
-CLASS = class
+SRC = more/src
+CLASS = more/class
 DOCSOURCES = $(shell find $(SRC) | grep \\.java$$)
 SOURCES = $(shell find $(SRC) | grep \\.java$$ | grep -v package-info\\.java$$)
 CLASSES = $(patsubst $(SRC)/%,$(CLASS)/%,$(patsubst %.java,%.class,$(SOURCES)))

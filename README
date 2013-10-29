@@ -1,0 +1,31 @@
+
+
+doc: 
+	java       : JAVADOC
+	report.pdf : PDF report
+
+dfa: deterministic automaton
+
+test:
+	in  : input example files
+	out : expected output from the example files
+	run : test script
+
+dist:
+	s_cobol_lexical_analyzer.jar : program
+
+more:
+	src   : source code of the program
+	tools : scripts to generate DFA classes
+
+README   : this file
+Makefile : the Makefile
+
+
+
+
+clean it   : make clean
+compile it : make
+doc it     : make doc
+test it    : python3 test/run
+run it     : java -jar dist/s_cobol_lexical_analyzer.jar [<filename>] [--mode class|regex|map]
