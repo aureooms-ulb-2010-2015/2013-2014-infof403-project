@@ -76,9 +76,7 @@ $(STYLESHEET).sty: $(STYFILES)
 	python stybuilder.py $(STY) $(STYLESHEET).sty
 
 bib/touch.bbl: $(BIBFILES)
-	echo "$(ACTION_COLOR)"bib files changed"$(NO_COLOR)"
 	touch bib/touch.bbl
-	touch bib/touchtmp.bbl
 
 clean:
 	rm -f *.aux *.lof *.log *.bbl *.blg *.toc *.idx *.ilg *.ind *.lol *.out *.loa *.equ *.pyg *.alg *.lomintedobject *.loalgobject *.loe $(FILENAME).tex $(FILENAME).pdf $(STYLESHEET).sty *.asy bib/touch.bbl bib/touchtmp.bbl

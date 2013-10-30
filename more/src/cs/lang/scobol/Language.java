@@ -237,7 +237,7 @@ public class Language{
 		GREATER_OR_EQUALS,
 		MINUS_SIGN,
 		PLUS_SIGN,
-		IMAGE_ONE,
+		S9,
 		IMAGE_TWO,
 		IMAGE_THREE,
 		IMAGE_FINAL_ONE,
@@ -627,7 +627,7 @@ public class Language{
 			put(DFAState.GREATER_OR_EQUALS, new GREATER_OR_EQUALS());
 			put(DFAState.PLUS_SIGN, new PLUS_SIGN());
 			put(DFAState.MINUS_SIGN, new MINUS_SIGN());
-			put(DFAState.IMAGE_ONE, new IMAGE_ONE());
+			put(DFAState.S9, new S9());
 			put(DFAState.IMAGE_TWO, new IMAGE_TWO());
 			put(DFAState.IMAGE_THREE, new IMAGE_THREE());
 			put(DFAState.IMAGE_FINAL_ONE, new IMAGE_FINAL_ONE());
