@@ -14,7 +14,7 @@ test:
 	run     : test script
 
 dist:
-	s_cobol_lexical_analyzer.jar : program
+	s_cobol_lexical_analysis.jar : program
 
 more:
 	MANIFEST.MF : manifest for the program
