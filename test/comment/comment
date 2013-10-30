@@ -1,0 +1,13 @@
+token : * hi this is a weird comment! &Ã©"'(Â§Ã¨!Ã§Ã )"Ã©Ã Ã§nxgnamoj;gfez016+09185<\,,;:+=Ã¹Âµ$^.\n    lexical unit : COMMENT        
+token : / hi this is another weird comment! &Ã©"'(Â§Ã¨!Ã§Ã )"Ã©Ã Ã§nxgnamoj;gfez016+09185<\,,;:+=Ã¹Âµ$^.\n    lexical unit : COMMENT        
+token : a                                             lexical unit : IDENTIFIER     
+token : /                                             lexical unit : SLASH          
+token : b                                             lexical unit : IDENTIFIER     
+token : \n                                            lexical unit : NEW_LINE       
+token : a                                             lexical unit : IDENTIFIER     
+token : *                                             lexical unit : ASTERISK       
+token : b                                             lexical unit : IDENTIFIER     
+token : \n                                            lexical unit : NEW_LINE       
+token : \n                                            lexical unit : NEW_LINE       
+variables
+labels

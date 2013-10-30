@@ -1,0 +1,11 @@
+token : a                                             lexical unit : IDENTIFIER     
+token : /                                             lexical unit : SLASH          
+token : b                                             lexical unit : IDENTIFIER     
+token : \n                                            lexical unit : NEW_LINE       
+token : a                                             lexical unit : IDENTIFIER     
+token : *                                             lexical unit : ASTERISK       
+token : b                                             lexical unit : IDENTIFIER     
+token : \n                                            lexical unit : NEW_LINE       
+token : \n                                            lexical unit : NEW_LINE       
+variables
+labels
