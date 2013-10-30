@@ -22,14 +22,16 @@ default: all
 
 all: $(OUTPUT_NAME)
 
+doc: doc/java
+
 $(OUTPUT_NAME): $(CLASSES)
 	$(LINK) $(OUTPUT_NAME) $(MANIFEST) -C $(CLASS) .
 
 $(CLASS)/%.class: $(SRC)/%.java
 	$(JC) $(JFLAGS) $(SOURCES) -d $(CLASS)
 
-doc: $(DOCSOURCES)
+doc/java: $(DOCSOURCES)
 	javadoc $(DOCSOURCES) -d $(DOCDIR)
 
 clean:
-	$(RM) -r $(REQUIRED_DIRS)
+	$(RM) -r $(REQUIRED_DIRS) doc/java
