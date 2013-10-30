@@ -34,4 +34,4 @@ doc/java: $(DOCSOURCES)
 	javadoc $(DOCSOURCES) -d $(DOCDIR)
 
 clean:
-	$(RM) -r $(REQUIRED_DIRS)
+	$(RM) -r $(REQUIRED_DIRS) doc/java
