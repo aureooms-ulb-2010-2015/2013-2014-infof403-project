@@ -1,0 +1,109 @@
+[0] <PROGRAM>				→    <IDENT> <ENV> <DATA> procedure division<END_INST> ID section<END_INST><LABELS> end program ID.
+
+    
+[1] <IDENT> 				→    identification division <END_INST> program-id.ID<END_INST> author. WORDS<END_INST>date-written. WORDS <END_INST>
+
+    
+    
+[2] <WORDSPRIME>			→    ID<WORDSPRIME>
+
+    						→    ε
+    
+[3] <END_INST>				→    .\n
+
+    
+[4] <ENV> 					→    environment division<END_INST>configuration section<END_INST>source-computer. WORDS<END_INST>object-computer. WORDS<END_INST>
+
+    
+[5] <DATA> 					→    data division<END_INST>working-storage section<END_INST> <VAR_LIST> // could be removed only present in 0
+
+    
+[6] <VAR_LIST> 			    →    <VAR_DECL> <VAR_LIST>
+
+     						→    ε
+    
+[7] <VAR_DECL>  			→    INTEGER ID pic IMAGE <VAR_DECLPRIME> 
+
+[8] <VAR_DECLPRIME> 		→    <END_INST>
+
+    						→    value INTEGER<END_INST>
+     		
+
+    
+[10] <LABELS> 				→    ID<END_INST> <INSTRUCTION_LIST><LABELSPRIME>
+
+[11] <LABELSPRIME> 			→    ID<END_INST> <INSTRUCTION_LIST><LABELSPRIME>
+
+     						→    ε
+    			
+    
+[12] <INSTRUCTION_LIST> 	→    <INSTRUCTION> <INSTRUCTIONLIST>
+
+    						→    ε
+    
+[13] <INSTRUCTION> 			→    <ASSIGNATION>
+
+    						→    <IF>	
+    						→    <CALL>
+    						→    <READ>
+    						→    <WRITE>
+    						→    stop run<END_INST>
+    
+[14] <ASSIGNATION> 			→    move <EXPRESSION> to ID<END_INST>
+
+    						→    compute ID = <EXPRESSION><END_INST>
+    						→    add <EXPRESSION> to ID<END_INST>
+    						→    subtract <EXPRESSION> from ID<END_INST>
+    						→    multiply <ASSING_END><END_INST>
+    						→    divide <ASSING_END><END_INST>
+    
+[15] <ASSING_END> 			→    <EXPRESSION>,<EXPRESSION> giving ID
+
+    
+[16] <EXPRESSION> 			→    <EXPRESSION> <OP> <EXPRESSIONPRIME>
+                            →    <EXPRESSIONPRIME>
+
+[17] <EXPRESSIONPRIME>  	→    (<EXPRESSIONPRIME>)
+    						→    not <EXPRESSIONPRIME>
+    						→    ID
+    						→    INTEGER
+    						→    true
+    						→    false
+    
+[18] <OP> 					→    =
+
+    						→    <
+    						→    >
+    						→    <=
+    						→    >=
+    						→    and
+    						→    or
+    						→    +
+    						→    -
+    						→    *
+    						→    /
+    
+[19] <IF>  					→    if <EXPRESSION> then <INSTRUCTION_LIST> <IF_END>
+
+    						→    else <INSTRUCTION_LIST> end-if
+    						→    end-if
+
+[19p] <IF_END>              →    else <INSTRUCTION_LIST> end-if
+                            →    end-if
+    
+    
+[20] <CALL> 				→    perform ID <CALLPRIME>
+
+[21] <CALLPRIME>  			→    until <EXPRESSION><END_INST>
+
+    						→    <END_INST>
+    
+[22] <READ>  				→    accept ID<END_INST>
+
+    
+[23] <WRITE>  				→    display <WRITEPRIME>
+
+[24] <WRITEPRIME> 			→    <EXPRESSION><END_INST>
+
+    						→    STRING<END_INST>
+

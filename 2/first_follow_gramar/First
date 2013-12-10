@@ -1,0 +1,54 @@
+
+													FIRST SETS
+
+<PROGRAM> {identification}
+
+<IDENT> {identification}
+
+<WORDSPRIME> {ε,ID}
+
+<END_INST> {.\n}
+
+<ENV> {environment}
+
+<DATA> {data}
+
+<VAR_LIST> {ε,INTEGER}
+
+<VAR_DECL> {INTEGER}
+
+<VAR_DECLPRIME> {value,procedure,.\n}
+
+
+<LABELS> {ID}
+
+<LABELSPRIME> {ε,ID}
+
+<INSTRUCTION_LIST> {ε,stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display}
+
+<INSTRUCTION> {ε,stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display}
+
+<ASSIGNATION> {move,compute,add,substract,multiply,divide}
+
+<ASSING_END> {(,not,ID,INTEGER,true,false}
+
+<EXPRESSION> {(,not,ID,INTEGER,true,false}
+
+<EXPRESSIONPRIME> {(,not,ID,INTEGER,true,false}
+
+<OP> {=,<,>,<=,>=,and,or,+,*,-,/}
+
+<IF> {end-if,if,else}
+
+<IF_END> {else,end-if}
+
+<CALL> {perform}
+
+<CALLPRIME>{until,.\n}
+
+<READ> {accept}
+
+<WRITE> {display}
+
+<WRITEPRIME> {STRING,(,not,ID,integer,true,false}
+

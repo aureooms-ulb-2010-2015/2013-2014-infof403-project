@@ -1,0 +1,51 @@
+										Follows
+<PROGRAM> {}
+
+<IDENT> {environment}
+
+<WORDSPRIME> {}
+
+<END_INST> {program-id.,author.,datewritten., environment, configuration,source-computer.,object-computer.,working-storage,INTEGER,procedure, INTEGER, data,ID,stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,end}
+
+<ENV> {data}
+
+<DATA> {procedure}
+
+<VAR_LIST> {data}
+
+<VAR_DECL> {INTEGER, data}
+
+<VAR_DECLPRIME> {INTEGER, data}
+
+<LABELS> {end}
+
+<LABELSPRIME> {end}
+
+<INSTRUCTION_LIST> {ID,end,end-if,else}
+
+<INSTRUCTION> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<ASSIGNATION> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<ASSING_END> {.\n}
+
+<EXPRESSION> {to,.\n, from, \, , giving,=,<,>,<=,>=,and,or,+,*,-,/,then}
+
+<EXPRESSIONPRIME> {to,.\n, from, \, , giving,=,<,>,<=,>=,and,or,+,*,-,/,then,)}
+
+<OP> {(,not,ID,INTEGER,true,false}
+
+<IF> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<IF_END> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<CALL> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<CALLPRIME> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<READ> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<WRITE> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
+<WRITEPRIME> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+
