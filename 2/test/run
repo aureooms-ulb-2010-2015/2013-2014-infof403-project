@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+
+import os, subprocess
+
+
+def main():
+
+	HEADER = '\033[95m'
+	OKBLUE = '\033[94m'
+	OKGREEN = '\033[92m'
+	WARNING = '\033[93m'
+	FAIL = '\033[91m'
+	ENDC = '\033[0m'
+
+	test = os.listdir('test/in')
+	n = len(test)
+	format = '{:>' + str(len(str(n))) + '}'
+	i = 1
+	for t in test:
+		print('[', format.format(str(i)), '/', n, ']', t, end = ' ')
+		diff = subprocess.getoutput('bash -c \'diff <(java -jar dist/scc.jar test/in/' + t +') test/out/' + t +'\'')
+		if(diff == ''):
+			print(OKGREEN + '✔' + ENDC)
+		else:
+			print(FAIL + '✖')
+			print(diff + ENDC)
+
+		i += 1
+
+
+if __name__ == '__main__':
+	main()
