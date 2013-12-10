@@ -12,7 +12,7 @@ import cs.lexer.*;
 public class Compiler{
 
 	Scanner cobolScanner;
-
+	Symbol token;
 
 	public Compiler(Scanner cobolScanner){
 		this.cobolScanner= cobolScanner;
@@ -78,15 +78,15 @@ public class Compiler{
 	/**
 	* <IDENT> →  identification division <END_INST> program-id.ID<END_INST> author. WORDS<END_INST>date-written. WORDS <END_INST>
 	*/
-	public void handle_IDENT() throws Exception{
-		Symbol token;
+	public void handle_IDENT() throws cobolSyntaxException, Exception{
+		
 		
 		
 		token = cobolScanner.next_token();
 		if(!token.unit.equals(LexicalUnit.IDENTIFICATION)) throw new cobolSyntaxException(LexicalUnit.IDENTIFICATION,token.unit,token.LINE, token.COLUMN );
 
 		token = cobolScanner.next_token();
-		if(!token.unit.equals(LexicalUnit.DIVISION)) throw new cobolSyntaxException(LexicalUnit.IDENTIFICATION,token.unit,token.LINE, token.COLUMN );
+		if(!token.unit.equals(LexicalUnit.DIVISION)) throw new cobolSyntaxException(LexicalUnit.DIVISION,token.unit,token.LINE, token.COLUMN );
 
 		token = cobolScanner.next_token();
 		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
@@ -129,8 +129,54 @@ public class Compiler{
 
 		//test token.next() belongs to follow 
 	}
+	/**environment division<END_INST>configuration section<END_INST>
+	*source-computer. WORDS<END_INST>object-computer. WORDS<END_INST>
+	*
+	*/
+	public void handle_ENV() throws cobolSyntaxException, Exception{
 
-	public void handle_ENV() throws cobolSyntaxException{
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.ENVIRONMENT)) throw new cobolSyntaxException(LexicalUnit.ENVIRONMENT,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DIVISION)) throw new cobolSyntaxException(LexicalUnit.IDENTIFICATION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.CONFIGURATION)) throw new cobolSyntaxException(LexicalUnit.CONFIGURATION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.SECTION)) throw new cobolSyntaxException(LexicalUnit.SECTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.SOURCE_COMPUTER)) throw new cobolSyntaxException(LexicalUnit.SOURCE_COMPUTER,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DOT)) throw new cobolSyntaxException(LexicalUnit.DOT,token.unit,token.LINE, token.COLUMN );
+
+		this.handle_WORDS();
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.OBJECT_COMPUTER)) throw new cobolSyntaxException(LexicalUnit.OBJECT_COMPUTER,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DOT)) throw new cobolSyntaxException(LexicalUnit.DOT,token.unit,token.LINE, token.COLUMN );
+
+		this.handle_WORDS();
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		//if(!// test follow)  throw new cobolSyntaxException( );
 
 	}
 
