@@ -1,4 +1,4 @@
-JFLAGS = -g
+JFLAGS = -g $(FLAGS)
 JC = javac
 JDOC = javadoc
 LINK = jar cvfm
