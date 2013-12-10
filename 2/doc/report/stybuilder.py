@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import sys, os
+import sys
+import os
 		
 class LibraryBuilder:
 
@@ -14,14 +15,19 @@ class LibraryBuilder:
 		self.write_result(out)
 			
 	def concat(self):
+		pipe = os.popen('ls -1 "' + self.dir + '"')
+		files = pipe.read()
+		pipe.close()
+		files = files.strip()
+		files = files.split("\n")
 		buffer = ""
-		for f in sorted(os.listdir(self.dir)):
-			if os.path.isdir(self.dir+'/'+f):
-				sub = LibraryBuilder(self.dir+'/'+f)
+		for file in files:
+			if os.path.isdir(self.dir+'/'+file):
+				sub = LibraryBuilder(self.dir+'/'+file)
 				buffer += sub.concat()
 
-			elif f[-4:] == '.sty':
-				stream = open(self.dir+'/'+f,'r')
+			elif file[-4:] == '.sty':
+				stream = open(self.dir+'/'+file,'r')
 				for line in stream:
 					buffer += line
 				buffer += "\n"
