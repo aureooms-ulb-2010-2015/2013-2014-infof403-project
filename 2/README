@@ -1,0 +1,32 @@
+# CONTENT
+
+
+doc: 
+	java       : JAVADOC
+	report.pdf : PDF report
+
+test:
+	in      : input example files
+	out     : expected output for the file examples
+	run     : test script
+
+dist:
+	scc.jar : S-COBOL compiler program
+
+more:
+	MANIFEST.MF : manifest for the program
+	src         : source code of the program
+
+README   : this file
+Makefile : the Makefile
+
+
+
+# USAGE
+
+
+clean it   : make clean
+compile it : make
+doc it     : make doc
+test it    : python3 test/run
+run it     : java -jar dist/scc.jar [<filename>]
