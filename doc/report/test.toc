@@ -1,0 +1,26 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Theory}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Regular Expressions}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Identifier}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Image}{3}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Integer}{3}{subsubsection.1.1.3}
+\contentsline {subsubsection}{\numberline {1.1.4}Real}{3}{subsubsection.1.1.4}
+\contentsline {subsubsection}{\numberline {1.1.5}String}{3}{subsubsection.1.1.5}
+\contentsline {subsubsection}{\numberline {1.1.6}Comment}{3}{subsubsection.1.1.6}
+\contentsline {subsection}{\numberline {1.2}Finite Automaton}{3}{subsection.1.2}
+\contentsline {section}{\numberline {2}Implementation}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Choices}{4}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Signed numbers vs arithmetic expressions}{4}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Comments}{4}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Images vs Identifier}{4}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}ASCII only}{4}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}Keywords in lower case}{5}{subsubsection.2.1.5}
+\contentsline {subsection}{\numberline {2.2}Lexer}{5}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Regex}{5}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}DFA}{5}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Parser}{6}{subsection.2.3}
+\contentsline {section}{\numberline {3}Use Cases}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}Regular usage}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}-{}-mode option}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}-{}-comment flag}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Run tests}{7}{subsection.3.4}
