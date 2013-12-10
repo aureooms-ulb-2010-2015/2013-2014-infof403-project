@@ -13,6 +13,7 @@ public class Compiler{
 
 	Scanner cobolScanner;
 
+
 	public Compiler(Scanner cobolScanner){
 		this.cobolScanner= cobolScanner;
 
@@ -21,12 +22,25 @@ public class Compiler{
 
 	public void compile() throws Exception{
 
+		/*this.handle_IDENT();
+		this.handle_ENV();
+		this.handle_DATA();
+		this.handle_PROC();
+		return;*/
+
+
+
+
+		// TODO clean
+
 		Symbol token;
 		do{
 			token = cobolScanner.next_token();
+
 			if(token != null){
 				System.out.println("token: "+token.getValue()+" \tlexical unit: "+token.unit.toString());
 			}
+
 		}while(token == null || !token.unit.equals(LexicalUnit.EOF));
 		
 		// Printing the table
@@ -59,6 +73,77 @@ public class Compiler{
 		for(Symbol<String> identifier:labels)
 			System.out.println(identifier.getValue()+"\t"+identifier.get(Symbol.LINE));
 			
+	}
+
+	/**
+	* <IDENT> →  identification division <END_INST> program-id.ID<END_INST> author. WORDS<END_INST>date-written. WORDS <END_INST>
+	*/
+	public void handle_IDENT() throws Exception{
+		Symbol token;
+		
+		
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.IDENTIFICATION)) throw new cobolSyntaxException(LexicalUnit.IDENTIFICATION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DIVISION)) throw new cobolSyntaxException(LexicalUnit.IDENTIFICATION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.PROGRAM_ID)) throw new cobolSyntaxException(LexicalUnit.PROGRAM_ID,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DOT)) throw new cobolSyntaxException(LexicalUnit.DOT,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.IDENTIFIER)) throw new cobolSyntaxException(LexicalUnit.IDENTIFIER,token.unit,token.LINE, token.COLUMN );
+
+		System.out.println("PROGRAM_ID (IDENT): "+token.getValue());
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.AUTHOR)) throw new cobolSyntaxException(LexicalUnit.AUTHOR,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DOT)) throw new cobolSyntaxException(LexicalUnit.DOT,token.unit,token.LINE, token.COLUMN );
+
+		this.handle_WORDS();
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DATE_WRITTEN)) throw new cobolSyntaxException(LexicalUnit.DATE_WRITTEN,token.unit,token.LINE, token.COLUMN );
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.DOT)) throw new cobolSyntaxException(LexicalUnit.DOT,token.unit,token.LINE, token.COLUMN );
+
+		this.handle_WORDS();
+
+		token = cobolScanner.next_token();
+		if(!token.unit.equals(LexicalUnit.END_OF_INSTRUCTION)) throw new cobolSyntaxException(LexicalUnit.END_OF_INSTRUCTION,token.unit,token.LINE, token.COLUMN );
+
+		//test token.next() belongs to follow 
+	}
+
+	public void handle_ENV() throws cobolSyntaxException{
+
+	}
+
+	public void handle_DATA() throws cobolSyntaxException{
+
+	}
+
+	public void handle_PROC() throws cobolSyntaxException{
+
+	}
+
+	public void handle_WORDS() throws cobolSyntaxException{
+
 	}
 
 }

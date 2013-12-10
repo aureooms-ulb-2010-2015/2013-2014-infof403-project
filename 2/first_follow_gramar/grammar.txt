@@ -1,11 +1,13 @@
-[0] <PROGRAM>				→    <IDENT> <ENV> <DATA> procedure division<END_INST> ID section<END_INST><LABELS> end program ID.
+[0] <PROGRAM>				→    <IDENT> <ENV> <DATA> <PROC>
 
-    
+<PROC>                      →   procedure division<END_INST> ID section<END_INST><LABELS> end program ID.
+
+
 [1] <IDENT> 				→    identification division <END_INST> program-id.ID<END_INST> author. WORDS<END_INST>date-written. WORDS <END_INST>
 
     
     
-[2] <WORDSPRIME>			→    ID<WORDSPRIME>
+[2] <WORDS>			      →    ID<WORDS>
 
     						→    ε
     

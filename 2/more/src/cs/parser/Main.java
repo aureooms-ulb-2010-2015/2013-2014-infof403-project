@@ -7,6 +7,11 @@ public class Main{
 	public static void main(String args[])throws Exception{
 		Scanner cobolScanner = new Scanner(System.in);
 		Compiler cobolCompiler = new Compiler(cobolScanner);
-		cobolCompiler.compile();
+		try{
+			cobolCompiler.compile();
+		}
+		catch(Exception e){
+			
+		}
 	}
 }
