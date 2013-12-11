@@ -13,11 +13,11 @@
 
 <DATA> {procedure}
 
-<VAR_LIST> {data}
+<VAR_LIST> {procedure}
 
-<VAR_DECL> {INTEGER, data}
+<VAR_DECL> {INTEGER, procedure}
 
-<VAR_DECL_TAIL> {INTEGER, data}
+<VAR_DECL_TAIL> {INTEGER, procedure}
 
 <LABELS> {end}
 

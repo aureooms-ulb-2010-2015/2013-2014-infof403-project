@@ -37,9 +37,9 @@ follow = {
 	'<ENV>' : ['DATA'],
 	'<DATA>' : ['PROCEDURE'],
 	'<PROC>' : [],
-	'<VAR_LIST>' : ['DATA'],
-	'<VAR_DECL>' : ['INTEGER', 'DATA'],
-	'<VAR_DECL_TAIL>' : ['INTEGER', 'DATA']
+	'<VAR_LIST>' : ['PROCEDURE'],
+	'<VAR_DECL>' : ['INTEGER', 'PROCEDURE'],
+	'<VAR_DECL_TAIL>' : ['INTEGER', 'PROCEDURE']
 }
 
 def line(identation = 0, text = ''):
@@ -76,6 +76,12 @@ def main():
 							line(3, 'this.read();')
 							line(3, 'this.check_token_unit(LexicalUnit.' + element + ');')
 					line(3, 'break;')
+
+			if len(follow[unit]) > 0:
+				for terminal in follow[unit]:
+					line(2, 'case ' + terminal + ':')
+				line(3, 'this.unread();')
+				line(3, 'break;')
 
 			line(2, 'default:')
 			line(3, '// TODO problem')
