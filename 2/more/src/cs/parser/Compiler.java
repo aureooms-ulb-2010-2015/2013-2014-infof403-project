@@ -308,10 +308,6 @@ public class Compiler{
 	}
 
 	public void handle_VAR_DECL(){}
-	public void handle_INSTRUCTION(){}
-
-
-
 
 	public void handle_INSTRUCTION() throws Exception{
 		switch(this.token.unit){
