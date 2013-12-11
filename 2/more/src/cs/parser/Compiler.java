@@ -228,6 +228,61 @@ public class Compiler{
 	}
 
 
+	public void handle_INSTRUCTION() throws Exception{
+		switch(this.token.unit){
+
+			case MOVE:
+			case COMPUTE:
+			case ADD:
+			case SUBTRACT:
+			case MULTIPLY:
+			case DIVIDE:
+				this.handle_ASSIGNATION();
+				break;
+
+			case IF:
+				this.handle_IF();
+				break;	
+
+			case PERFORM:
+				this.handle_CALL();
+				break;
+
+			case ACCEPT:
+				this.handle_READ();
+				break;
+
+			case DISPLAY:
+				this.handle_WRITE();
+				break;
+
+			case STOP:
+				this.shift();
+				this.check_token_unit(LexicalUnit.RUN);
+				this.handle_END_INSTRUCTION();
+				break;
+
+			case END_ID:
+			case ELSE:
+			case IDENTIFIER:
+			case END:
+				this.reduce();
+				break;
+
+			default:
+				// TODO PROBLEM
+				break;
+		}
+	}
+
+	public void handle_ASSIGNATION() throws Exception{}
+	public void handle_IF() throws Exception{}
+	public void handle_CALL() throws Exception{}
+	public void handle_READ() throws Exception{}
+	public void handle_WRITE() throws Exception{}
+	public void handle_END_INSTRUCTION() throws Exception{}
+
+
 }
 
 

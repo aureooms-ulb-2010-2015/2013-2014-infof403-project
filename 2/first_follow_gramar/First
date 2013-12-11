@@ -38,7 +38,7 @@
 
 <OP> {=,<,>,<=,>=,and,or,+,*,-,/}
 
-<IF> {end-if,if,else}
+<IF> {if}
 
 <IF_END> {else,end-if}
 

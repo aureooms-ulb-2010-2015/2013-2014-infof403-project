@@ -87,9 +87,6 @@
     
 [19] <IF>  					→    if <EXPRESSION> then <INSTRUCTION_LIST> <IF_END>
 
-    						→    else <INSTRUCTION_LIST> end-if
-    						→    end-if
-
 [19p] <IF_END>              →    else <INSTRUCTION_LIST> end-if
                             →    end-if
     
