@@ -45,6 +45,36 @@ import sys, json
 rules = None
 first = {}
 follow = {}
+rules_sorted = []
+
+def topological_sort(graph):
+	prev  = {}
+	sort  = []
+	queue = []
+
+	for node in graph.keys():
+		prev[node] = 0
+
+	for node in graph.keys():
+		for rule in graph[node]:
+			for adj in rule:
+				if adj in prev: prev[adj] += 1
+
+	for node in graph.keys():
+		if prev[node] == 0: queue.append(node)
+	
+
+	while len(queue) > 0:
+		node = queue[0]
+		del queue[0]
+		sort.append(node)
+		for rule in graph[node]:
+			for adj in rule:
+				if adj in prev: 
+					prev[adj] -= 1
+					if prev[adj] == 0: queue.append(adj)
+		
+	return sort
 
 def line(identation = 0, text = ''):
 	print('\t' * identation, text, sep = '')
@@ -66,7 +96,7 @@ def rule_text(rule):
 	return rule[1:-1]
 
 def compute_first():
-	for unit in sorted(rules.keys()):
+	for unit in rules_sorted:
 		if unit not in first:
 			first[unit] = []
 			for rule in rules[unit]:
@@ -74,25 +104,32 @@ def compute_first():
 					first[unit].append(get_first(rule[0]))
 
 def compute_follow():
-	for unit in sorted(rules.keys()):
+	for unit in rules_sorted:
 		follow[unit] = []
 
-	for unit in sorted(rules.keys()):
+	for unit in rules_sorted:
 		for rule in rules[unit]:
-			for current, next in zip(rule[:-1], rule[1:]):
-				if get_first(next) not in follow[current]:
-					follow[current].append(get_first(next))
+			if len(rule) > 0:
+				for current, next in zip(rule[:-1], rule[1:]):
+					if is_non_terminal(current) and get_first(next) not in follow[current]:
+						follow[current].append(get_first(next))
+				if is_non_terminal(rule[-1]):
+					follow[rule[-1]] = list(set(follow[rule[-1]]) + set(follow[unit]))
 
 def main():
-	global rules, first, follow
+	global rules, rules_sorted, first, follow
 
 	with open(sys.argv[1], 'r') as fp:
-		rules = json.load(fp);
+		rules = json.load(fp)
+
+	rules_sorted = topological_sort(rules)
+
+	print(rules_sorted)
 
 	compute_first()
 	compute_follow()
 
-	for unit in sorted(rules.keys()):
+	for unit in rules_sorted:
 		line(0, 'public void handle_' + rule_text(unit) + '() throws Exception{')
 		if len(rules[unit]) > 1:
 			line(1, 'this.read();')
