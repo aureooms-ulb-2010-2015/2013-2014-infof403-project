@@ -29,11 +29,15 @@ public class Compiler{
 	}
 
 	public void check_token_unit(LexicalUnit unit) throws Exception{
-		if(!this.is_token_unit(unit)) throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
 	}
 
 	public boolean is_token_unit(LexicalUnit unit){
 		return this.token.unit.equals(unit);
+	}
+
+	public void handle_bad_token(LexicalUnit unit  ) throws Exception{
+		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
 	}
 
 
@@ -209,7 +213,11 @@ public class Compiler{
 
 	}
 
-
+	/**
+	* <WORDS> → ID <WORDS>
+	*
+    *		  → ε
+	*/
 	public void handle_WORDS() throws Exception{
 		this.shift();
 		switch(this.token.unit){
@@ -226,5 +234,26 @@ public class Compiler{
 				break;
 		}
 	}
+	/**
+	* <VAR_LIST>  →  <VAR_DECL> <VAR_LIST>
+	*			 →    ε
+	*/
+	public void handle_VAR_LIST() throws Exception{
+		this.shift();
+		switch(this.token.unit){
+			case INTEGER:
+				this.handle_VAR_DECL();
+				this.handle_VAR_LIST();
+				break;
+			case DATA:
+				this.reduce();
+				break;
+			default:
+				break;
+
+		}
+	}
+
+	public void handle_VAR_DECL(){}
 
 }
