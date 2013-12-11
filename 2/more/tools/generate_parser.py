@@ -56,7 +56,7 @@ def rule_text(rule):
 	return rule[1:-1]
 
 def main():
-	for unit in rules:
+	for unit in sorted(rules.keys()):
 		line(0, 'public void handle_' + rule_text(unit) + '() throws Exception{')
 		if len(rules[unit]) > 1:
 			line(1, 'this.read();')
