@@ -2,7 +2,7 @@
 identification division.
 	program-id. Algo-Euclide.
 	author. Euclide.
-	date-written. 300 BNC.
+	date-written. BNC-300.
                       /Define compiler parameters.
 environment division.
 	configuration section.

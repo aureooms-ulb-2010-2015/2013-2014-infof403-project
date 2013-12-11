@@ -11,7 +11,8 @@ public class Main{
 			cobolCompiler.compile();
 		}
 		catch(Exception e){
-			
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }
