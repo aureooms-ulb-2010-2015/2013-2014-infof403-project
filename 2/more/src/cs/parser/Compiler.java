@@ -8,6 +8,9 @@ import java.util.Comparator;
 import java.util.Map;
 
 import cs.lexer.*;
+import cs.parser.functAST.*;
+import cs.parser.exprAST.*;
+import cs.parser.declAST.*;
 
 public class Compiler{
 
@@ -42,6 +45,40 @@ public class Compiler{
 
 	public void handle_bad_token(LexicalUnit unit) throws Exception{
 		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	//
+	// Expression parsing
+	//
+
+	protected DeclAST parseInteger(){
+		return new IntegerDeclAST(Integer.decode(token.getValue()));
+	}
+
+	protected DeclAST parseReal(){
+		return new RealDeclAST(Double.valueOf(token.getValue()));
+	}
+
+	/**
+	*http://www.3480-3590-data-conversion.com/article-packed-fields.html
+	* S9(7) COMP-3.     Byte size = (7 + 1) / 2 = 4
+	*
+    * S9(5)V99 COMP-3.  Byte size = (5 + 2 + 1) / 2 = 4
+	*
+    * S9(6) COMP-3.     Byte size = (6 + 1) / 2 = 3.5, rounded to 4
+	*
+	*/
+
+	protected DeclAST parseImage(){
+		DeclAST ret = null;
+		if(token.getValue().contains("v") || token.getValue().contains("V")){
+			ret = new RealDeclAST(Double.valueOf(token.getValue()));
+		}
+		else{
+			ret = new IntegerDeclAST(Integer.decode(token.getValue()));
+		}
+		
+		return ret;
 	}
 
 
