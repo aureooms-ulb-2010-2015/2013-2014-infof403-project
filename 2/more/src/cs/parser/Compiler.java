@@ -256,4 +256,10 @@ public class Compiler{
 
 	public void handle_VAR_DECL(){}
 
+
 }
+
+
+
+// gauv <IDENT> <ENV> <WORDS> <end_instr> <var list> <label> <instruction list> <assignation> <expression_prime> <if> <call> <read> <writeprime>
+// auré <DATA> <PROC> <var decl> <var declprime> <label prime> <instruction> <assignation_end> <expression> <op> <if_end> <callprime> <write>
