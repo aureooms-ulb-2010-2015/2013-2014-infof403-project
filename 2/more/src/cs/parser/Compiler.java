@@ -36,7 +36,11 @@ public class Compiler{
 		return this.token.unit.equals(unit);
 	}
 
-	public void handle_bad_token(LexicalUnit unit  ) throws Exception{
+	public void handle_bad_token(LexicalUnit[] units) throws Exception{
+		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	public void handle_bad_token(LexicalUnit unit) throws Exception{
 		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
 	}
 
@@ -285,22 +289,22 @@ public class Compiler{
 		this.read();
 		switch(this.token.unit){
 			case STOP:
-				case MOVE:
-				case COMPUTE:
-				case ADD:
-				case SUBTRACT:
-				case MULTIPLY:
-				case DIVIDE:
-				case IF:
-				case END_ID:
-				case ELSE:
-				case PERFORM:
-				case ACCEPT:
-				case DISPLAY:
-				case IDENTIFIER:
-					this.handle_INSTRUCTION();
-					this.handle_INSTRUCTION_LIST();
-					break;
+			case MOVE:
+			case COMPUTE:
+			case ADD:
+			case SUBTRACT:
+			case MULTIPLY:
+			case DIVIDE:
+			case IF:
+			case END_ID:
+			case ELSE:
+			case PERFORM:
+			case ACCEPT:
+			case DISPLAY:
+			case IDENTIFIER:
+				this.handle_INSTRUCTION();
+				this.handle_INSTRUCTION_LIST();
+				break;
 			default:
 				// TODO PROBLEM
 				break;

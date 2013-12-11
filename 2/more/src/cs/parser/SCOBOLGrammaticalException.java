@@ -2,6 +2,8 @@ package cs.parser;
 
 import cs.lexer.*;
 
+import java.util.Arrays;
+
 public class SCOBOLGrammaticalException extends Exception {
 	public SCOBOLGrammaticalException() { 
 		super(); 
@@ -16,7 +18,10 @@ public class SCOBOLGrammaticalException extends Exception {
 		super(cause); 
 	}
 	public SCOBOLGrammaticalException(LexicalUnit expected, LexicalUnit received, String value, Integer line, Integer column ){
-		super("Error:\nline: " + line.toString() + "\ncolumn: " + column.toString() + "\nexpected " + expected + " received " + received + " (" + value + ")");	
+		super(String.format("Error:\nline: %d\ncolumn: %d\nexpected %s received %s (%s)", line, column, expected, received, value));
+	}
+	public SCOBOLGrammaticalException(LexicalUnit[] expected, LexicalUnit received, String value, Integer line, Integer column ){
+		super(String.format("Error:\nline: %d\ncolumn: %d\nexpected %s received %s (%s)", line, column, Arrays.toString(expected), received, value));
 	}
 
 }

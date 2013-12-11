@@ -61,10 +61,12 @@ def main():
 		if len(rules[unit]) > 1:
 			line(1, 'this.read();')
 			line(1, 'switch(this.token.unit){')
+			terminals = []
 			for rule in rules[unit]:
 				if len(rule) > 0:
 					element = rule[0]
 					for terminal in get_first(element):
+						terminals.append('LexicalUnit.' + terminal)
 						line(2, 'case ' + terminal + ':')
 					if is_rule(element):
 						line(3, 'this.unread();')
@@ -77,14 +79,15 @@ def main():
 							line(3, 'this.check_token_unit(LexicalUnit.' + element + ');')
 					line(3, 'break;')
 
-			if len(follow[unit]) > 0:
-				for terminal in follow[unit]:
-					line(2, 'case ' + terminal + ':')
-				line(3, 'this.unread();')
-				line(3, 'break;')
+				elif len(follow[unit]) > 0:
+					for terminal in follow[unit]:
+						terminals.append('LexicalUnit.' + terminal)
+						line(2, 'case ' + terminal + ':')
+					line(3, 'this.unread();')
+					line(3, 'break;')
 
 			line(2, 'default:')
-			line(3, '// TODO problem')
+			line(3, 'this.handle_bad_token({' + ', '.join(terminals) + '});')
 			line(3, 'break;')
 			line(1, '}')
 
