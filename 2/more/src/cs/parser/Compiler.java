@@ -254,12 +254,68 @@ public class Compiler{
 		}
 	}
 
+	/**
+	*
+	*<LABELS> → ID<END_INST> <INSTRUCTION_LIST><LABELSPRIME>
+	*
+	*/
+	public void handle_LABELS() throws Exception{
+		this.shift();
+		switch(this.token.unit){
+			case IDENTIFIER:
+				this.shift();
+				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+				this.handle_INSTRUCTION_LIST();
+				this.handle_LABELS_END();
+				break;
+			default:
+				//todo problem
+				break;
+		}
+
+
+	}
+	public void handle_LABELS_END() throws Exception{}
+	/**
+	*
+	*<INSTRUCTION_LIST>     →  <INSTRUCTION> <INSTRUCTIONLIST>
+	*						→    ε
+	*/
+	public void handle_INSTRUCTION_LIST() throws Exception{
+		this.shift();
+		switch(this.token.unit){
+			case STOP:
+				case MOVE:
+				case COMPUTE:
+				case ADD:
+				case SUBTRACT:
+				case MULTIPLY:
+				case DIVIDE:
+				case IF:
+				case END_ID:
+				case ELSE:
+				case PERFORM:
+				case ACCEPT:
+				case DISPLAY:
+				case IDENTIFIER:
+					this.handle_INSTRUCTION();
+					this.handle_INSTRUCTION_LIST();
+					break;
+			default:
+				// TODO PROBLEM
+				break;
+		}
+	}
+
 	public void handle_VAR_DECL(){}
+	public void handle_INSTRUCTION(){}
+
+
 
 
 }
 
 
 
-// gauv <IDENT> <ENV> <WORDS> <end_instr> <var list> <label> <instruction list> <assignation> <expression_prime> <if> <call> <read> <writeprime>
+// gauv <end_instr>  <instruction list> <assignation> <expression_prime> <if> <call> <read> <writeprime>
 // auré <DATA> <PROC> <var decl> <var declprime> <label prime> <instruction> <assignation_end> <expression> <op> <if_end> <callprime> <write>
