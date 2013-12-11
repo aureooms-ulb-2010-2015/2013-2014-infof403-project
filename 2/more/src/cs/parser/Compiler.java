@@ -16,19 +16,19 @@ public class Compiler{
 
 	private Scanner cobolScanner;
 	private Symbol<String> token;
-	private boolean isReduced = false;
+	private boolean inBuffer = false;
 
 	public Compiler(Scanner cobolScanner){
 		this.cobolScanner = cobolScanner;
 	}
 
-	public void shift() throws Exception{
-		if(this.isReduced) this.isReduced = false;
+	public void read() throws Exception{
+		if(this.inBuffer) this.inBuffer = false;
 		else this.token = cobolScanner.next_token();
 	}
 
-	public void reduce() throws Exception{
-		this.isReduced = true;
+	public void unread() throws Exception{
+		this.inBuffer = true;
 	}
 
 	public void check_token_unit(LexicalUnit unit) throws Exception{
@@ -144,49 +144,49 @@ public class Compiler{
 	*/
 	public void handle_IDENT() throws Exception{
 		
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.IDENTIFICATION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DIVISION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.PROGRAM_ID);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DOT);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.IDENTIFIER);
 
 		System.out.println("PROGRAM_ID (IDENT): " + token.getValue());
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.AUTHOR);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DOT);
 
 		this.handle_WORDS();
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DATE_WRITTEN);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DOT);
 
 		this.handle_WORDS();
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
 		//test token.next() belongs to follow 
@@ -197,45 +197,45 @@ public class Compiler{
 	*/
 	public void handle_ENV() throws Exception{
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.ENVIRONMENT);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DIVISION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.CONFIGURATION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.SECTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.SOURCE_COMPUTER);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DOT);
 
 		this.handle_WORDS();
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.OBJECT_COMPUTER);
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.DOT);
 
 		this.handle_WORDS();
 
-		this.shift();
+		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 
 		//if(!// test follow)  throw new cobolSyntaxException( );
@@ -256,14 +256,14 @@ public class Compiler{
     *		  → ε
 	*/
 	public void handle_WORDS() throws Exception{
-		this.shift();
+		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
 				// TODO add to words
 				this.handle_WORDS();
 				break;
 			case END_OF_INSTRUCTION:
-				this.reduce();
+				this.unread();
 				break;
 
 			default:
@@ -276,14 +276,14 @@ public class Compiler{
 	*			 →    ε
 	*/
 	public void handle_VAR_LIST() throws Exception{
-		this.shift();
+		this.read();
 		switch(this.token.unit){
 			case INTEGER:
 				this.handle_VAR_DECL();
 				this.handle_VAR_LIST();
 				break;
 			case DATA:
-				this.reduce();
+				this.unread();
 				break;
 			default:
 				break;
@@ -297,10 +297,10 @@ public class Compiler{
 	*
 	*/
 	public void handle_LABELS() throws Exception{
-		this.shift();
+		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
-				this.shift();
+				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 				this.handle_INSTRUCTION_LIST();
 				this.handle_LABELS_END();
@@ -319,7 +319,7 @@ public class Compiler{
 	*						→    ε
 	*/
 	public void handle_INSTRUCTION_LIST() throws Exception{
-		this.shift();
+		this.read();
 		switch(this.token.unit){
 			case STOP:
 				case MOVE:
@@ -375,7 +375,7 @@ public class Compiler{
 				break;
 
 			case STOP:
-				this.shift();
+				this.read();
 				this.check_token_unit(LexicalUnit.RUN);
 				this.handle_END_INSTRUCTION();
 				break;
@@ -384,7 +384,7 @@ public class Compiler{
 			case ELSE:
 			case IDENTIFIER:
 			case END:
-				this.reduce();
+				this.unread();
 				break;
 
 			default:

@@ -3,9 +3,11 @@
 
 <PROGRAM> {identification}
 
+<PROC> {procedure}
+
 <IDENT> {identification}
 
-<WORDSPRIME> {ε,ID}
+<WORDS_TAIL> {ε,ID}
 
 <END_INST> {.\n}
 
@@ -17,12 +19,12 @@
 
 <VAR_DECL> {INTEGER}
 
-<VAR_DECLPRIME> {value,procedure,.\n}
+<VAR_DECL_TAIL> {value,procedure,.\n}
 
 
 <LABELS> {ID}
 
-<LABELSPRIME> {ε,ID}
+<LABELS_TAIL> {ε,ID}
 
 <INSTRUCTION_LIST> {ε,stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display}
 
@@ -34,7 +36,7 @@
 
 <EXPRESSION> {(,not,ID,INTEGER,true,false}
 
-<EXPRESSIONPRIME> {(,not,ID,INTEGER,true,false}
+<EXPRESSION_TAIL> {(,not,ID,INTEGER,true,false}
 
 <OP> {=,<,>,<=,>=,and,or,+,*,-,/}
 
@@ -44,11 +46,11 @@
 
 <CALL> {perform}
 
-<CALLPRIME>{until,.\n}
+<CALL_TAIL>{until,.\n}
 
 <READ> {accept}
 
 <WRITE> {display}
 
-<WRITEPRIME> {STRING,(,not,ID,integer,true,false}
+<WRITE_TAIL> {STRING,(,not,ID,integer,true,false}
 
