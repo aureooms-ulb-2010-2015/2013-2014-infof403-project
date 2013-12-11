@@ -24,17 +24,17 @@
 
      						→    ε
     
-[7] <VAR_DECL>  			→    INTEGER ID pic IMAGE <VAR_DECLPRIME> 
+[7] <VAR_DECL>  			→    INTEGER ID pic IMAGE <VAR_DECL_TAIL> 
 
-[8] <VAR_DECLPRIME> 		→    <END_INST>
+[8] <VAR_DECL_TAIL> 		→    <END_INST>
 
     						→    value INTEGER<END_INST>
      		
 
     
-[10] <LABELS> 				→    ID<END_INST> <INSTRUCTION_LIST><LABELSPRIME>
+[10] <LABELS> 				→    ID<END_INST> <INSTRUCTION_LIST><LABELS_TAIL>
 
-[11] <LABELSPRIME> 			→    ID<END_INST> <INSTRUCTION_LIST><LABELSPRIME>
+[11] <LABELS_TAIL> 			→    ID<END_INST> <INSTRUCTION_LIST><LABELS_TAIL>
 
      						→    ε
     			
@@ -62,11 +62,11 @@
 [15] <ASSING_END> 			→    <EXPRESSION>,<EXPRESSION> giving ID
 
     
-[16] <EXPRESSION> 			→    <EXPRESSION> <OP> <EXPRESSIONPRIME>
-                            →    <EXPRESSIONPRIME>
+[16] <EXPRESSION> 			→    <EXPRESSION> <OP> <EXPRESSION_TAIL>
+                            →    <EXPRESSION_TAIL>
 
-[17] <EXPRESSIONPRIME>  	→    (<EXPRESSIONPRIME>)
-    						→    not <EXPRESSIONPRIME>
+[17] <EXPRESSION_TAIL>  	→    (<EXPRESSION_TAIL>)
+    						→    not <EXPRESSION_TAIL>
     						→    ID
     						→    INTEGER
     						→    true
@@ -91,18 +91,18 @@
                             →    end-if
     
     
-[20] <CALL> 				→    perform ID <CALLPRIME>
+[20] <CALL> 				→    perform ID <CALL_TAIL>
 
-[21] <CALLPRIME>  			→    until <EXPRESSION><END_INST>
+[21] <CALL_TAIL>  			→    until <EXPRESSION><END_INST>
 
     						→    <END_INST>
     
 [22] <READ>  				→    accept ID<END_INST>
 
     
-[23] <WRITE>  				→    display <WRITEPRIME>
+[23] <WRITE>  				→    display <WRITE_TAIL>
 
-[24] <WRITEPRIME> 			→    <EXPRESSION><END_INST>
+[24] <WRITE_TAIL> 			→    <EXPRESSION><END_INST>
 
     						→    STRING<END_INST>
 

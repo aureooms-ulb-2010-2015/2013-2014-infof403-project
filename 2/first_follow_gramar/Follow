@@ -1,9 +1,11 @@
 										Follows
 <PROGRAM> {}
 
+<PROC> {}
+
 <IDENT> {environment}
 
-<WORDSPRIME> {}
+<WORDS_TAIL> {}
 
 <END_INST> {program-id.,author.,datewritten., environment, configuration,source-computer.,object-computer.,working-storage,INTEGER,procedure, INTEGER, data,ID,stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,end}
 
@@ -15,11 +17,11 @@
 
 <VAR_DECL> {INTEGER, data}
 
-<VAR_DECLPRIME> {INTEGER, data}
+<VAR_DECL_TAIL> {INTEGER, data}
 
 <LABELS> {end}
 
-<LABELSPRIME> {end}
+<LABELS_TAIL> {end}
 
 <INSTRUCTION_LIST> {ID,end,end-if,else}
 
@@ -31,7 +33,7 @@
 
 <EXPRESSION> {to,.\n, from, \, , giving,=,<,>,<=,>=,and,or,+,*,-,/,then}
 
-<EXPRESSIONPRIME> {to,.\n, from, \, , giving,=,<,>,<=,>=,and,or,+,*,-,/,then,)}
+<EXPRESSION_TAIL> {to,.\n, from, \, , giving,=,<,>,<=,>=,and,or,+,*,-,/,then,)}
 
 <OP> {(,not,ID,INTEGER,true,false}
 
@@ -41,11 +43,11 @@
 
 <CALL> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
 
-<CALLPRIME> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+<CALL_TAIL> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
 
 <READ> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
 
 <WRITE> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
 
-<WRITEPRIME> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
+<WRITE_TAIL> {stop,move,compute,add,substract,multiply,divide,if,end-if,else,perform,accept,display,ID,end}
 
