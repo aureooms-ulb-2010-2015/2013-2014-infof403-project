@@ -1,0 +1,25 @@
+{
+
+"<PROGRAM>" : [
+	["<IDENT>", "<ENV>", "<DATA>", "<PROC>"]
+],
+
+"<VAR_LIST>": [
+	["<VAR_DECL>", "<VAR_LIST>"]
+],
+
+"<VAR_DECL>": [
+	["INTEGER", "IDENTIFIER", "PIC", "IMAGE", "<VAR_DECL_TAIL>"]
+],
+
+"<VAR_DECL_TAIL>": [
+	["END_OF_INSTRUCTION"],
+	["VALUE", "INTEGER", "END_OF_INSTRUCTION"]
+],
+
+"<VAR_LIST>": [
+	["<VAR_DECL>", "<VAR_LIST>"],
+	[]
+]
+
+}
