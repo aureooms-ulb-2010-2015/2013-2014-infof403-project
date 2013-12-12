@@ -56,10 +56,10 @@
     						→    compute ID = <EXPRESSION><END_INST>
     						→    add <EXPRESSION> to ID<END_INST>
     						→    subtract <EXPRESSION> from ID<END_INST>
-    						→    multiply <ASSING_END><END_INST>
-    						→    divide <ASSING_END><END_INST>
+    						→    multiply <ASSIGN_END><END_INST>
+    						→    divide <ASSIGN_END><END_INST>
     
-[15] <ASSING_END> 			→    <EXPRESSION>,<EXPRESSION> giving ID
+[15] <ASSIGN_END> 			→    <EXPRESSION>,<EXPRESSION> giving ID
 
     
 [16] <EXPRESSION> 			→    <EXPRESSION> <OP> <EXPRESSION_TAIL>

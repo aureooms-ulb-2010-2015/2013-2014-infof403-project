@@ -47,6 +47,17 @@ first = {}
 follow = {}
 rules_sorted = []
 
+def grammar_to_tail_graph(rules):
+	graph = {}
+	for node in rules.keys():
+		graph[node] = set([])
+		for rule in rules[node]:
+			if len(rule) > 0:
+				adj = rule[-1]
+				if adj in rules and adj != node: graph[node] |= set([adj])
+
+	return graph
+
 def topological_sort(graph):
 	prev  = {}
 	sort  = []
@@ -56,9 +67,8 @@ def topological_sort(graph):
 		prev[node] = 0
 
 	for node in graph.keys():
-		for rule in graph[node]:
-			for adj in rule:
-				if adj in prev: prev[adj] += 1
+		for adj in graph[node]:
+			prev[adj] += 1
 
 	for node in graph.keys():
 		if prev[node] == 0: queue.append(node)
@@ -68,12 +78,10 @@ def topological_sort(graph):
 		node = queue[0]
 		del queue[0]
 		sort.append(node)
-		for rule in graph[node]:
-			for adj in rule:
-				if adj in prev: 
-					prev[adj] -= 1
-					if prev[adj] == 0: queue.append(adj)
-		
+		for adj in graph[node]:
+			prev[adj] -= 1
+			if prev[adj] == 0: queue.append(adj)
+
 	return sort
 
 def line(identation = 0, text = ''):
@@ -101,7 +109,7 @@ def compute_first():
 			first[unit] = []
 			for rule in rules[unit]:
 				if len(rule) > 1:
-					first[unit].append(get_first(rule[0]))
+					first[unit] += get_first(rule[0])
 
 def compute_follow():
 	for unit in rules_sorted:
@@ -112,9 +120,9 @@ def compute_follow():
 			if len(rule) > 0:
 				for current, next in zip(rule[:-1], rule[1:]):
 					if is_non_terminal(current) and get_first(next) not in follow[current]:
-						follow[current].append(get_first(next))
+						follow[current] += get_first(next)
 				if is_non_terminal(rule[-1]):
-					follow[rule[-1]] = list(set(follow[rule[-1]]) + set(follow[unit]))
+					follow[rule[-1]] = list(set(follow[rule[-1]]) | set(follow[unit]))
 
 def main():
 	global rules, rules_sorted, first, follow
@@ -122,7 +130,7 @@ def main():
 	with open(sys.argv[1], 'r') as fp:
 		rules = json.load(fp)
 
-	rules_sorted = topological_sort(rules)
+	rules_sorted = topological_sort(grammar_to_tail_graph(rules))
 
 	print(rules_sorted)
 
