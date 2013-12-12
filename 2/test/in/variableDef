@@ -1,0 +1,7 @@
+/we define 3 variables (a, b, c).
+77 a s9(5).
+            /9 for digit (int).
+77 b s9(5).
+            /(5) for 5 digits.
+77 c s9(5).
+            /code of our program.

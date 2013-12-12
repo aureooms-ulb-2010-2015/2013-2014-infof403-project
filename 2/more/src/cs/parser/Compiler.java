@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.HashMap;
+
+
 
 import cs.lexer.*;
 import cs.parser.functAST.*;
@@ -14,9 +17,12 @@ import cs.parser.declAST.*;
 
 public class Compiler{
 
-	private Scanner cobolScanner;
-	private Symbol<String> token;
-	private boolean inBuffer = false;
+	protected Scanner cobolScanner;
+	protected Symbol<String> token;
+	protected boolean inBuffer = false;
+	
+	protected HashMap<String,VariableExprAST> variables;
+
 
 	public Compiler(Scanner cobolScanner){
 		this.cobolScanner = cobolScanner;
@@ -51,13 +57,77 @@ public class Compiler{
 	// Expression parsing
 	//
 
-	protected DeclAST parseInteger(){
-		return new IntegerDeclAST(Integer.decode(token.getValue()));
+	protected int parseInteger(){
+		return Integer.decode(token.getValue());
 	}
 
-	protected DeclAST parseReal(){
-		return new RealDeclAST(Double.valueOf(token.getValue()));
+	protected double parseReal(){
+		return Double.parseDouble(token.getValue());
 	}
+// <VAR_DECL>  			→    INTEGER ID pic IMAGE <VAR_DECL_TAIL> 
+
+// <VAR_DECL_TAIL> 		→    <END_INST>
+
+ //   						→    value INTEGER<END_INST>
+
+	/*
+
+	TESTING CODE GENERATION
+
+
+	*/
+	public void handle_VAR_DECL() throws Exception{
+
+		this.read();
+		this.check_token_unit(LexicalUnit.INTEGER);
+
+		this.read();
+		this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+		String variableName = token.getValue();
+
+		this.read();
+		this.check_token_unit(LexicalUnit.PIC);
+
+		this.read();
+		this.check_token_unit(LexicalUnit.IMAGE);
+
+		VariableExprAST newVariable = (VariableExprAST) this.parseImage();
+
+		newVariable.setName(variableName);
+
+		this.handle_VAR_DECL_TAIL(newVariable);
+
+		this.variables.put(variableName,newVariable);
+
+
+	}
+	//<LEVEL> ID pic IMAGE value REAL<END_INST>   ??? cette regle n'existe pas comment crée t'on de real?
+
+	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
+		this.read();
+		switch(this.token.unit){
+			case END_OF_INSTRUCTION:
+				//reduce(?)
+				break;
+			case VALUE:
+				this.read();
+				this.check_token_unit(LexicalUnit.INTEGER);//integer?! not real?!
+
+				newVariable.setValue(this.parseReal());//parse real
+
+				this.read();
+				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				break;
+
+			default:
+				// TODO problem
+				break;
+		}
+
+	}
+
 
 	/**
 	*http://www.3480-3590-data-conversion.com/article-packed-fields.html
@@ -69,13 +139,13 @@ public class Compiler{
 	*
 	*/
 
-	protected DeclAST parseImage(){
-		DeclAST ret = null;
+	protected ExprAST parseImage(){
+		ExprAST ret = null;
 		if(token.getValue().contains("v") || token.getValue().contains("V")){
-			ret = new RealDeclAST(Double.valueOf(token.getValue()));
+			ret = new RealExprAST();
 		}
 		else{
-			ret = new IntegerDeclAST(Integer.decode(token.getValue()));
+			ret = new IntegerExprAST();
 		}
 		
 		return ret;
@@ -348,7 +418,7 @@ public class Compiler{
 		}
 	}
 
-	public void handle_VAR_DECL(){}
+	
 
 	public void handle_INSTRUCTION() throws Exception{
 		switch(this.token.unit){
