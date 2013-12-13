@@ -47,42 +47,42 @@ first = {}
 follow = {}
 rules_sorted = []
 
-def grammar_to_tail_graph(rules):
-	graph = {}
-	for node in rules.keys():
-		graph[node] = set([])
-		for rule in rules[node]:
-			if len(rule) > 0:
-				adj = rule[-1]
-				if adj in rules and adj != node: graph[node] |= set([adj])
+# def grammar_to_tail_graph(rules):
+# 	graph = {}
+# 	for node in rules.keys():
+# 		graph[node] = set([])
+# 		for rule in rules[node]:
+# 			if len(rule) > 0:
+# 				adj = rule[-1]
+# 				if adj in rules and adj != node: graph[node] |= set([adj])
 
-	return graph
+# 	return graph
 
-def topological_sort(graph):
-	prev  = {}
-	sort  = []
-	queue = []
+# def topological_sort(graph):
+# 	prev  = {}
+# 	sort  = []
+# 	queue = []
 
-	for node in graph.keys():
-		prev[node] = 0
+# 	for node in graph.keys():
+# 		prev[node] = 0
 
-	for node in graph.keys():
-		for adj in graph[node]:
-			prev[adj] += 1
+# 	for node in graph.keys():
+# 		for adj in graph[node]:
+# 			prev[adj] += 1
 
-	for node in graph.keys():
-		if prev[node] == 0: queue.append(node)
+# 	for node in graph.keys():
+# 		if prev[node] == 0: queue.append(node)
 	
 
-	while len(queue) > 0:
-		node = queue[0]
-		del queue[0]
-		sort.append(node)
-		for adj in graph[node]:
-			prev[adj] -= 1
-			if prev[adj] == 0: queue.append(adj)
+# 	while len(queue) > 0:
+# 		node = queue[0]
+# 		del queue[0]
+# 		sort.append(node)
+# 		for adj in graph[node]:
+# 			prev[adj] -= 1
+# 			if prev[adj] == 0: queue.append(adj)
 
-	return sort
+# 	return sort
 
 def line(identation = 0, text = ''):
 	print('\t' * identation, text, sep = '')
@@ -121,8 +121,19 @@ def compute_follow():
 				for current, next in zip(rule[:-1], rule[1:]):
 					if is_non_terminal(current) and get_first(next) not in follow[current]:
 						follow[current] += get_first(next)
-				if is_non_terminal(rule[-1]):
-					follow[rule[-1]] = list(set(follow[rule[-1]]) | set(follow[unit]))
+
+
+	end = False
+
+	while not end:
+		end = True
+		for unit in rules_sorted:
+			for rule in rules[unit]:
+				if len(rule) > 0:
+					if is_non_terminal(rule[-1]):
+						tmp = set(follow[rule[-1]])
+						follow[rule[-1]] = list(set(follow[rule[-1]]) | set(follow[unit]))
+						if tmp != set(follow[rule[-1]]): end = False
 
 def main():
 	global rules, rules_sorted, first, follow
@@ -130,7 +141,7 @@ def main():
 	with open(sys.argv[1], 'r') as fp:
 		rules = json.load(fp)
 
-	rules_sorted = topological_sort(grammar_to_tail_graph(rules))
+	rules_sorted = sorted(rules.keys())
 
 	print(rules_sorted)
 
