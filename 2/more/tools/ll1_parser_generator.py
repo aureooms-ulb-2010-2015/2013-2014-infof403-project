@@ -117,7 +117,7 @@ def compute_follow():
 
 	for unit in rules_sorted:
 		for rule in rules[unit]:
-			if len(rule) > 0:
+			if len(rule) > 1:
 				for current, next in zip(rule[:-1], rule[1:]):
 					if is_non_terminal(current) and get_first(next) not in follow[current]:
 						follow[current] += get_first(next)
@@ -130,10 +130,15 @@ def compute_follow():
 		for unit in rules_sorted:
 			for rule in rules[unit]:
 				if len(rule) > 0:
-					if is_non_terminal(rule[-1]):
-						tmp = set(follow[rule[-1]])
-						follow[rule[-1]] = list(set(follow[rule[-1]]) | set(follow[unit]))
-						if tmp != set(follow[rule[-1]]): end = False
+					i = -1
+					while len(rule) + i + 1 > 0 and (i == -1 or [] in rules[rule[i + 1]]):
+						if is_non_terminal(rule[i]):
+							tmp = set(follow[rule[i]])
+							follow[rule[i]] = list(set(follow[rule[i]]) | set(follow[unit]))
+							if tmp != set(follow[rule[i]]): end = False
+						else:
+							break
+						i -= 1
 
 def main():
 	global rules, rules_sorted, first, follow
