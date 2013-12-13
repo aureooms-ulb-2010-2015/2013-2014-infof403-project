@@ -31,7 +31,7 @@ procedure division.
 		                   /call find label until b equals 0.
 		perform find until b = 0.
 		                   /write 'valeur:' on stdout.
-/		display 'valeur:' .
+		display 'valeur:' .
 		                   /write the content of a on stdout.
 		display a.
 		                   /stop the program.
