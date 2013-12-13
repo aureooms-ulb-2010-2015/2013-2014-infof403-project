@@ -22,6 +22,7 @@ public class Compiler{
 	protected boolean inBuffer = false;
 	
 	protected HashMap<String,VariableExprAST> variables;
+	protected int variableCount = 0;
 
 
 	public Compiler(Scanner cobolScanner){
@@ -502,34 +503,6 @@ public class Compiler{
 
 	
 
-	
-	
-	public void handle_VAR_DECL() throws Exception{
-
-		this.read();
-		this.check_token_unit(LexicalUnit.INTEGER);
-
-		this.read();
-		this.check_token_unit(LexicalUnit.IDENTIFIER);
-
-		String variableName = token.getValue();
-
-		this.read();
-		this.check_token_unit(LexicalUnit.PIC);
-
-		this.read();
-		this.check_token_unit(LexicalUnit.IMAGE);
-
-		VariableExprAST newVariable = (VariableExprAST) this.parseImage();
-
-		newVariable.setName(variableName);
-
-		this.handle_VAR_DECL_TAIL(newVariable);
-
-		this.variables.put(variableName,newVariable);
-
-	}
-
 	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
 		this.read();
 		switch(this.token.unit){
@@ -550,6 +523,34 @@ public class Compiler{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.VALUE});
 				break;
 		}
+
+	}
+	
+	public void handle_VAR_DECL() throws Exception{
+
+		this.read();
+		this.check_token_unit(LexicalUnit.INTEGER);
+
+		this.read();
+		this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+		String variableName = token.getValue();
+
+		this.read();
+		this.check_token_unit(LexicalUnit.PIC);
+
+		this.read();
+		this.check_token_unit(LexicalUnit.IMAGE);
+
+		VariableExprAST newVariable = (VariableExprAST) this.parseImage();
+
+		newVariable.setName(variableName);
+		newVariable.setLLVMName("%t"+Integer.toString(variableCount));
+
+		this.handle_VAR_DECL_TAIL(newVariable);
+
+
+		this.variables.put(variableName,newVariable);
 
 	}
 	

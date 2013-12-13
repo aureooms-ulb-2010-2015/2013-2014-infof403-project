@@ -30,3 +30,10 @@ compile it : make
 doc it     : make doc
 test it    : python3 test/run
 run it     : java -jar dist/scc.jar [<filename>]
+
+# interestiong sources:
+
+building AST classes: http://llvm.org/docs/tutorial/LangImpl2.html
+code generation from AST classes: http://llvm.org/docs/tutorial/LangImpl3.html 
+
+declare variables: https://gustavus.edu/+max/courses/S2009/MCS-388/labs/lab3/

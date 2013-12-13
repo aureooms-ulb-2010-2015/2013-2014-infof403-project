@@ -8,6 +8,8 @@ package cs.parser.exprAST;
 public class VariableExprAST<T> extends ExprAST {
 	protected T val;
 	protected String name = "";
+	protected String LLVMname = "";
+
 
 	public VariableExprAST (){super();}
 
@@ -24,4 +26,7 @@ public class VariableExprAST<T> extends ExprAST {
 
 	public String getName(){ return name;}
 	public void setName(String name){ this.name = name;}
+
+	public String getLLVMName(){ return LLVMname;}
+	public void setLLVMName(String name){ this.LLVMname = name;}
 }
