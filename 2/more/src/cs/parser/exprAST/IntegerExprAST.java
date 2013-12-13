@@ -7,14 +7,12 @@ public class IntegerExprAST extends VariableExprAST<Integer>{
 	public IntegerExprAST(){
 		super();
 	}
-	/*public IntegerExprAST(int val){
-		super();
-		this.val=val;
+	public IntegerExprAST (String size){
+		super(size);
+		
 	}
 
-	protected int getValue(){return val;}
-	protected void setValue(int val){
-		return this.vale = val;
-	}*/
+	public String getLLVMType(){return "i";}
+	
 
 }

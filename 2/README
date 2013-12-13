@@ -36,4 +36,10 @@ run it     : java -jar dist/scc.jar [<filename>]
 building AST classes: http://llvm.org/docs/tutorial/LangImpl2.html
 code generation from AST classes: http://llvm.org/docs/tutorial/LangImpl3.html 
 
-declare variables: https://gustavus.edu/+max/courses/S2009/MCS-388/labs/lab3/
+guidelines on LLVM IR syntax : https://gustavus.edu/+max/courses/S2009/MCS-388/
+
+type size in LLVM: http://llvm.org/docs/LangRef.html#integer-type 
+does an i32 in llvm is signed?
+
+image size in cobol : http://www.3480-3590-data-conversion.com/article-packed-fields.html
+

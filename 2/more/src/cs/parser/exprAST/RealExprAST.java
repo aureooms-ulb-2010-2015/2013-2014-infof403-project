@@ -4,15 +4,13 @@ package cs.parser.exprAST;
 
 public class RealExprAST extends VariableExprAST<Double>{
 	
-	public RealExprAST(){}
-	/*public RealExprAST(double val){
+	public RealExprAST(){
 		super();
-		this.val=val;
+	}
+	
+	public RealExprAST (String size){
+		super(size);
 	}
 
-	protected double getValue(){return val;}
-	protected void setValue(double val){
-		return this.vale = val;
-	}*/
-
+	public String getLLVMType(){return "i";}//replace by float declaration syntax in LLVM
 }

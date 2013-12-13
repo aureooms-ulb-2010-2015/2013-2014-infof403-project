@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
 
+import java.lang.*;
+
 
 
 import cs.lexer.*;
@@ -21,7 +23,7 @@ public class Compiler{
 	protected Symbol<String> token;
 	protected boolean inBuffer = false;
 	
-	protected HashMap<String,VariableExprAST> variables;
+	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
 	protected int variableCount = 0;
 
 
@@ -65,15 +67,55 @@ public class Compiler{
 		return Double.parseDouble(token.getValue());
 	}
 
+
+	/*
+	* PIC S9(7) COMP-3.     Byte size = (7 + 1) / 2 = 4
+
+    * PIC S9(5)V99 COMP-3.  Byte size = (5 + 2 + 1) / 2 = 4
+
+    * PIC S9(6) COMP-3.     Byte size = (6 + 1) / 2 = 3.5, rounded to 4
+	*
+	*	LLVM types = integer and floats of 16 32 64 128 bits
+	*/
 	protected ExprAST parseImage(){
 		ExprAST ret = null;
-		if(token.getValue().contains("v")){
-			ret = new RealExprAST();
-		}
-		else{
-			ret = new IntegerExprAST();
+		int imSize = 0; // # of 9 in () AND after v
+		String image = token.getValue();
+		boolean signed = image.contains("s");
+		boolean floating = image.contains("v");
+
+		boolean inside = false;
+		
+		for(char c : image.toCharArray()) {
+  			
+			if(c==')'){inside=false;}
+			if(inside){imSize+=1;}
+			if(c=='('){inside=true;}
 		}
 		
+		int imageBitSize = (int)Math.ceil(((imSize+1)/2)*8);
+
+		if(imageBitSize < 16 ){// in future make different classes 
+			if(floating){ ret = new RealExprAST(Integer.toString(16));}
+			else{ ret = new IntegerExprAST(Integer.toString(16));}
+		}
+		else if(imageBitSize < 32 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(32));}
+			else{ ret = new IntegerExprAST(Integer.toString(32));}
+		}
+		else if(imageBitSize < 64 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(64));}
+			else{ ret = new IntegerExprAST(Integer.toString(64));}
+		}
+		else if(imageBitSize < 128 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(128));}
+			else {ret = new IntegerExprAST(Integer.toString(128));}
+		}
+		else{//wel shit...
+			if(floating){ ret = new RealExprAST(Integer.toString(16));}
+			else { ret = new IntegerExprAST(Integer.toString(16));}
+		}
+				
 		return ret;
 	}
 
@@ -503,28 +545,7 @@ public class Compiler{
 
 	
 
-	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
-		this.read();
-		switch(this.token.unit){
-			case END_OF_INSTRUCTION:
-				break;
-			case VALUE:
-				this.read();
-				this.check_token_unit(LexicalUnit.INTEGER);//integer?! not real?!
-
-				newVariable.setValue(this.parseReal());//parse real
-
-				this.read();
-				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
-
-				break;
-
-			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.VALUE});
-				break;
-		}
-
-	}
+	
 	
 	public void handle_VAR_DECL() throws Exception{
 
@@ -548,9 +569,30 @@ public class Compiler{
 		newVariable.setLLVMName("%t"+Integer.toString(variableCount));
 
 		this.handle_VAR_DECL_TAIL(newVariable);
-
-
 		this.variables.put(variableName,newVariable);
+
+	}
+
+	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
+		this.read();
+		switch(this.token.unit){
+			case END_OF_INSTRUCTION:
+				break;
+			case VALUE:
+				this.read();
+				this.check_token_unit(LexicalUnit.INTEGER);//integer?! not real?!
+
+				newVariable.setValue(this.parseReal());//parse real
+
+				this.read();
+				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				break;
+
+			default:
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.VALUE});
+				break;
+		}
 
 	}
 	
