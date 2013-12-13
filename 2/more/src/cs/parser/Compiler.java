@@ -56,6 +56,27 @@ public class Compiler{
 	public void compile() throws Exception{
 		this.handle_PROGRAM();
 	}
+	protected int parseInteger(){
+		return Integer.decode(token.getValue());
+	}
+
+	protected double parseReal(){
+		return Double.parseDouble(token.getValue());
+	}
+
+	protected ExprAST parseImage(){
+		ExprAST ret = null;
+		if(token.getValue().contains("v")){
+			ret = new RealExprAST();
+		}
+		else{
+			ret = new IntegerExprAST();
+		}
+		
+		return ret;
+	}
+
+	
 
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
@@ -478,35 +499,61 @@ public class Compiler{
 		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 	}
+
+	
+
+	
 	
 	public void handle_VAR_DECL() throws Exception{
+
 		this.read();
 		this.check_token_unit(LexicalUnit.INTEGER);
+
 		this.read();
 		this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+		String variableName = token.getValue();
+
 		this.read();
 		this.check_token_unit(LexicalUnit.PIC);
+
 		this.read();
 		this.check_token_unit(LexicalUnit.IMAGE);
-		this.handle_VAR_DECL_TAIL();
+
+		VariableExprAST newVariable = (VariableExprAST) this.parseImage();
+
+		newVariable.setName(variableName);
+
+		this.handle_VAR_DECL_TAIL(newVariable);
+
+		this.variables.put(variableName,newVariable);
+
 	}
-	
-	public void handle_VAR_DECL_TAIL() throws Exception{
+
+	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case END_OF_INSTRUCTION:
 				break;
 			case VALUE:
 				this.read();
-				this.check_token_unit(LexicalUnit.INTEGER);
+				this.check_token_unit(LexicalUnit.INTEGER);//integer?! not real?!
+
+				newVariable.setValue(this.parseReal());//parse real
+
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
 				break;
+
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.VALUE});
 				break;
 		}
+
 	}
+	
+	
 	
 	public void handle_VAR_LIST() throws Exception{
 		this.read();
