@@ -85,7 +85,7 @@ rules_sorted = []
 # 	return sort
 
 def line(identation = 0, text = ''):
-	print('\t' * identation, text, sep = '')
+	print('\t' * (identation + 1), text, sep = '')
 
 def is_non_terminal(element):
 	return element[0] == '<'
@@ -138,12 +138,13 @@ def compute_follow():
 def main():
 	global rules, rules_sorted, first, follow
 
+	with open(sys.argv[2], 'r') as fp:
+		print(fp.read())
+
 	with open(sys.argv[1], 'r') as fp:
 		rules = json.load(fp)
 
 	rules_sorted = sorted(rules.keys())
-
-	print(rules_sorted)
 
 	compute_first()
 	compute_follow()
@@ -179,7 +180,7 @@ def main():
 					line(3, 'break;')
 
 			line(2, 'default:')
-			line(3, 'this.handle_bad_token({' + ', '.join(terminals) + '});')
+			line(3, 'this.handle_bad_token(new LexicalUnit[]{' + ', '.join(terminals) + '});')
 			line(3, 'break;')
 			line(1, '}')
 
@@ -192,6 +193,8 @@ def main():
 					line(1, 'this.check_token_unit(LexicalUnit.' + element + ');')
 		line(0, '}')
 		line()
+
+	line(-1, '}')	
 
 
 if __name__ == '__main__':

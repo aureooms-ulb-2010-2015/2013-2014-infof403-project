@@ -1,0 +1,58 @@
+package cs.parser;
+
+
+import java.util.List;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.HashMap;
+
+
+
+import cs.lexer.*;
+import cs.parser.functAST.*;
+import cs.parser.exprAST.*;
+import cs.parser.declAST.*;
+
+public class Compiler{
+
+	protected Scanner cobolScanner;
+	protected Symbol<String> token;
+	protected boolean inBuffer = false;
+	
+	protected HashMap<String,VariableExprAST> variables;
+
+
+	public Compiler(Scanner cobolScanner){
+		this.cobolScanner = cobolScanner;
+	}
+
+	public void read() throws Exception{
+		if(this.inBuffer) this.inBuffer = false;
+		else this.token = cobolScanner.next_token();
+	}
+
+	public void unread() throws Exception{
+		this.inBuffer = true;
+	}
+
+	public void check_token_unit(LexicalUnit unit) throws Exception{
+		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
+	}
+
+	public boolean is_token_unit(LexicalUnit unit){
+		return this.token.unit.equals(unit);
+	}
+
+	public void handle_bad_token(LexicalUnit[] units) throws Exception{
+		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	public void handle_bad_token(LexicalUnit unit) throws Exception{
+		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	public void compile() throws Exception{
+		this.handle_PROGRAM();
+	}
