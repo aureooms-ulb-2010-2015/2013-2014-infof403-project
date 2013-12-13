@@ -240,6 +240,7 @@ public class Compiler{
 				this.handle_OP();
 				this.handle_EXPRESSION();
 				break;
+			//case THEN:
 			case FROM:
 			case GIVING:
 			case TO:
@@ -248,7 +249,7 @@ public class Compiler{
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.AND, LexicalUnit.OR, LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.AND, LexicalUnit.OR, LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.ASTERISK, LexicalUnit.SLASH, /*LexicalUnit.THEN, */LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA});
 				break;
 		}
 	}
@@ -270,6 +271,8 @@ public class Compiler{
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 		this.read();
 		this.check_token_unit(LexicalUnit.AUTHOR);
+		this.read();
+		this.check_token_unit(LexicalUnit.DOT);
 		this.handle_WORDS();
 		this.read();
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
@@ -351,6 +354,16 @@ public class Compiler{
 	public void handle_INSTRUCTION_LIST() throws Exception{
 		this.read();
 		switch(this.token.unit){
+			case MOVE:
+			case COMPUTE:
+			case ADD:
+			case SUBTRACT:
+			case MULTIPLY:
+			case DIVIDE:
+			case IF:
+			case PERFORM:
+			case ACCEPT:
+			case DISPLAY:
 			case STOP:
 				this.unread();
 				this.handle_INSTRUCTION();
@@ -362,7 +375,7 @@ public class Compiler{
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.STOP, LexicalUnit.END_ID, LexicalUnit.IDENTIFIER, LexicalUnit.ELSE});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE, LexicalUnit.IF, LexicalUnit.PERFORM, LexicalUnit.ACCEPT, LexicalUnit.DISPLAY, LexicalUnit.STOP, LexicalUnit.END_ID, LexicalUnit.IDENTIFIER, LexicalUnit.ELSE});
 				break;
 		}
 	}

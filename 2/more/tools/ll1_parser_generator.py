@@ -108,7 +108,7 @@ def compute_first():
 		if unit not in first:
 			first[unit] = []
 			for rule in rules[unit]:
-				if len(rule) > 1:
+				if len(rule) > 0:
 					first[unit] += get_first(rule[0])
 
 def compute_follow():
