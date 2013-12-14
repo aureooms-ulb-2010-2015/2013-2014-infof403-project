@@ -83,17 +83,29 @@ public class Compiler{
 		String image = token.getValue();
 		boolean signed = image.contains("s");
 		boolean floating = image.contains("v");
+		String nines ="";
 
 		boolean inside = false;
 		
 		for(char c : image.toCharArray()) {
   			
-			if(c==')'){inside=false;}
-			if(inside){imSize+=1;}
+			if(c==')'){
+				inside=false;
+				imSize+=Integer.decode(nines);
+				nines="";
+			}
+			if(inside){
+				nines+=c;
+			}
 			if(c=='('){inside=true;}
 		}
 		
-		int imageBitSize = (int)Math.ceil(((imSize+1)/2)*8);
+		int imageBitSize = 0;
+		if(imSize > 0 ){
+
+			imageBitSize = (int)Math.ceil( ( Math.log(Math.pow(imSize,10))/Math.log(2) ) /8 );
+		}
+
 
 		if(imageBitSize < 16 ){// in future make different classes 
 			if(floating){ ret = new RealExprAST(Integer.toString(16));}
@@ -111,7 +123,7 @@ public class Compiler{
 			if(floating){ ret = new RealExprAST(Integer.toString(128));}
 			else {ret = new IntegerExprAST(Integer.toString(128));}
 		}
-		else{//wel shit...
+		else{//well shit...
 			if(floating){ ret = new RealExprAST(Integer.toString(16));}
 			else { ret = new IntegerExprAST(Integer.toString(16));}
 		}
