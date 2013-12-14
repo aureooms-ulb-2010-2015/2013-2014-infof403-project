@@ -2,7 +2,7 @@
 
 void display(int it);
 
-int main (){
+int main(){
 	int i;
 	display(i);
 	return 0;

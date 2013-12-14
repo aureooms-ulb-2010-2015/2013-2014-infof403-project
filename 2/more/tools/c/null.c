@@ -1,6 +1,6 @@
 #include <stddef.h>
 
-int main (){
+int main(){
 	void* pt = NULL;
 	return 0;
 }

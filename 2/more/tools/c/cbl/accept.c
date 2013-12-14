@@ -2,7 +2,7 @@
 
 void accept(int* it);
 
-int main (){
+int main(){
 	int i;
 	accept(&i);
 	return 0;
