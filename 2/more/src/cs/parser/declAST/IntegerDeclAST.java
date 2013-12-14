@@ -6,7 +6,7 @@ public class IntegerDeclAST extends DeclAST{
 	public IntegerDeclAST(){}
 
 	protected void setValue(int val){
-		this.value=val;
+		this.value = val;
 	}
 
 	protected int getValue(){

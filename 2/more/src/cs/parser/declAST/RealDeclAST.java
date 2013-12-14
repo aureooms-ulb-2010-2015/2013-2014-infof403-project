@@ -7,7 +7,7 @@ public class RealDeclAST extends DeclAST{
 	public RealDeclAST(){}
 
 	protected void setValue(double val){
-		this.value=val;
+		this.value = val;
 	}
 
 	protected double getValue(){

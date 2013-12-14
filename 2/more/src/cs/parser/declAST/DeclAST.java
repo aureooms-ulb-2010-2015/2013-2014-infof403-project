@@ -6,7 +6,7 @@ public class DeclAST{
 	public DeclAST(){}
 
 	public void setName(String name){
-		this.name=name;
+		this.name = name;
 		
 	}
 	
