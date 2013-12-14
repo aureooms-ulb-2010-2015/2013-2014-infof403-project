@@ -58,6 +58,8 @@ public class Compiler{
 
 	public void compile() throws Exception{
 		this.handle_PROGRAM();
+		this.read();
+		this.check_token_unit(LexicalUnit.EOF);
 	}
 	protected int parseInteger(){
 		return Integer.decode(token.getValue());
@@ -527,7 +529,7 @@ public class Compiler{
 		this.read();
 		this.check_token_unit(LexicalUnit.SECTION);
 		this.read();
-		this.check_token_unit(LexicalUnit. END_OF_INSTRUCTION );
+		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_LABELS();
 		this.read();
 		this.check_token_unit(LexicalUnit.END);

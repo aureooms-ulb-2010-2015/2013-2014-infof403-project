@@ -5,6 +5,20 @@ import cs.lexer.*;
 import java.util.Arrays;
 
 public class SCOBOLGrammaticalException extends Exception {
+
+	static String format_expected(LexicalUnit[] expected){
+		if(expected.length == 0) return "";
+		if(expected.length == 1) return expected[0].toString();
+		
+		String out = "";
+		int i = 0;
+		for(; i < expected.length - 2; ++i){
+			out += expected[i] + ", ";
+		}
+		out += expected[i] + " or " + expected[i + 1];
+		return out;
+	}
+
 	public SCOBOLGrammaticalException() { 
 		super(); 
 	}
@@ -17,11 +31,11 @@ public class SCOBOLGrammaticalException extends Exception {
 	public SCOBOLGrammaticalException(Throwable cause) { 
 		super(cause); 
 	}
-	public SCOBOLGrammaticalException(LexicalUnit expected, LexicalUnit received, String value, Integer line, Integer column ){
-		super(String.format("Error:\nline: %d\ncolumn: %d\nexpected %s received %s (%s)", line, column, expected, received, value));
+	public SCOBOLGrammaticalException(LexicalUnit expected, LexicalUnit received, String value, Integer line, Integer column){
+		super(String.format("stdin:%d:%d:expected %s received %s (%s)", line, column, expected, received, value));
 	}
-	public SCOBOLGrammaticalException(LexicalUnit[] expected, LexicalUnit received, String value, Integer line, Integer column ){
-		super(String.format("Error:\nline: %d\ncolumn: %d\nexpected %s received %s (%s)", line, column, Arrays.toString(expected), received, value));
+	public SCOBOLGrammaticalException(LexicalUnit[] expected, LexicalUnit received, String value, Integer line, Integer column){
+		super(String.format("stdin:%d:%d:expected %s received %s (%s)", line, column, format_expected(expected), received, value));
 	}
 
 }
