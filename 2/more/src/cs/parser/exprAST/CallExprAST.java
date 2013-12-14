@@ -14,7 +14,7 @@ public class CallExprAST extends ExprAST {
 	protected ArrayList<ExprAST> args;
 
 	public CallExprAST(String callee, ArrayList<ExprAST> args){
-		this.callee=callee;
-		this.args=args;
+		this.callee = callee;
+		this.args = args;
 	}
 }
