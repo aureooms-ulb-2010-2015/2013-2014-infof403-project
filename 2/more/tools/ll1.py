@@ -14,9 +14,22 @@ class LL1Grammar:
 		self.first = {}
 		self.follow = {}
 		self.rules_sorted = sorted(rules.keys())
+		self.alphabet = []
 
 		self.compute_first()
 		self.compute_follow()
+		self.compute_alphabet()
+
+	def compute_alphabet(self):	
+		for unit in self.rules_sorted:
+			for rule in self.rules[unit]:
+				for element in rule:
+					if not is_non_terminal(element) and element not in self.alphabet:
+						self.alphabet.append(element)
+				if rule == [] and 'ε' not in self.alphabet:
+					self.alphabet.append('ε')
+
+		self.alphabet = sorted(self.alphabet)
 
 	def get_first(self, element):
 		if is_non_terminal(element):
