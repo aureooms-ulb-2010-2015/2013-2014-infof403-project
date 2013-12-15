@@ -2,3 +2,5 @@
 
 	python3 ll1_parser_generator.py ll1_grammar.json ll1_parser_header.txt
 
+	python3 more/tools/ll1_grammar_pretty_printer.py more/tools/ll1_grammar.json
+
