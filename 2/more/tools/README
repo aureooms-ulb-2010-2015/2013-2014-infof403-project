@@ -1,0 +1,4 @@
+# USAGE
+
+	python3 ll1_parser_generator.py ll1_grammar.json ll1_parser_header.txt
+
