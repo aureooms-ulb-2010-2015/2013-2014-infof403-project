@@ -9,16 +9,28 @@ def main():
 
 	grammar = LL1Grammar(rules)
 
+	max_s = 0
+	i = 0
+
+	for unit in grammar.rules_sorted:
+		if(len(unit) > max_s):
+			max_s = len(unit)
+		for rule in rules[unit]:
+			i += 1
+
+	format = '[%' + str(len(str(i-1))) + 'd] %' + str(max_s) +'s -> %s'
+
+
 	i = 0
 
 	for unit in grammar.rules_sorted:
 		if len(rules[unit]) > 0:
 			rule = rules[unit][0]
-			print('[%d] %s -> %s' % (i, unit, 'ε' if rule == [] else ' '.join(rule)))
+			print(format % (i, unit, 'ε' if rule == [] else ' '.join(rule)))
 			i += 1
 			for j in range(1, len(rules[unit])):
 				rule = rules[unit][j]
-				print('[%d] %s -> %s' % (i, " " * len(unit), 'ε' if rule == [] else ' '.join(rule)))
+				print(format % (i, '', 'ε' if rule == [] else ' '.join(rule)))
 				i += 1
 
 
