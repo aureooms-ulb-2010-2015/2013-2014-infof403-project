@@ -15,16 +15,16 @@ import cs.parser.functAST.*;
 import cs.parser.exprAST.*;
 import cs.parser.declAST.*;
 
-public class Compiler{
+public class Parser{
 
 	protected Scanner cobolScanner;
 	protected Symbol<String> token;
 	protected boolean inBuffer = false;
 	
-	protected HashMap<String,VariableExprAST> variables;
+	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
 
 
-	public Compiler(Scanner cobolScanner){
+	public Parser(Scanner cobolScanner){
 		this.cobolScanner = cobolScanner;
 	}
 
@@ -37,7 +37,7 @@ public class Compiler{
 		this.inBuffer = true;
 	}
 
-	public void check_token_unit(LexicalUnit unit) throws Exception{
+	public void match(LexicalUnit unit) throws Exception{
 		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
 	}
 
@@ -54,5 +54,5 @@ public class Compiler{
 	}
 
 	public void compile() throws Exception{
-		this.handle_PROGRAM();
+		this.handle_S();
 	}

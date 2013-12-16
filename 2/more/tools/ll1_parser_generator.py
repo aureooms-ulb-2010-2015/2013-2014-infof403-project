@@ -35,7 +35,7 @@ def main():
 							line(3, 'this.handle_' + rule_text(element) + '();')
 						else:
 							line(3, 'this.read();')
-							line(3, 'this.check_token_unit(LexicalUnit.' + element + ');')
+							line(3, 'this.match(LexicalUnit.' + element + ');')
 					line(3, 'break;')
 
 				elif len(grammar.follow[unit]) > 0:
@@ -56,7 +56,7 @@ def main():
 					line(1, 'this.handle_' + rule_text(element) + '();')
 				else:
 					line(1, 'this.read();')
-					line(1, 'this.check_token_unit(LexicalUnit.' + element + ');')
+					line(1, 'this.match(LexicalUnit.' + element + ');')
 		line(0, '}')
 		line()
 

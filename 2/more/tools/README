@@ -4,8 +4,8 @@ PARSER
 	python3 ll1_parser_generator.py ll1_grammar.json ll1_parser_header.txt
 
 GRAMMAR
-	python3 more/tools/ll1_grammar_pretty_printer.py more/tools/ll1_grammar.json
+	python3 ll1_grammar_pretty_printer.py ll1_grammar.json
 
 ACTION TABLE
-	python3 more/tools/ll1_action_table.py more/tools/ll1_grammar.json
+	python3 ll1_action_table.py ll1_grammar.json
 

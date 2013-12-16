@@ -6,9 +6,9 @@ import cs.lexer.*;
 public class Main{
 	public static void main(String args[])throws Exception{
 		Scanner cobolScanner = new Scanner(System.in);
-		Compiler cobolCompiler = new Compiler(cobolScanner);
+		Parser cobolParser = new Parser(cobolScanner);
 		try{
-			cobolCompiler.compile();
+			cobolParser.compile();
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
