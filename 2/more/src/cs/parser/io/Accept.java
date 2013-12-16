@@ -67,6 +67,7 @@ public class Accept{
 	public Accept(String type, String variable){
 		this.type = type;
 		this.variable = variable;
+		this.genCode();
   	}
 
 	public void genCode(){

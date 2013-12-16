@@ -11,6 +11,7 @@ public class Assign {
 	public Assign(VariableDecl to, IntegerVariable from){
 		this.from = from;
 		this.to = to;
+		
 	}
 
 	//store i32 0, i32* %1

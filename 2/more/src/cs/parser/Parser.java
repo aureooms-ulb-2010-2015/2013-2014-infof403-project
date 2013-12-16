@@ -16,6 +16,8 @@ import cs.parser.exprAST.*;
 
 import cs.parser.io.*;
 import cs.parser.variable.*;
+import cs.parser.string.*;
+import cs.parser.conditional.*;
 
 import cs.parser.declaration.*;
 import cs.parser.assign.*;
@@ -28,6 +30,8 @@ public class Parser{
 	protected VariableAllocator variableAllocator = new VariableAllocator();
 	
 	protected HashMap<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+
+	protected StringPool stringPool = new StringPool();
 
 
 	public Parser(Scanner cobolScanner){
@@ -61,6 +65,7 @@ public class Parser{
 
 	public void compile() throws Exception{
 		this.handle_S();
+		stringPool.genCode();
 	}
 
 	protected int parseInteger(){
@@ -125,8 +130,8 @@ public class Parser{
 		return ret;
 	}
 
-	protected Assign createAssign(String var, IntegerVariable expr){
-		return new Assign(variables.get(var),expr);
+	protected void createAssign(String var, IntegerVariable expr){
+		new Assign(variables.get(var),expr).genCode();
 	}
 
 	
@@ -339,6 +344,7 @@ public class Parser{
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
 		return new IntegerVariable(true,32,"%test");
+
 	}
 	
 	public ExprAST handle_EXPRESSION_1() throws Exception{
@@ -357,18 +363,29 @@ public class Parser{
 				this.handle_EXPRESSION_2();
 				this.handle_EXPRESSION_1_TAIL();
 				break;
-			case END_OF_INSTRUCTION:
+			case RIGHT_PARENTHESIS:
+			case LOWER_OR_EQUALS:
 			case THEN:
-			case FROM:
-			case COMMA:
-			case TO:
+			case ASTERISK:
 			case GIVING:
 			case OR:
+			case EQUALS_SIGN:
+			case MINUS_SIGN:
+			case LOWER_THAN:
+			case END_OF_INSTRUCTION:
+			case SLASH:
+			case TO:
+			case GREATER_THAN:
+			case PLUS_SIGN:
+			case COMMA:
+			case GREATER_OR_EQUALS:
+			case FROM:
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.AND, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.GIVING, LexicalUnit.OR});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.AND, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM});
 				break;
+
 		}
 		return ret;
 
@@ -396,19 +413,25 @@ public class Parser{
 				this.handle_EXPRESSION_3();
 				this.handle_EXPRESSION_2_TAIL();
 				break;
-			case END_OF_INSTRUCTION:
+			case RIGHT_PARENTHESIS:
 			case THEN:
-			case FROM:
-			case COMMA:
-			case TO:
-			case AND:
+			case ASTERISK:
 			case GIVING:
 			case OR:
+			case MINUS_SIGN:
+			case END_OF_INSTRUCTION:
+			case SLASH:
+			case TO:
+			case PLUS_SIGN:
+			case COMMA:
+			case FROM:
+			case AND:
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GIVING, LexicalUnit.OR});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.MINUS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.FROM, LexicalUnit.AND});
 				break;
+
 		}
 		return ret;
 
@@ -434,24 +457,28 @@ public class Parser{
 				this.handle_EXPRESSION_4();
 				this.handle_EXPRESSION_3_TAIL();
 				break;
-			case THEN:
+			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
-			case GREATER_OR_EQUALS:
+			case THEN:
+			case ASTERISK:
 			case GIVING:
 			case OR:
-			case EQUALS_SIGN:
-			case END_OF_INSTRUCTION:
-			case FROM:
-			case COMMA:
-			case TO:
-			case AND:
-			case GREATER_THAN:
 			case LOWER_THAN:
+			case END_OF_INSTRUCTION:
+			case SLASH:
+			case TO:
+			case FROM:
+			case GREATER_THAN:
+			case COMMA:
+			case GREATER_OR_EQUALS:
+			case EQUALS_SIGN:
+			case AND:
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.THEN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_THAN});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.FROM, LexicalUnit.GREATER_THAN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.EQUALS_SIGN, LexicalUnit.AND});
 				break;
+
 		}
 		return ret;
 
@@ -478,26 +505,28 @@ public class Parser{
 				this.handle_EXPRESSION_BASE();
 				this.handle_EXPRESSION_4_TAIL();
 				break;
-			case THEN:
+			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
-			case GREATER_OR_EQUALS:
+			case THEN:
 			case GIVING:
 			case OR:
-			case EQUALS_SIGN:
 			case END_OF_INSTRUCTION:
-			case PLUS_SIGN:
+			case EQUALS_SIGN:
 			case MINUS_SIGN:
-			case FROM:
-			case COMMA:
-			case TO:
-			case AND:
-			case GREATER_THAN:
 			case LOWER_THAN:
+			case TO:
+			case GREATER_THAN:
+			case PLUS_SIGN:
+			case COMMA:
+			case GREATER_OR_EQUALS:
+			case FROM:
+			case AND:
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.THEN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_THAN});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM, LexicalUnit.AND});
 				break;
+
 		}
 		return ret;
 
@@ -508,15 +537,15 @@ public class Parser{
 		this.read();
 		switch(this.token.unit){
 			case LEFT_PARENTHESIS:
-				this.handle_EXPRESSION_BASE();
+				this.handle_EXPRESSION();
 				this.read();
 				this.match(LexicalUnit.RIGHT_PARENTHESIS);
 				break;
 			case NOT:
-				this.handle_EXPRESSION_BASE();
+				this.handle_EXPRESSION();
 				break;
 			case MINUS_SIGN:
-				this.handle_EXPRESSION_BASE();
+				this.handle_EXPRESSION();
 				break;
 			case IDENTIFIER:
 				break;
@@ -542,17 +571,29 @@ public class Parser{
 				this.handle_EXPRESSION_1();
 				this.handle_EXPRESSION_TAIL();
 				break;
-			case END_OF_INSTRUCTION:
+			case RIGHT_PARENTHESIS:
+			case LOWER_OR_EQUALS:
 			case THEN:
-			case FROM:
-			case COMMA:
-			case TO:
+			case ASTERISK:
 			case GIVING:
+			case EQUALS_SIGN:
+			case MINUS_SIGN:
+			case LOWER_THAN:
+			case END_OF_INSTRUCTION:
+			case SLASH:
+			case TO:
+			case GREATER_THAN:
+			case PLUS_SIGN:
+			case COMMA:
+			case GREATER_OR_EQUALS:
+			case FROM:
+			case AND:
 				this.unread();
 				break;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.OR, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.GIVING});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.OR, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM, LexicalUnit.AND});
 				break;
+
 		}
 		return ret;
 	}
@@ -591,11 +632,20 @@ public class Parser{
 	public void handle_IF() throws Exception{
 		this.read();
 		this.match(LexicalUnit.IF);
-		this.handle_EXPRESSION();
+		String label_0 = variableAllocator.getNext();
+		String label_1 = variableAllocator.getNext();
+		String label_2 = variableAllocator.getNext();
+		Variable condition = this.handle_EXPRESSION();
+		new If(condition.getName(), label_0, label_1);
 		this.read();
 		this.match(LexicalUnit.THEN);
+		new Label(label_0);
 		this.handle_INSTRUCTION_LIST();
+		new Jump(label_2);
+		new Label(label_1);
 		this.handle_IF_TAIL();
+		new Jump(label_2);
+		new Label(label_2);
 	}
 	
 	public void handle_IF_TAIL() throws Exception{
@@ -747,10 +797,7 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-
-		//new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue()).genCode();
-		new Accept("i32", "%" + this.token.getValue()).genCode();
-
+		new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue());
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
@@ -861,12 +908,13 @@ public class Parser{
 			case FALSE:
 				this.unread();
 				Variable expression = this.handle_EXPRESSION();
-				new Display(expression.getType(), expression.getName()).genCode();
+				new Display(expression.getType(), expression.getName());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
-				new Display(StringVariable.TYPE, token.getValue()).genCode();
+				String variableName = stringPool.get(token.getValue());
+				new Display(StringVariable.TYPE, variableName);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;

@@ -6,8 +6,7 @@ void display_string(char* string);
 int main(){
 	size_t i;
 	display_i64(i);
-	char* string = "Hello world!";
-	display_string(string);
+	display_string("Hello world!\"\n");
 	return 0;
 }
 

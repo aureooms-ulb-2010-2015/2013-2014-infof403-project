@@ -13,9 +13,9 @@ data division.
 	                         /we define 3 variables (a, b, c).
 	working-storage section.
 		            /s for signed.
-		77 a pic s9(9).
+		77 a pic s9(5).
 		            /9 for digit (int).
-		77 b pic s9(10) value 6.
+		77 b pic s9(5) value 6.
 		            /(5) for 5 digits.
 		77 c pic s9(5).
                     /code of our program.
@@ -35,6 +35,13 @@ procedure division.
 		                   /write the content of a on stdout.
 		display a.
 		                   /stop the program.
+		                   /test if lol.
+		if a < (a + b) then
+			display a.
+		else
+			display b.
+		end-if
+
 		stop run.
 	                   /create a label called 'find'.
 	find.
@@ -49,11 +56,6 @@ procedure division.
 	diff.
 		* Compute a modulo b.
 		                    /a becomes a-b.
-		/move (8 + 5) to a.
-		/compute a = (63*9).
-		/add 107 to a.
-		/multiply (65 + 9) , 2 giving a.
-		/divide a , 3 giving a.
-
+		subtract b from a.
 
 end program Algo-Euclide.
