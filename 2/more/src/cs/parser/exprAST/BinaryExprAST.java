@@ -37,7 +37,7 @@ public class BinaryExprAST extends ExprAST {
 	}
 
 	public String getRetType(){
-		ret retType;
+		return retType;
 	}
 
 	public BinaryExprAST (char op){

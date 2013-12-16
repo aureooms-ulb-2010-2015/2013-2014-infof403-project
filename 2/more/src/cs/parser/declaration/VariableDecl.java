@@ -9,16 +9,16 @@ public abstract class VariableDecl<T> {
 	protected boolean assigned = false;
 
 
-	public VariableExprAST (){
+	public VariableDecl (){
 		
 	}
 
-	public VariableExprAST (T value){
+	public VariableDecl (T value){
 		
 		this.val = value;
 	}
 
-	public VariableExprAST (String size){
+	public VariableDecl (String size){
 		
 		this.setLLVMSize(size);
 	}

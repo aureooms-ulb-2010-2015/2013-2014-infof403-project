@@ -13,7 +13,11 @@ import java.util.HashMap;
 import cs.lexer.*;
 import cs.parser.functAST.*;
 import cs.parser.exprAST.*;
-import cs.parser.declaration*;
+
+import cs.parser.io.*;
+import cs.parser.variable.*;
+
+import cs.parser.declaration.*;
 import cs.parser.assign.*;
 
 public class Parser{
@@ -21,8 +25,9 @@ public class Parser{
 	protected Scanner cobolScanner;
 	protected Symbol<String> token;
 	protected boolean inBuffer = false;
+	protected VariableAllocator variableAllocator = new VariableAllocator();
 	
-	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
+	protected HashMap<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
 
 
 	public Parser(Scanner cobolScanner){
@@ -67,8 +72,8 @@ public class Parser{
 	}
 
 
-	protected ExprAST parseImage(){
-		ExprAST ret = null;
+	protected VariableDecl parseImage(){
+		VariableDecl ret = null;
 		int imSize = 0; // # of 9 in () AND after v
 		String image = token.getValue();
 		boolean signed = image.contains("s");
@@ -98,38 +103,37 @@ public class Parser{
 
 
 		if(imageBitSize < 16 ){// in future make different classes 
-			if(floating){ ret = new RealExprAST(Integer.toString(16));}
-			else{ ret = new IntegerExprAST(Integer.toString(16));}
+			if(floating){ ret = new RealDecl(Integer.toString(16));}
+			else{ ret = new IntegerDecl(Integer.toString(16));}
 		}
 		else if(imageBitSize < 32 ){
-			if(floating){ ret = new RealExprAST(Integer.toString(32));}
-			else{ ret = new IntegerExprAST(Integer.toString(32));}
+			if(floating){ ret = new RealDecl(Integer.toString(32));}
+			else{ ret = new IntegerDecl(Integer.toString(32));}
 		}
 		else if(imageBitSize < 64 ){
-			if(floating){ ret = new RealExprAST(Integer.toString(64));}
-			else{ ret = new IntegerExprAST(Integer.toString(64));}
+			if(floating){ ret = new RealDecl(Integer.toString(64));}
+			else{ ret = new IntegerDecl(Integer.toString(64));}
 		}
 		else if(imageBitSize < 128 ){
-			if(floating){ ret = new RealExprAST(Integer.toString(128));}
-			else {ret = new IntegerExprAST(Integer.toString(128));}
+			if(floating){ ret = new RealDecl(Integer.toString(128));}
+			else {ret = new IntegerDecl(Integer.toString(128));}
 		}
-		else{//well shit...
-			if(floating){ ret = new RealExprAST(Integer.toString(16));}
-			else { ret = new IntegerExprAST(Integer.toString(16));}
+		else{
+			//ouuuups
 		}
 				
 		return ret;
 	}
 
-	protected AssignExprAST createAssign(String var, ExprAST expr){
-		return new AssignExprAST(variables.get(var),expr);
+	protected Assign createAssign(String var, Variable expr){
+		return new Assign(variables.get(var),expr);
 	}
 
 	
 
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
-		AssignExprAST assign = null;
+		Assign assign = null;
 		String varName;
 		Variable newVal;
 		switch(this.token.unit){
@@ -162,7 +166,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.createAssign(varName,expr.getRetVarName());
+				this.createAssign(varName,newVal);
 
 				break;
 			case ADD:
@@ -179,11 +183,11 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				assign = this.createAssign(varName,expr.getRetVarName());
+				assign = this.createAssign(varName,newVal);
 
 				break;
 			case SUBTRACT:
-				expr = this.handle_EXPRESSION();
+				newVal = this.handle_EXPRESSION();
 
 				this.read();
 				this.match(LexicalUnit.FROM);
@@ -195,18 +199,17 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				assign = this.createAssign(varName,expr.getRetVarName());
+				assign = this.createAssign(varName,newVal);
 
 				break;
 			case MULTIPLY:
-				expr = this.handle_ASSIGN_TAIL();
+				newVal = this.handle_ASSIGN_TAIL();
 					
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case DIVIDE:
-				expr = this.handle_ASSIGN_TAIL();
-				expr.setOp('/');
+				newVal = this.handle_ASSIGN_TAIL();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
@@ -216,16 +219,16 @@ public class Parser{
 		}
 	}
 	
-	public ExprAST handle_ASSIGN_TAIL() throws Exception{
-		ExprAST l = this.handle_EXPRESSION();
+	public Variable handle_ASSIGN_TAIL() throws Exception{
+		Variable l = this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.COMMA);
-		ExprAST r = this.handle_EXPRESSION();
+		Variable r = this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.GIVING);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		return new BinaryExprAST(l,r);
+		return l;//here
 	}
 	
 	public void handle_CALL() throws Exception{
@@ -316,14 +319,12 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public ExprAST handle_EXPRESSION() throws Exception{
-		ExprAST ret = null;
 
+
+	public Variable handle_EXPRESSION() throws Exception{
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
-
-		return ret;
-
+		return new StringVariable("%test");
 	}
 	
 	public ExprAST handle_EXPRESSION_1() throws Exception{
@@ -732,6 +733,9 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+
+		new Accept("i32", "%" + this.token.getValue()).genCode();
+
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
@@ -769,7 +773,7 @@ public class Parser{
 
 	}
 
-	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
+	public void handle_VAR_DECL_TAIL(VariableDecl newVariable) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case END_OF_INSTRUCTION:
@@ -841,11 +845,13 @@ public class Parser{
 			case TRUE:
 			case FALSE:
 				this.unread();
-				this.handle_EXPRESSION();
+				Variable expression = this.handle_EXPRESSION();
+				new Display(expression.getType(), expression.getName()).genCode();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
+				new Display(StringVariable.TYPE, token.getValue()).genCode();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
