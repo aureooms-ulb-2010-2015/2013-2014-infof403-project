@@ -38,8 +38,8 @@ def main():
 							line(3, 'this.match(LexicalUnit.' + element + ');')
 					line(3, 'break;')
 
-				elif len(grammar.follow[unit]) > 0:
-					for terminal in grammar.follow[unit]:
+				elif len(set(grammar.follow[unit]) - set(grammar.first[unit])) > 0:
+					for terminal in set(grammar.follow[unit]) - set(grammar.first[unit]):
 						terminals.append('LexicalUnit.' + terminal)
 						line(2, 'case ' + terminal + ':')
 					line(3, 'this.unread();')

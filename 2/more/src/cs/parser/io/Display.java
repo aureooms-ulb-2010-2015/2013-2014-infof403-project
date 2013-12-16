@@ -77,6 +77,7 @@ public class Display{
 	public Display(String type, String variable){
 		this.type = type;
 		this.variable = variable;
+		this.genCode();
 	}
 	
 	public void genCode(){
