@@ -39,7 +39,7 @@ procedure division.
 	                   /create a label called 'find'.
 	find.
 		move c to b.
-		                   /call diff label until a is less than b.
+		                   /call diff ²abel until a is less than b.
 		perform diff until a < b.
 		                   /put the value of a into b.
 		move a to b.

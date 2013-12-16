@@ -18,7 +18,7 @@ import cs.parser.io.*;
 import cs.parser.variable.*;
 import cs.parser.string.*;
 import cs.parser.conditional.*;
-
+import cs.parser.comp.*;
 import cs.parser.declaration.*;
 import cs.parser.assign.*;
 
@@ -274,24 +274,6 @@ public class Parser{
 		}
 	}
 	
-	public void handle_COMP() throws Exception{
-		this.read();
-		switch(this.token.unit){
-			case EQUALS_SIGN:
-				break;
-			case LOWER_THAN:
-				break;
-			case GREATER_THAN:
-				break;
-			case LOWER_OR_EQUALS:
-				break;
-			case GREATER_OR_EQUALS:
-				break;
-			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS});
-				break;
-		}
-	}
 	
 	public void handle_DATA() throws Exception{
 		this.read();
@@ -347,16 +329,16 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_1() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_1() throws Exception{
+		IntegerVariable ret = null;
 		this.handle_EXPRESSION_2();
 		this.handle_EXPRESSION_1_TAIL();
 		return ret;
 
 	}
 	
-	public ExprAST handle_EXPRESSION_1_TAIL() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_1_TAIL() throws Exception{
+		IntegerVariable ret = null;
 		this.read();
 		switch(this.token.unit){
 			case AND:
@@ -391,28 +373,67 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_2() throws Exception{
-		ExprAST ret = null;
-		this.handle_EXPRESSION_3();
-		this.handle_EXPRESSION_2_TAIL();
-		return ret;
+	public IntegerVariable handle_EXPRESSION_2() throws Exception{
+		
+		IntegerVariable temp = this.handle_EXPRESSION_3();
+		this.handle_EXPRESSION_2_TAIL(temp);
+		return temp;
 
 	}
 	
-	public ExprAST handle_EXPRESSION_2_TAIL() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_2_TAIL(IntegerVariable tempExp3) throws Exception{
+		IntegerVariable ret = null;
 		this.read();
+		String name;
+		IntegerVariable r;
+
 		switch(this.token.unit){
 			case EQUALS_SIGN:
-			case LOWER_THAN:
-			case GREATER_THAN:
-			case LOWER_OR_EQUALS:
-			case GREATER_OR_EQUALS:
-				this.unread();
-				this.handle_COMP();
-				this.handle_EXPRESSION_3();
-				this.handle_EXPRESSION_2_TAIL();
+				r = this.handle_EXPRESSION_3();
+				name = variableAllocator.getNext();
+
+				new Comp(tempExp3, r, Comp.Op.EQ, variableAllocator.getNext(),  variableAllocator.getNext(), name).genCode();
+				ret = new IntegerVariable(false,1,name);
+				this.handle_EXPRESSION_2_TAIL(ret);
+				
 				break;
+			case LOWER_THAN:
+				r = this.handle_EXPRESSION_3();
+				name = variableAllocator.getNext();
+
+				new Comp(tempExp3, r, Comp.Op.LT, variableAllocator.getNext(),  variableAllocator.getNext(), name).genCode();
+				ret = new IntegerVariable(false,1,name);
+				this.handle_EXPRESSION_2_TAIL(ret);
+				
+				break;
+			case GREATER_THAN:
+				r = this.handle_EXPRESSION_3();
+				name = variableAllocator.getNext();
+
+				new Comp(tempExp3, r, Comp.Op.GT, variableAllocator.getNext(),  variableAllocator.getNext(), name).genCode();
+				ret = new IntegerVariable(false,1,name);
+				this.handle_EXPRESSION_2_TAIL(ret);
+				
+				break;
+			case LOWER_OR_EQUALS:
+				r = this.handle_EXPRESSION_3();
+				name = variableAllocator.getNext();
+
+				new Comp(tempExp3, r, Comp.Op.LE, variableAllocator.getNext(),  variableAllocator.getNext(), name).genCode();
+				ret = new IntegerVariable(false,1,name);
+				this.handle_EXPRESSION_2_TAIL(ret);
+				
+				break;
+			case GREATER_OR_EQUALS:
+				r = this.handle_EXPRESSION_3();
+				name = variableAllocator.getNext();
+
+				new Comp(tempExp3, r, Comp.Op.GE, variableAllocator.getNext(),  variableAllocator.getNext(), name).genCode();
+				ret = new IntegerVariable(false,1,name);
+				this.handle_EXPRESSION_2_TAIL(ret);
+				
+				break;
+
 			case RIGHT_PARENTHESIS:
 			case THEN:
 			case ASTERISK:
@@ -437,16 +458,16 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_3() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_3() throws Exception{
+		IntegerVariable ret = new IntegerVariable(false,32,"%vilain");
 		this.handle_EXPRESSION_4();
 		this.handle_EXPRESSION_3_TAIL();
 		return ret;
 
 	}
 	
-	public ExprAST handle_EXPRESSION_3_TAIL() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_3_TAIL() throws Exception{
+		IntegerVariable ret = null;
 		this.read();
 		switch(this.token.unit){
 			case PLUS_SIGN:
@@ -484,8 +505,8 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_4() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_4() throws Exception{
+		IntegerVariable ret = null;
 		this.handle_EXPRESSION_BASE();
 		this.handle_EXPRESSION_4_TAIL();
 		return ret;
@@ -493,8 +514,8 @@ public class Parser{
 	}
 
 	
-	public ExprAST handle_EXPRESSION_4_TAIL() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_4_TAIL() throws Exception{
+		IntegerVariable ret = null;
 		this.read();
 		switch(this.token.unit){
 			case ASTERISK:
@@ -532,8 +553,8 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_BASE() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_BASE() throws Exception{
+		IntegerVariable ret = null;
 		this.read();
 		switch(this.token.unit){
 			case LEFT_PARENTHESIS:
@@ -563,8 +584,8 @@ public class Parser{
 
 	}
 	
-	public ExprAST handle_EXPRESSION_TAIL() throws Exception{
-		ExprAST ret = null;
+	public IntegerVariable handle_EXPRESSION_TAIL() throws Exception{
+		IntegerVariable ret = null;
 		this.read();
 		switch(this.token.unit){
 			case OR:
