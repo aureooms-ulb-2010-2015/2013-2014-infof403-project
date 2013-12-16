@@ -20,6 +20,7 @@ import cs.parser.string.*;
 import cs.parser.conditional.*;
 import cs.parser.call.*;
 import cs.parser.binary.*;
+import cs.parser.functional.*;
 
 import cs.parser.declaration.*;
 import cs.parser.assign.*;
@@ -754,9 +755,12 @@ public class Parser{
 	public void handle_LABELS() throws Exception{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+		String function = this.token.getValue();
+		new Function(function);
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_INSTRUCTION_LIST();
+		new FunctionEnd(function);
 		this.handle_LABELS_TAIL();
 	}
 	
@@ -764,9 +768,12 @@ public class Parser{
 		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
+				String function = this.token.getValue();
+				new Function(function);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				this.handle_INSTRUCTION_LIST();
+				new FunctionEnd(function);
 				this.handle_LABELS_TAIL();
 				break;
 			case END:

@@ -49,11 +49,11 @@ procedure division.
 	diff.
 		* Compute a modulo b.
 		                    /a becomes a-b.
-		/move (8 + 5) to a.
-		/compute a = (63*9).
-		/add 107 to a.
-		/multiply (65 + 9) , 2 giving a.
-		/divide a , 3 giving a.
+		move (8 + 5) to a.
+		compute a = (63*9).
+		add 107 to a.
+		multiply (65 + 9) , 2 giving a.
+		divide a , 3 giving a.
 
 
 end program Algo-Euclide.
