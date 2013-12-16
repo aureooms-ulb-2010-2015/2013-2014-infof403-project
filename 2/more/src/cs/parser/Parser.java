@@ -328,7 +328,7 @@ public class Parser{
 	public Variable handle_EXPRESSION() throws Exception{
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
-		return new StringVariable("%test");
+		return new IntegerVariable(32, "%1265");
 	}
 	
 	public ExprAST handle_EXPRESSION_1() throws Exception{
@@ -738,8 +738,8 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 
-		//new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue()).genCode();
-		new Accept("i32", "%" + this.token.getValue()).genCode();
+		new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue()).genCode();
+		// new Accept("i32", "%" + this.token.getValue()).genCode();
 
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
