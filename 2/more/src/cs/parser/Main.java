@@ -11,7 +11,7 @@ public class Main{
 			cobolParser.compile();
 		}
 		catch(Exception e){
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}

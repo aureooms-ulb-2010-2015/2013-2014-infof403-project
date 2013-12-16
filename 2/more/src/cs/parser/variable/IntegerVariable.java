@@ -6,7 +6,7 @@ public class IntegerVariable implements Variable{
 
 	public int size;
 	public String name;
-	public boolean signed = true;
+	public boolean signed;
 
 	public IntegerVariable(boolean signed, int size, String name){
 		this.size = size;
