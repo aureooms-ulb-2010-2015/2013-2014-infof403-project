@@ -781,9 +781,9 @@ public class Parser{
 				break;
 			case VALUE:
 				this.read();
-				this.match(LexicalUnit.INTEGER);//integer?! not real?!
+				this.match(LexicalUnit.INTEGER);
 
-				newVariable.setValue(this.parseReal());//parse real
+				newVariable.setValue(this.parseInteger());
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
