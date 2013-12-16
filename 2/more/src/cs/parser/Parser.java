@@ -768,6 +768,7 @@ public class Parser{
 		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
+				variableAllocator.reset();
 				String function = this.token.getValue();
 				new Function(function);
 				this.read();
