@@ -36,6 +36,8 @@ public class Parser{
 
 	protected StringPool stringPool = new StringPool();
 
+	protected String program_id;
+
 
 	public Parser(Scanner cobolScanner){
 		this.cobolScanner = cobolScanner;
@@ -629,6 +631,7 @@ public class Parser{
 		this.match(LexicalUnit.DOT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+		this.program_id = this.token.getValue();
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.read();
@@ -806,6 +809,8 @@ public class Parser{
 		this.match(LexicalUnit.PROGRAM);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+		if(!this.program_id.equals(this.token.getValue()))
+			throw new SCOBOLSemanticalException("error: program id does not match");
 		this.read();
 		this.match(LexicalUnit.DOT);
 	}
