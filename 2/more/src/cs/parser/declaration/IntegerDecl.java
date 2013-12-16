@@ -7,8 +7,8 @@ public class IntegerDecl extends VariableDecl<Integer>{
 	public IntegerDecl(){
 		super();
 	}
-	public IntegerDecl (String size){
-		super(size);
+	public IntegerDecl (String size, boolean signed){
+		super(size,signed);
 		
 	}
 

@@ -6,10 +6,12 @@ public class IntegerVariable implements Variable{
 
 	public int size;
 	public String name;
+	public boolean signed = true;
 
-	public IntegerVariable(int size, String name){
+	public IntegerVariable(boolean signed, int size, String name){
 		this.size = size;
 		this.name = name;
+		this.signed = signed;
 	}
 
 	public String getType(){
@@ -19,4 +21,11 @@ public class IntegerVariable implements Variable{
 	public String getName(){
 		return this.name;
 	}
+
+	public int getSize(){
+		return this.size;
+	}
+
+	
+
 }
