@@ -1,5 +1,3 @@
-
-
 package cs.parser.declaration;
 
 public class RealDecl extends VariableDecl<Double>{
