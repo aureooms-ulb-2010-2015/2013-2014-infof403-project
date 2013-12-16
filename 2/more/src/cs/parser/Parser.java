@@ -18,6 +18,8 @@ import cs.parser.io.*;
 import cs.parser.variable.*;
 import cs.parser.string.*;
 import cs.parser.conditional.*;
+import cs.parser.call.*;
+import cs.parser.binary.*;
 
 import cs.parser.declaration.*;
 import cs.parser.assign.*;
@@ -78,56 +80,58 @@ public class Parser{
 
 
 	protected VariableDecl parseImage(){
-		VariableDecl ret = null;
-		int imSize = 0; // # of 9 in () AND after v
+		int imSize = 0;
 		String image = token.getValue();
-		boolean signed = image.contains("s");
-		boolean floating = image.contains("v");
-		String nines ="";
+		boolean signed = false;
+		boolean floating = false;
+		String nines = "";
 
 		boolean inside = false;
-		
-		for(char c : image.toCharArray()) {
-  			
-			if(c==')'){
-				inside=false;
-				imSize+=Integer.decode(nines);
-				nines="";
+
+		int i = 0;
+
+		if(image.charAt(i) == 's'){
+			++i;
+			signed = true;
+		}
+
+		++i;
+		if(i < image.length() && image.charAt(i) == '('){
+			for(++i; i < image.length(); ++i){	
+				if(image.charAt(i) == ')'){
+					imSize += Integer.decode(nines);
+					nines = "";
+					break;
+				}
+				else nines += image.charAt(i);
 			}
-			if(inside){
-				nines+=c;
-			}
-			if(c=='('){inside=true;}
-		}
-		
-		int imageBitSize = 0;
-		if(imSize > 0 ){
-
-			imageBitSize = (int)Math.ceil( ( Math.log(Math.pow(imSize,10))/Math.log(2) ) /8 );
-		}
-
-
-		if(imageBitSize < 16 ){// in future make different classes 
-			if(floating){ ret = new RealDecl(Integer.toString(16));}
-			else{ ret = new IntegerDecl(Integer.toString(16));}
-		}
-		else if(imageBitSize < 32 ){
-			if(floating){ ret = new RealDecl(Integer.toString(32));}
-			else{ ret = new IntegerDecl(Integer.toString(32));}
-		}
-		else if(imageBitSize < 64 ){
-			if(floating){ ret = new RealDecl(Integer.toString(64));}
-			else{ ret = new IntegerDecl(Integer.toString(64));}
-		}
-		else if(imageBitSize < 128 ){
-			if(floating){ ret = new RealDecl(Integer.toString(128));}
-			else {ret = new IntegerDecl(Integer.toString(128));}
 		}
 		else{
-			//ouuuups
+			++imSize;
 		}
-				
-		return ret;
+		++i;
+		if(i < image.length()){
+			floating = true;
+			++i;
+			if(i < image.length() && image.charAt(i) == '('){
+				for(++i; i < image.length(); ++i){	
+					if(image.charAt(i) == ')'){
+						imSize += Integer.decode(nines);
+						nines = "";
+						break;
+					}
+					else nines += image.charAt(i);
+				}
+			}
+			else{
+				++imSize;
+			}
+		}
+		
+		int imageBitSize = (int) Math.ceil( ( Math.log(Math.pow(imSize,10))/Math.log(2) ) / 8);
+
+		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize));
+		else return new IntegerDecl(Integer.toString(8 * imageBitSize));
 	}
 
 	protected Assign createAssign(String var, Variable expr){
@@ -241,22 +245,35 @@ public class Parser{
 		this.match(LexicalUnit.PERFORM);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		this.handle_CALL_TAIL();
+		String function = this.token.getValue();
+		String[] labels = this.handle_CALL_TAIL();
+		if(labels != null) new Label(labels[1]);
+		new Perform(function);
+		if(labels != null) new Jump(labels[0]);
+		if(labels != null) new Label(labels[2]);
 	}
 	
-	public void handle_CALL_TAIL() throws Exception{
+	public String[] handle_CALL_TAIL() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case UNTIL:
-				this.handle_EXPRESSION();
+				String label_0 = variableAllocator.getNext();
+				String label_1 = variableAllocator.getNext();
+				String label_2 = variableAllocator.getNext();
+				new Jump(label_0);
+				new Label(label_0);
+				Variable condition = this.handle_EXPRESSION();
+				String tmp = variableAllocator.getNext();
+				new Not(tmp, condition.getName());
+				new If(tmp, label_1, label_2);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
-				break;
+				return new String[]{label_0, label_1, label_2};
 			case END_OF_INSTRUCTION:
-				break;
+				return null;
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.UNTIL, LexicalUnit.END_OF_INSTRUCTION});
-				break;
+				return null;
 		}
 	}
 	
