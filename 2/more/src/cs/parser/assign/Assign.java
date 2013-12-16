@@ -5,12 +5,13 @@ import cs.parser.declaration.*;
 
 public class Assign {
 
-	protected Variable from;
+	protected IntegerVariable from;
 	protected  VariableDecl to;
 
-	public Assign(VariableDecl to, Variable from){
+	public Assign(VariableDecl to, IntegerVariable from){
 		this.from = from;
 		this.to = to;
+		
 	}
 
 	//store i32 0, i32* %1

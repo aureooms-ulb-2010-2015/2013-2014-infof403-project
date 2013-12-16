@@ -130,12 +130,12 @@ public class Parser{
 		
 		int imageBitSize = (int) Math.ceil( ( Math.log(Math.pow(imSize,10))/Math.log(2) ) / 8);
 
-		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize));
-		else return new IntegerDecl(Integer.toString(8 * imageBitSize));
+		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize), signed);
+		else return new IntegerDecl(Integer.toString(8 * imageBitSize), signed);
 	}
 
-	protected Assign createAssign(String var, Variable expr){
-		return new Assign(variables.get(var),expr);
+	protected void createAssign(String var, IntegerVariable expr){
+		new Assign(variables.get(var),expr).genCode();
 	}
 
 	
@@ -144,10 +144,11 @@ public class Parser{
 		this.read();
 		Assign assign = null;
 		String varName;
-		Variable newVal;
+		IntegerVariable newVal;
+		ATail tail;
 		switch(this.token.unit){
 			case MOVE:
-				newVal = this.handle_EXPRESSION();
+				newVal = this.handle_EXPRESSION(); 
 
 				this.read();
 				this.match(LexicalUnit.TO);
@@ -163,6 +164,7 @@ public class Parser{
 				break;
 			case COMPUTE:
 				this.read();
+
 				this.match(LexicalUnit.IDENTIFIER);
 
 				varName = token.getValue();
@@ -179,7 +181,7 @@ public class Parser{
 
 				break;
 			case ADD:
-
+				
 				newVal = this.handle_EXPRESSION();
 
 				this.read();
@@ -192,10 +194,11 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				assign = this.createAssign(varName,newVal);
+				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add").genCode();
 
 				break;
 			case SUBTRACT:
+				
 				newVal = this.handle_EXPRESSION();
 
 				this.read();
@@ -208,19 +211,28 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				assign = this.createAssign(varName,newVal);
+				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub").genCode();
 
 				break;
 			case MULTIPLY:
-				newVal = this.handle_ASSIGN_TAIL();
+
+				//(VariableDecl l, Variable r, String temp, VariableDecl to, String op)
+				tail = this.handle_ASSIGN_TAIL();
 					
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				new AssignOp (tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "mul").genCode();
+				
 				break;
 			case DIVIDE:
-				newVal = this.handle_ASSIGN_TAIL();
+				
+				tail = this.handle_ASSIGN_TAIL();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				new AssignOp (tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "div").genCode();
+				
 				break;
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE});
@@ -228,16 +240,18 @@ public class Parser{
 		}
 	}
 	
-	public Variable handle_ASSIGN_TAIL() throws Exception{
-		Variable l = this.handle_EXPRESSION();
+	public ATail handle_ASSIGN_TAIL() throws Exception{
+
+		IntegerVariable l = (IntegerVariable)this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.COMMA);
-		Variable r = this.handle_EXPRESSION();
+		IntegerVariable r = (IntegerVariable)this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.GIVING);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		return l;//here
+
+		return new ATail(l,r,this.variables.get(token.getValue()));
 	}
 	
 	public void handle_CALL() throws Exception{
@@ -343,10 +357,11 @@ public class Parser{
 	
 
 
-	public Variable handle_EXPRESSION() throws Exception{
+	public IntegerVariable handle_EXPRESSION() throws Exception{
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
-		return new IntegerVariable(32, "%1265");
+		return new IntegerVariable(true,32,"%test");
+
 	}
 	
 	public ExprAST handle_EXPRESSION_1() throws Exception{

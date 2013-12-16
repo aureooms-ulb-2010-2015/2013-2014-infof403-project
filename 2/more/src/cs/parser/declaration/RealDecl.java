@@ -8,8 +8,9 @@ public class RealDecl extends VariableDecl<Double>{
 		super();
 	}
 	
-	public RealDecl (String size){
-		super(size);
+	public RealDecl (String size, boolean signed){
+		super(size,signed);
+
 	}
 
 	public String getLLVMType(){return "i";}//replace by float declaration syntax in LLVM

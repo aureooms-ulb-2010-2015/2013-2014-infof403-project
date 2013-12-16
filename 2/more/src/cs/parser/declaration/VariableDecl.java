@@ -7,34 +7,31 @@ public abstract class VariableDecl<T> {
 	protected String name = "";
 	protected String LLVMsize = "";
 	protected boolean assigned = false;
+	protected boolean signed = false;
 
 
 	public VariableDecl (){
 		
 	}
 
-	public VariableDecl (T value){
-		
+	public VariableDecl (T value, boolean signed){
+		this.signed = signed;
 		this.val = value;
 	}
 
-	public VariableDecl (String size){
-		
+	public VariableDecl (String size, boolean signed){
+		this.signed = signed;
 		this.setLLVMSize(size);
 	}
 
-
-
-
-	/* example : %t0 = alloca i32 */
 	public void genCode(){ // in future test if allocated and allocate in llvm
-		String ret = String.format("%s = alloca %s%s\n", this.getName(),this.getLLVMType(), this.getLLVMSize() );
+		System.out.printf("%s = alloca %s%s\n", this.getName(),this.getLLVMType(), this.getLLVMSize());
 		if(assigned){
 			//store i32 %t3, i32* %t0
-			ret+=String.format("store %s %s, %s%s* %s", this.getLLVMType(), this.getValue(), this.getLLVMType(), this.getLLVMSize(), this.getName());
+			System.out.printf("store %s%s %s, %s%s* %s\n", this.getLLVMType(), this.getLLVMSize(), this.getValue(), this.getLLVMType(), this.getLLVMSize(), this.getName());
 		}
 
-		System.out.println(ret);
+		
 	}
 
 	public abstract String getValue();
