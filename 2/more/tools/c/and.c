@@ -3,8 +3,7 @@
 int main(){
 
   int c, b;
-  if (c && b){}
-  else{}
+  int d = c && b;
 
   return 0;
 }
