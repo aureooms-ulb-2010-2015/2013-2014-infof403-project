@@ -597,6 +597,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 
+		//new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue()).genCode();
 		new Accept("i32", "%" + this.token.getValue()).genCode();
 
 		this.read();
