@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-void accept(int* it);
+void accept_i64(size_t* it);
 
 int main(){
-	int i;
-	accept(&i);
+	size_t i;
+	accept_i64(&i);
 	return 0;
 }
 
-void accept(int* it){
+void accept_i64(size_t* it){
 	*it = 0;
 	int c;
 	while(1){

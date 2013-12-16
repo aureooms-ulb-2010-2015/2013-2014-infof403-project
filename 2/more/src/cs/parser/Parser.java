@@ -14,6 +14,8 @@ import cs.lexer.*;
 import cs.parser.functAST.*;
 import cs.parser.exprAST.*;
 import cs.parser.declAST.*;
+import cs.parser.io.*;
+import cs.parser.variable.*;
 
 public class Parser{
 
@@ -212,9 +214,10 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public void handle_EXPRESSION() throws Exception{
+	public Variable handle_EXPRESSION() throws Exception{
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
+		return new StringVariable("%test");
 	}
 	
 	public void handle_EXPRESSION_1() throws Exception{
@@ -593,6 +596,9 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+
+		new Accept("i32", "%" + this.token.getValue()).genCode();
+
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
@@ -681,11 +687,13 @@ public class Parser{
 			case TRUE:
 			case FALSE:
 				this.unread();
-				this.handle_EXPRESSION();
+				Variable expression = this.handle_EXPRESSION();
+				new Display(expression.getType(), expression.getName()).genCode();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
+				new Display(StringVariable.TYPE, token.getValue()).genCode();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
