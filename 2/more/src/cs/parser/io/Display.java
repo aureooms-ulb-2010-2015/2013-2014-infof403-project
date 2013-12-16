@@ -81,7 +81,7 @@ public class Display{
 	
 	public void genCode(){
 		Display.required.add(this.type);
-		if(type.equals("string")) System.out.printf("call void @display_string(i8* %s)\n", this.variable);
+		if(type.equals("string")) System.out.printf("call void @display_string(i8* getelementptr inbounds ([13 x i8]* %s, i32 0, i32 0))\n", this.variable);
 		else System.out.printf("call void @display_%s(%s %s)\n", this.type, this.type, this.variable);
 	}
 

@@ -16,6 +16,7 @@ import cs.parser.exprAST.*;
 import cs.parser.declAST.*;
 import cs.parser.io.*;
 import cs.parser.variable.*;
+import cs.parser.string.*;
 
 public class Parser{
 
@@ -25,6 +26,8 @@ public class Parser{
 	protected VariableAllocator variableAllocator = new VariableAllocator();
 	
 	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
+
+	protected StringPool stringPool = new StringPool();
 
 
 	public Parser(Scanner cobolScanner){
@@ -58,6 +61,7 @@ public class Parser{
 
 	public void compile() throws Exception{
 		this.handle_S();
+		stringPool.genCode();
 	}
 
 	public void handle_ASSIGNATION() throws Exception{
@@ -694,7 +698,8 @@ public class Parser{
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
-				new Display(StringVariable.TYPE, token.getValue()).genCode();
+				String variableName = stringPool.get(token.getValue());
+				new Display(StringVariable.TYPE, variableName).genCode();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
