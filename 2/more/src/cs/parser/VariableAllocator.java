@@ -10,8 +10,8 @@ class VariableAllocator{
 		this.next = -1;
 	}
 
-	public int getNext(){
-		return ++this.next;
+	public String getNext(){
+		return "%" + Integer.toString(++this.next);
 	}
 
 }

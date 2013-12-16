@@ -1,5 +1,5 @@
 /**
  * Provides utility tools.
  */
-package lib;
+package cs.utils;
 

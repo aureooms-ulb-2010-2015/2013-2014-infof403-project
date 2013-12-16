@@ -9,9 +9,8 @@ int main(){
 }
 
 void display(int it){
-	do{
-		int c = '0' + it % 10;
-		putchar(c);
-		it /= 10;
-	} while(it > 0);
+	int c = '0' + it % 10;
+	it /= 10;
+	if(it > 0) display(it);
+	putchar(c);
 }
