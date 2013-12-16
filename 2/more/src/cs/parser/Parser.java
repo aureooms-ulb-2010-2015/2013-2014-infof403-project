@@ -13,7 +13,8 @@ import java.util.HashMap;
 import cs.lexer.*;
 import cs.parser.functAST.*;
 import cs.parser.exprAST.*;
-import cs.parser.declAST.*;
+import cs.parser.declaration*;
+import cs.parser.assign.*;
 
 public class Parser{
 
@@ -57,52 +58,155 @@ public class Parser{
 		this.handle_S();
 	}
 
+	protected int parseInteger(){
+		return Integer.decode(token.getValue());
+	}
+
+	protected double parseReal(){
+		return Double.parseDouble(token.getValue());
+	}
+
+
+	protected ExprAST parseImage(){
+		ExprAST ret = null;
+		int imSize = 0; // # of 9 in () AND after v
+		String image = token.getValue();
+		boolean signed = image.contains("s");
+		boolean floating = image.contains("v");
+		String nines ="";
+
+		boolean inside = false;
+		
+		for(char c : image.toCharArray()) {
+  			
+			if(c==')'){
+				inside=false;
+				imSize+=Integer.decode(nines);
+				nines="";
+			}
+			if(inside){
+				nines+=c;
+			}
+			if(c=='('){inside=true;}
+		}
+		
+		int imageBitSize = 0;
+		if(imSize > 0 ){
+
+			imageBitSize = (int)Math.ceil( ( Math.log(Math.pow(imSize,10))/Math.log(2) ) /8 );
+		}
+
+
+		if(imageBitSize < 16 ){// in future make different classes 
+			if(floating){ ret = new RealExprAST(Integer.toString(16));}
+			else{ ret = new IntegerExprAST(Integer.toString(16));}
+		}
+		else if(imageBitSize < 32 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(32));}
+			else{ ret = new IntegerExprAST(Integer.toString(32));}
+		}
+		else if(imageBitSize < 64 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(64));}
+			else{ ret = new IntegerExprAST(Integer.toString(64));}
+		}
+		else if(imageBitSize < 128 ){
+			if(floating){ ret = new RealExprAST(Integer.toString(128));}
+			else {ret = new IntegerExprAST(Integer.toString(128));}
+		}
+		else{//well shit...
+			if(floating){ ret = new RealExprAST(Integer.toString(16));}
+			else { ret = new IntegerExprAST(Integer.toString(16));}
+		}
+				
+		return ret;
+	}
+
+	protected AssignExprAST createAssign(String var, ExprAST expr){
+		return new AssignExprAST(variables.get(var),expr);
+	}
+
+	
+
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
+		AssignExprAST assign = null;
+		String varName;
+		Variable newVal;
 		switch(this.token.unit){
 			case MOVE:
-				this.handle_EXPRESSION();
+				newVal = this.handle_EXPRESSION();
+
 				this.read();
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
+
+				varName = token.getValue();
+
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				this.createAssign(varName,newVal);
 				break;
 			case COMPUTE:
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
+
+				varName = token.getValue();
+				
 				this.read();
 				this.match(LexicalUnit.EQUALS_SIGN);
-				this.handle_EXPRESSION();
+
+				newVal = this.handle_EXPRESSION();
+
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				this.createAssign(varName,expr.getRetVarName());
+
 				break;
 			case ADD:
-				this.handle_EXPRESSION();
+
+				newVal = this.handle_EXPRESSION();
+
 				this.read();
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
+
+				varName = token.getValue();
+
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr.getRetVarName());
+
 				break;
 			case SUBTRACT:
-				this.handle_EXPRESSION();
+				expr = this.handle_EXPRESSION();
+
 				this.read();
 				this.match(LexicalUnit.FROM);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
+
+				varName = token.getValue();
+
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr.getRetVarName());
+
 				break;
 			case MULTIPLY:
-				this.handle_ASSIGN_TAIL();
+				expr = this.handle_ASSIGN_TAIL();
+					
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case DIVIDE:
-				this.handle_ASSIGN_TAIL();
+				expr = this.handle_ASSIGN_TAIL();
+				expr.setOp('/');
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
@@ -112,15 +216,16 @@ public class Parser{
 		}
 	}
 	
-	public void handle_ASSIGN_TAIL() throws Exception{
-		this.handle_EXPRESSION();
+	public ExprAST handle_ASSIGN_TAIL() throws Exception{
+		ExprAST l = this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.COMMA);
-		this.handle_EXPRESSION();
+		ExprAST r = this.handle_EXPRESSION();
 		this.read();
 		this.match(LexicalUnit.GIVING);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+		return new BinaryExprAST(l,r);
 	}
 	
 	public void handle_CALL() throws Exception{
@@ -211,17 +316,26 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public void handle_EXPRESSION() throws Exception{
+	public ExprAST handle_EXPRESSION() throws Exception{
+		ExprAST ret = null;
+
 		this.handle_EXPRESSION_1();
 		this.handle_EXPRESSION_TAIL();
+
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_1() throws Exception{
+	public ExprAST handle_EXPRESSION_1() throws Exception{
+		ExprAST ret = null;
 		this.handle_EXPRESSION_2();
 		this.handle_EXPRESSION_1_TAIL();
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_1_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_1_TAIL() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case AND:
@@ -241,14 +355,20 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.AND, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.GIVING, LexicalUnit.OR});
 				break;
 		}
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_2() throws Exception{
+	public ExprAST handle_EXPRESSION_2() throws Exception{
+		ExprAST ret = null;
 		this.handle_EXPRESSION_3();
 		this.handle_EXPRESSION_2_TAIL();
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_2_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_2_TAIL() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case EQUALS_SIGN:
@@ -275,14 +395,20 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GIVING, LexicalUnit.OR});
 				break;
 		}
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_3() throws Exception{
+	public ExprAST handle_EXPRESSION_3() throws Exception{
+		ExprAST ret = null;
 		this.handle_EXPRESSION_4();
 		this.handle_EXPRESSION_3_TAIL();
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_3_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_3_TAIL() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case PLUS_SIGN:
@@ -312,14 +438,21 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.THEN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_THAN});
 				break;
 		}
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_4() throws Exception{
+	public ExprAST handle_EXPRESSION_4() throws Exception{
+		ExprAST ret = null;
 		this.handle_EXPRESSION_BASE();
 		this.handle_EXPRESSION_4_TAIL();
+		return ret;
+
 	}
+
 	
-	public void handle_EXPRESSION_4_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_4_TAIL() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case ASTERISK:
@@ -351,9 +484,12 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.THEN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.AND, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_THAN});
 				break;
 		}
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_BASE() throws Exception{
+	public ExprAST handle_EXPRESSION_BASE() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case LEFT_PARENTHESIS:
@@ -379,9 +515,12 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.LEFT_PARENTHESIS, LexicalUnit.NOT, LexicalUnit.MINUS_SIGN, LexicalUnit.IDENTIFIER, LexicalUnit.INTEGER, LexicalUnit.TRUE, LexicalUnit.FALSE});
 				break;
 		}
+		return ret;
+
 	}
 	
-	public void handle_EXPRESSION_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_TAIL() throws Exception{
+		ExprAST ret = null;
 		this.read();
 		switch(this.token.unit){
 			case OR:
@@ -400,6 +539,7 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.OR, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.COMMA, LexicalUnit.TO, LexicalUnit.GIVING});
 				break;
 		}
+		return ret;
 	}
 	
 	public void handle_IDENT() throws Exception{
@@ -603,32 +743,53 @@ public class Parser{
 	}
 	
 	public void handle_VAR_DECL() throws Exception{
+
 		this.read();
 		this.match(LexicalUnit.INTEGER);
+
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
+
+		String variableName = token.getValue();
+
 		this.read();
 		this.match(LexicalUnit.PIC);
+
 		this.read();
 		this.match(LexicalUnit.IMAGE);
-		this.handle_VAR_DECL_TAIL();
+
+		VariableDecl newVariable = (VariableDecl) this.parseImage();
+
+		newVariable.setName(variableName);
+
+
+		this.handle_VAR_DECL_TAIL(newVariable);
+		newVariable.genCode();
+		this.variables.put(variableName,newVariable);
+
 	}
-	
-	public void handle_VAR_DECL_TAIL() throws Exception{
+
+	public void handle_VAR_DECL_TAIL(VariableExprAST newVariable) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case END_OF_INSTRUCTION:
 				break;
 			case VALUE:
 				this.read();
-				this.match(LexicalUnit.INTEGER);
+				this.match(LexicalUnit.INTEGER);//integer?! not real?!
+
+				newVariable.setValue(this.parseReal());//parse real
+
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+
 				break;
+
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.VALUE});
 				break;
 		}
+
 	}
 	
 	public void handle_VAR_LIST() throws Exception{

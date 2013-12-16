@@ -70,15 +70,6 @@ public class Compiler{
 	}
 
 
-	/*
-	* PIC S9(7) COMP-3.     Byte size = (7 + 1) / 2 = 4
-
-    * PIC S9(5)V99 COMP-3.  Byte size = (5 + 2 + 1) / 2 = 4
-
-    * PIC S9(6) COMP-3.     Byte size = (6 + 1) / 2 = 3.5, rounded to 4
-	*
-	*	LLVM types = integer and floats of 16 32 64 128 bits
-	*/
 	protected ExprAST parseImage(){
 		ExprAST ret = null;
 		int imSize = 0; // # of 9 in () AND after v
@@ -133,46 +124,80 @@ public class Compiler{
 		return ret;
 	}
 
+	protected AssignAST createAssign(String var, ExprAST expr){
+		return new AssignExprAST(variables.get(var),expr);
+	}
+
 	
 
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
+		AssignAST assign = null;
 		switch(this.token.unit){
 			case MOVE:
-				this.handle_EXPRESSION();
+				ExprAST expr = this.handle_EXPRESSION();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.TO);
 				this.read();
 				this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+				String varName = token.getValue();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr);
 				break;
 			case COMPUTE:
 				this.read();
 				this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+				String varName = token.getValue();
+				
 				this.read();
 				this.check_token_unit(LexicalUnit.EQUALS_SIGN);
-				this.handle_EXPRESSION();
+
+				ExprAST expr = this.handle_EXPRESSION();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr);
+
 				break;
 			case ADD:
-				this.handle_EXPRESSION();
+
+				ExprAST expr = this.handle_EXPRESSION();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.TO);
 				this.read();
 				this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+				String varName = token.getValue();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr);
+
 				break;
 			case SUBTRACT:
-				this.handle_EXPRESSION();
+				ExprAST expr = this.handle_EXPRESSION();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.FROM);
 				this.read();
 				this.check_token_unit(LexicalUnit.IDENTIFIER);
+
+				String varName = token.getValue();
+
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
+
+				assign = this.createAssign(varName,expr);
+
 				break;
 			case MULTIPLY:
 				this.handle_ASSIGN_TAIL();
@@ -180,7 +205,8 @@ public class Compiler{
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case DIVIDE:
-				this.handle_ASSIGN_TAIL();
+				assign = this.handle_ASSIGN_TAIL();
+				assign.setOp('/');
 				this.read();
 				this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 				break;
@@ -190,8 +216,8 @@ public class Compiler{
 		}
 	}
 	
-	public void handle_ASSIGN_TAIL() throws Exception{
-		this.handle_EXPRESSION();
+	public BinaryExprAST handle_ASSIGN_TAIL() throws Exception{
+		BinaryExprAST ret = this.handle_EXPRESSION();
 		this.read();
 		this.check_token_unit(LexicalUnit.COMMA);
 		this.handle_EXPRESSION();
@@ -270,7 +296,8 @@ public class Compiler{
 		this.check_token_unit(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public void handle_EXPRESSION() throws Exception{
+	public ExprAST handle_EXPRESSION() throws Exception{
+		ExprAST ret = 
 		this.handle_EXPRESSION_SUB();
 		this.handle_EXPRESSION_TAIL();
 	}
@@ -300,7 +327,8 @@ public class Compiler{
 		}
 	}
 	
-	public void handle_EXPRESSION_TAIL() throws Exception{
+	public ExprAST handle_EXPRESSION_TAIL() throws Exception{
+		Expr ret = null;
 		this.read();
 		switch(this.token.unit){
 			case EQUALS_SIGN:
@@ -329,7 +357,9 @@ public class Compiler{
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.AND, LexicalUnit.OR, LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA});
 				break;
+
 		}
+		 return ret;
 	}
 	
 	public void handle_IDENT() throws Exception{
