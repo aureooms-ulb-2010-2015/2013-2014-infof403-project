@@ -22,9 +22,9 @@ public class AssignSA {
 	 
 
 
-	 //%2 = load i32* %c, align 4
+	//%2 = load i32* %c, align 4
   	//%3 = sub nsw i32 %2, 1
-	 //store i32 %3, i32* %c
+	//store i32 %3, i32* %c
 
 
 	public void genCode(){
