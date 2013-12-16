@@ -20,6 +20,7 @@ public class Parser{
 	protected Scanner cobolScanner;
 	protected Symbol<String> token;
 	protected boolean inBuffer = false;
+	protected VariableAllocator variableAllocator = new VariableAllocator();
 	
 	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
 
