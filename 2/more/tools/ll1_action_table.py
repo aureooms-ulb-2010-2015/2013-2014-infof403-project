@@ -26,8 +26,54 @@ def main():
 
 			i += 1
 
-	print(action_table)
+	#to LATEX
+	"""
 
+	dont = []
+	
+	
+	for i in range(len(grammar.alphabet)):
+		take = False
+		for key in action_table:
+			if (action_table[key][i]!= None):
+				take = True
+				break
+		if(not take):
+			dont.append(i)
+
+
+	print(u("Rule"),a(),end=""),
+	i=0
+	for unit in grammar.rules_sorted:
+		if(i not in dont):
+			print(u(unit), end=""),
+			if(i < len(grammar.alphabet)-len(dont)):
+				print(a(), end=""),
+		i+=1
+
+	print("\\\\ \hline")
+	for key in action_table:
+		print(u(key), end=""),
+		for i in range(len(grammar.alphabet)):
+			if (i not in dont):
+				if(action_table[key][i]!=None):
+					print(at(action_table[key][i]),a(), end="" )
+				else:
+					print(e(),a(), end="" )
+		print("\\\\ \hline")
+	"""
+"""
+def u(s):	
+	return '{:<20}'.format(s)
+def at(s):	
+	return '{:<3}'.format(s)
+def a():
+	return '{:<3}'.format("&")
+def e():
+	return '{:<1}'.format(" ")
+
+"""
+	
 
 if __name__ == '__main__':
 	main()
