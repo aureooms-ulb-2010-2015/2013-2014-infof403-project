@@ -72,6 +72,8 @@ public class Parser{
 	public void compile() throws Exception{
 		this.handle_S();
 		stringPool.genCode();
+		Display.genLibCode();
+		Accept.genLibCode();
 	}
 
 	protected int parseInteger(){
