@@ -27,8 +27,27 @@ def main():
 			i += 1
 
 	#to LATEX
-	
+	print("\\hspace{-1.0cm}\\begin{tabular}{|l|l|l|}")
+	print(u("Rules"),a(),u("First"),a(),u("go to"))
+	print ("\\\\ \\hline")
 
+	for unit in grammar.rules_sorted:
+		sfollow=""
+		sfirst =""
+		count = 0;
+		firstkeys = grammar.first.keys()
+		followkeys = grammar.follow.keys()
+
+		
+
+
+		for follow in grammar.follow[unit]:
+			sfollow+=follow+", "
+		for first in grammar.first[unit]:
+			sfirst+=first+", "
+		print(u(unit).replace("_","\\_"),a(),s(sfirst).replace("_","\\_").lower(),a(),s(sfollow).replace("_","\\_").lower()," \\\\ \hline")
+	
+	"""
 	dont = []
 	
 	
@@ -60,9 +79,24 @@ def main():
 				else:
 					print(e(),a(), end="" )
 		print("\\\\ \hline")
+	"""
+	"""
+	print(u("Rules"),a(),u("terminal"),a(),u("go to"))
+
+
+	for key in action_table:
+		i = 0
+		print(u(key),end="")
+		for go in action_table[key]:
+			if(go!=None):
+				print(u(" "), a(),u(grammar.alphabet[i]) ,a(), go)
+			i+=1
+	"""
 
 def u(s):	
 	return '{:<20}'.format(s)
+def s(s):
+	return '{:<50}'.format(s)
 def at(s):	
 	return '{:<3}'.format(s)
 def a():

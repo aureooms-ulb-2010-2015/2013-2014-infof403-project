@@ -9,18 +9,21 @@ In order to make a grammar $LL(1)$ we had to apply some modifications on it. We 
 
 Top-down parsing is impossible on a left-recursive grammar. To solve this issue we replaced every left recursive rule by a right-recursive one.
 
-the following rules have transformed into right-recursive: $<LABELS>$ $<WORDS>$ $<EXPRESSION>$
+the following rules have transformed into right-recursive: $LABELS$, $WORDS$, $EXPRESSION$.
+
 
 \subsubsection{left-factoring rules}
 Various productions can be left-factored if they have the form
 $$A -> \alpha \beta_{1} | ... | \alpha\beta_{n}$$
-with a common prefix \alpha.
+with a common prefix $\alpha$.
 whith
 $$A -> \alpha A'$$
 $$A' -> \beta_{1} | ... | \beta_{n}$$
 
 For top-down parsers, rules must be left-factored.
-It's for this reason that we modified the productions rules for $<CALL>$ $<VAR_DECL>$ $<WRITE>$
+It's for this reason that we modified the productions rules for
+$CALL$, $VAR_DECL$, $WRITE$.
+
 
 \subsubsection{Checking end of Program}
 
@@ -29,21 +32,21 @@ $$<S> -> <PROGRAM> EOF$$
 
 \subsubsection{note}
 
-As $<LABEL>$ and $<END_INST>$ both resolve to a single terminal, we chose to remove them from the grammar and replace their occurences in the other rules by the only terminal they represent.
+As $LABEL$ and $END\_INST$ both resolve to a single terminal, we chose to remove them from the grammar and replace their occurences in the other rules by the only terminal they represent.
 
 \subsubsection{Respect priority and associativity of operators}
 
-The priority of operators must be defined by the grammar. We have divided the $<EXPRESSION>$rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the lef to the root we are sure priority of operators is respected.  
+The priority of operators must be defined by the grammar. We have divided the $EXPRESSION$ rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the lef to the root we are sure priority of operators is respected.  
 
 
 
 \subsubsection{Results}
 \label{expression}
-Here is the resulting grammar we obtained. The production rules that have been modified from the original grammar are shown in red:
+Here is the resulting grammar. The production rules that have been modified from the original grammar are shown in red:
 
 
 
-\begin{verbatim}
+\begin{lstlisting}[breaklines]
 [ 0]       <ASSIGNATION> -> MOVE <EXPRESSION> TO IDENTIFIER END_OF_INSTRUCTION
 [ 1]                     -> COMPUTE IDENTIFIER EQUALS_SIGN <EXPRESSION> END_OF_INSTRUCTION
 [ 2]                     -> ADD <EXPRESSION> TO IDENTIFIER END_OF_INSTRUCTION
@@ -113,10 +116,9 @@ Here is the resulting grammar we obtained. The production rules that have been m
 [66]             <WRITE> -> DISPLAY <WRITE_TAIL>
 [67]        <WRITE_TAIL> -> <EXPRESSION> END_OF_INSTRUCTION
 [68]                     -> STRING END_OF_INSTRUCTION
-
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{$First$, $Follows$, $Action table$}
 
-We wrote python scripts implementing algorithms seen in class to generate the $first$, $follow$ sets and the $action tables$.
+We wrote python scripts implementing algorithms seen in class to generate the $first$, $follow$ sets and the $action table$.
 
