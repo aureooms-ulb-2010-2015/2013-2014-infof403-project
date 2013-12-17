@@ -594,14 +594,15 @@ public class Parser{
 			}
 			case MINUS_SIGN:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(false, 1, var_0);
 				IntegerVariable expr = this.handle_EXPRESSION();
+				IntegerVariable result = new IntegerVariable(expr.signed, expr.getSize(), var_0);
 				new Neg(result , expr.getName());
 				return result;
 			}
 			case IDENTIFIER:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(false, 1, var_0);
+				VariableDecl declared = this.variables.get(token.getValue());
+				IntegerVariable result = new IntegerVariable(declared.getSigned(),Integer.decode(declared.getLLVMSize()), var_0);
 				new AssignTemp(result, this.variables.get(token.getValue()));
 				return result;
 			}
@@ -613,13 +614,13 @@ public class Parser{
 			}
 			case TRUE:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(true, 32, var_0);
+				IntegerVariable result = new IntegerVariable(true, 1, var_0);
 				new AssignInt(var_0, 1);
 				return result;
 			}
 			case FALSE:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(true, 32, var_0);
+				IntegerVariable result = new IntegerVariable(true, 1, var_0);
 				new AssignInt(var_0, 0);
 				return result;
 			}
