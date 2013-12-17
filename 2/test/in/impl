@@ -1,0 +1,43 @@
+
+identification division.
+	program-id. impl.
+	author. Euclide.
+	date-written. BNC-300.
+environment division.
+	configuration section.
+	source-computer. x8086.
+	object-computer. LLVM.
+data division.
+	working-storage section.
+		77 a pic s9(1).
+		77 b pic s9(1).
+		77 c pic s9(1).
+procedure division.
+	main section.
+	start.
+		display 'Is it friday? (0/1)' .
+		accept a.
+		display 'Is it sunny? (0/1)' .
+		accept b.
+		display 'Is it windy? (0/1)' .
+		accept c.
+		if a and b and c then
+			display 'happy'.
+		else
+			if a and b or c then
+				display 'dizzy'.
+			else
+				if a or b or c then
+					display 'yeezy'.
+				else
+					if not a and not b and not c then
+						display 'grumpy'.
+					else
+						display 'duh'.
+					end-if
+				end-if
+			end-if
+		end-if
+		stop run.
+
+end program impl.

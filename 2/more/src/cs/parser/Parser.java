@@ -382,9 +382,9 @@ public class Parser{
 				new Jump(label_0);
 				new Label(label_0);
 				this.currentLabel = label_0;
-				Variable condition = this.handle_EXPRESSION();
+				IntegerVariable condition = this.handle_EXPRESSION();
 				String tmp = variableAllocator.getNext();
-				new Not(tmp, condition.getName());
+				new Not(tmp, condition);
 				new If(tmp, label_1, label_2);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -471,7 +471,7 @@ public class Parser{
 				op.genCodeLeft(left);
 				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_2();
-				op.genCodeRight(right);
+				op.genCodeRight(right, this.currentLabel);
 				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_1_TAIL(new IntegerVariable(false, 1, var_2));
 			}
@@ -699,9 +699,9 @@ public class Parser{
 			}
 			case NOT:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(false, 1, var_0);
 				IntegerVariable expr = this.handle_EXPRESSION();
-				new Not(result.getName(), expr.getName());
+				IntegerVariable result = new IntegerVariable(expr.isSigned(), expr.getSize(), var_0);
+				new Not(result.getName(), expr);
 				return result;
 			}
 			case MINUS_SIGN:{
@@ -757,7 +757,7 @@ public class Parser{
 				op.genCodeLeft(left);
 				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_1();
-				op.genCodeRight(right);
+				op.genCodeRight(right, this.currentLabel);
 				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_TAIL(new IntegerVariable(false, 1, var_2));
 			}

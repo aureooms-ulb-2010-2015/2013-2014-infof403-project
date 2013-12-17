@@ -27,12 +27,12 @@ public class And{
 		new Label(this.label_1);
 	}
 
-	public void genCodeRight(IntegerVariable right){
+	public void genCodeRight(IntegerVariable right, String call_label){
 		IntegerVariable tmp = new IntegerVariable(right.isSigned(), right.getSize(), this.var_1);
 		System.out.printf("%s = icmp ne %s %s, 0\n", tmp.getName(), tmp.getType(), right.getName());
 		new Jump(this.label_2);
 		new Label(this.label_2);
-		System.out.printf("%s = phi i1 [ false, %s ], [ %s, %s ]\n", this.var_2, this.label_0, tmp.getName(), this.label_1);
+		System.out.printf("%s = phi i1 [ false, %s ], [ %s, %s ]\n", this.var_2, this.label_0, tmp.getName(), call_label);
 		
 	}
 }
