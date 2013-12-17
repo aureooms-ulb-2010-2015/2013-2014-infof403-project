@@ -10,7 +10,7 @@ environment division.
 	object-computer. LLVM.
 
 data division.
-	working-sfromrage section.
+	working-storage section.
 		77 A pic 9(1) .
 		77 B pic 9(2) .
 		77 C pic 9(3) .
