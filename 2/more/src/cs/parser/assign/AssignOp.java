@@ -26,10 +26,6 @@ public class AssignOp {
 		this.genCode();
 	}
 
-	// %temp = add nsw i32 %2, %3
- 	// store i32 %4, i32* %c, align 4
-
-	//store i32 0, i32* %1
 	public void genCode(){
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();
 		System.out.printf("%s = %s %s %s, %s\n", tempVar, op, greater, l.getName(), r.getName() );

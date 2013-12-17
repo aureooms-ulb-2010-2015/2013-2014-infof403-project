@@ -299,7 +299,14 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "mul");
+				this.ensureSize(tail.getL(), tail.getR());
+
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(tail.getL().isSigned() || tail.getR().isSigned(), tail.getL().getSize(), var_0);
+				new Mul(result, tail.getL(), tail.getR());
+
+				this.ensureDest(result, new IntegerVariable(tail.getTo()));
+				new Assign(result, tail.getTo());
 				break;
 			}
 			case DIVIDE:{
@@ -308,7 +315,15 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "div");
+
+				this.ensureSize(tail.getL(), tail.getR());
+
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(tail.getL().isSigned() || tail.getR().isSigned(), tail.getL().getSize(), var_0);
+				new Div(result, tail.getL(), tail.getR());
+
+				this.ensureDest(result, new IntegerVariable(tail.getTo()));
+				new Assign(result, tail.getTo());
 				break;
 			}
 			default:
@@ -555,20 +570,20 @@ public class Parser{
 		switch(this.token.unit){
 			case PLUS_SIGN:{
 				IntegerVariable right = this.handle_EXPRESSION_4();
-				int greater = (left.getSize() >= right.getSize() ) ? left.getSize() :  right.getSize();
-				String var_0 = variableAllocator.getNext();
+				this.ensureSize(left, right);
 
-				IntegerVariable result = new IntegerVariable(true, greater, var_0);
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned() || right.isSigned(), left.getSize(), var_0);
 				new Add(result, left, right);
 				
 				return this.handle_EXPRESSION_3_TAIL(result);
 			}
 			case MINUS_SIGN:{
 				IntegerVariable right = this.handle_EXPRESSION_4();
-				int greater = (left.getSize() >= right.getSize() ) ? left.getSize() :  right.getSize();
-				String var_0 = variableAllocator.getNext();
+				this.ensureSize(left, right);
 
-				IntegerVariable result = new IntegerVariable(true, greater, var_0);
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned() || right.isSigned(), left.getSize(), var_0);
 				new Sub(result, left, right);
 				return this.handle_EXPRESSION_3_TAIL(result);
 			}
@@ -611,20 +626,20 @@ public class Parser{
 			case ASTERISK:{
 
 				IntegerVariable right = this.handle_EXPRESSION_BASE();
-				int greater = (left.getSize() >= right.getSize() ) ? left.getSize() :  right.getSize();
-				String var_0 = variableAllocator.getNext();
+				this.ensureSize(left, right);
 
-				IntegerVariable result = new IntegerVariable(true, greater, var_0);
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned() || right.isSigned(), left.getSize(), var_0);
 				new Mul(result, left, right);
 				
 				return this.handle_EXPRESSION_4_TAIL(result);
 			}
 			case SLASH:{
 				IntegerVariable right = this.handle_EXPRESSION_BASE();
-				int greater = (left.getSize() >= right.getSize() ) ? left.getSize() :  right.getSize();
-				String var_0 = variableAllocator.getNext();
+				this.ensureSize(left, right);
 
-				IntegerVariable result = new IntegerVariable(true, greater, var_0);
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned() || right.isSigned(), left.getSize(), var_0);
 				new Div(result, left, right);
 				
 				return this.handle_EXPRESSION_4_TAIL(result);
