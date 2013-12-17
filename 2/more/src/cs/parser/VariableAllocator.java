@@ -11,7 +11,7 @@ class VariableAllocator{
 	}
 
 	public String getNext(){
-		return "%register" + Integer.toString(++this.next);
+		return "%tmp_" + Integer.toString(++this.next);
 	}
 
 }

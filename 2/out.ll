@@ -5,56 +5,56 @@
 define i64 @main(){
 call void @accept_i32(i32* @a)
 call void @accept_i40(i40* @b)
-br label %register0
-register0:
-%register3 = load i40* @b
-%register4 = add i32 0, 0
-%register6 = sext i32 %register4 to i40
-%register5 = icmp eq i40 %register3, %register6
-%register7 = xor i1 %register5, true
-br i1 %register7, label %register1, label %register2
-register1:
+br label %tmp_0
+tmp_0:
+%tmp_3 = load i40* @b
+%tmp_4 = add i32 0, 0
+%tmp_6 = sext i32 %tmp_4 to i40
+%tmp_5 = icmp eq i40 %tmp_3, %tmp_6
+%tmp_7 = xor i1 %tmp_5, true
+br i1 %tmp_7, label %tmp_1, label %tmp_2
+tmp_1:
 call void @find()
-br label %register0
-register2:
+br label %tmp_0
+tmp_2:
 call void @display_string(i8* getelementptr inbounds ([10 x i8]* @.str0, i32 0, i32 0))
-%register8 = load i32* @a
-call void @display_i32(i32 %register8)
+%tmp_8 = load i32* @a
+call void @display_i32(i32 %tmp_8)
 ret i64 0
 }
 
 define void @find(){
-%register0 = load i40* @b
-%register1 = trunc i40 %register0 to i24
-store i24 %register1, i24* @c
-br label %register2
-register2:
-%register5 = load i32* @a
-%register6 = load i40* @b
-%register8 = sext i32 %register5 to i40
-%register7 = icmp slt i40 %register8, %register6
-%register9 = xor i1 %register7, true
-br i1 %register9, label %register3, label %register4
-register3:
+%tmp_0 = load i40* @b
+%tmp_1 = trunc i40 %tmp_0 to i24
+store i24 %tmp_1, i24* @c
+br label %tmp_2
+tmp_2:
+%tmp_5 = load i32* @a
+%tmp_6 = load i40* @b
+%tmp_8 = sext i32 %tmp_5 to i40
+%tmp_7 = icmp slt i40 %tmp_8, %tmp_6
+%tmp_9 = xor i1 %tmp_7, true
+br i1 %tmp_9, label %tmp_3, label %tmp_4
+tmp_3:
 call void @diff()
-br label %register2
-register4:
-%register10 = load i32* @a
-%register11 = sext i32 %register10 to i40
-store i40 %register11, i40* @b
-%register12 = load i24* @c
-%register13 = sext i24 %register12 to i32
-store i32 %register13, i32* @a
+br label %tmp_2
+tmp_4:
+%tmp_10 = load i32* @a
+%tmp_11 = sext i32 %tmp_10 to i40
+store i40 %tmp_11, i40* @b
+%tmp_12 = load i24* @c
+%tmp_13 = sext i24 %tmp_12 to i32
+store i32 %tmp_13, i32* @a
 ret void
 }
 
 define void @diff(){
-%register0 = load i40* @b
-%register1 = load i32* @a
-%register2 = sext i32 %register1 to i40
-%register3 = sub i40 %register2, %register0
-%register4 = trunc i40 %register3 to i32
-store i32 %register4, i32* @a
+%tmp_0 = load i40* @b
+%tmp_1 = load i32* @a
+%tmp_2 = sext i32 %tmp_1 to i40
+%tmp_3 = sub i40 %tmp_2, %tmp_0
+%tmp_4 = trunc i40 %tmp_3 to i32
+store i32 %tmp_4, i32* @a
 ret void
 }
 
@@ -85,116 +85,114 @@ define void @display_string(i8* %string) nounwind uwtable {
   ret void
 }
 define void @display_i32(i32 %it) nounwind uwtable {
-  %1 = alloca i32, align 8
-  %c = alloca i32, align 4
-  store i32 %it, i32* %1, align 8
-  %2 = load i32* %1, align 8
-  %3 = urem i32 %2, 10
-  %4 = add i32 48, %3
-  %5 = trunc i32 %4 to i32
-  store i32 %5, i32* %c, align 4
-  %6 = load i32* %1, align 8
-  %7 = udiv i32 %6, 10
-  store i32 %7, i32* %1, align 8
-  %8 = load i32* %1, align 8
-  %9 = icmp ugt i32 %8, 0
-  br i1 %9, label %10, label %12
+  %tmp_1 = alloca i32, align 8
+  %tmp_c = alloca i32, align 4
+  store i32 %it, i32* %tmp_1, align 8
+  %tmp_2 = load i32* %tmp_1, align 8
+  %tmp_3 = urem i32 %tmp_2, 10
+  %tmp_4 = add i32 48, %tmp_3
+  store i32 %tmp_4, i32* %tmp_c, align 4
+  %tmp_6 = load i32* %tmp_1, align 8
+  %tmp_7 = udiv i32 %tmp_6, 10
+  store i32 %tmp_7, i32* %tmp_1, align 8
+  %tmp_8 = load i32* %tmp_1, align 8
+  %tmp_9 = icmp ugt i32 %tmp_8, 0
+  br i1 %tmp_9, label %tmp_10, label %tmp_12
 
-; <label>:10                                      ; preds = %0
-  %11 = load i32* %1, align 8
-  call void @display_i32(i32 %11)
-  br label %12
+tmp_10:                                      ; preds = %tmp_0
+  %tmp_11 = load i32* %tmp_1, align 8
+  call void @display_i32(i32 %tmp_11)
+  br label %tmp_12
 
-; <label>:12                                      ; preds = %10, %0
-  %13 = load i32* %c, align 4
-  %14 = call i32 @putchar(i32 %13)
+tmp_12:                                      ; preds = %tmp_10, %tmp_0
+  %tmp_13 = load i32* %tmp_c, align 4
+  %tmp_14 = call i32 @putchar(i32 %tmp_13)
   ret void
 }
-declare i32 @putchar()
+declare i32 @putchar(i32)
 define void @accept_i40(i40* %it) nounwind uwtable {
-  %1 = alloca i40*, align 8
-  %c = alloca i32, align 4
-  store i40* %it, i40** %1, align 8
-  %2 = load i40** %1, align 8
-  store i40 0, i40* %2, align 8
-  br label %3
+  %tmp_1 = alloca i40*, align 8
+  %tmp_c = alloca i32, align 4
+  store i40* %it, i40** %tmp_1, align 8
+  %tmp_2 = load i40** %tmp_1, align 8
+  store i40 0, i40* %tmp_2, align 8
+  br label %tmp_3
 
-; <label>:3                                       ; preds = %0, %12
-  %4 = call i32 @getchar()
-  store i32 %4, i32* %c, align 4
-  %5 = load i32* %c, align 4
-  %6 = icmp slt i32 %5, 48
-  br i1 %6, label %7, label %8
+tmp_3:                                       ; preds = %tmp_0, %tmp_12
+  %tmp_4 = call i32 @getchar()
+  store i32 %tmp_4, i32* %tmp_c, align 4
+  %tmp_5 = load i32* %tmp_c, align 4
+  %tmp_6 = icmp slt i32 %tmp_5, 48
+  br i1 %tmp_6, label %tmp_7, label %tmp_8
 
-; <label>:7                                       ; preds = %3
-  br label %22
+tmp_7:                                       ; preds = %tmp_3
+  br label %tmp_22
 
-; <label>:8                                       ; preds = %3
-  %9 = load i32* %c, align 4
-  %10 = icmp sgt i32 %9, 57
-  br i1 %10, label %11, label %12
+tmp_8:                                       ; preds = %tmp_3
+  %tmp_9 = load i32* %tmp_c, align 4
+  %tmp_10 = icmp sgt i32 %tmp_9, 57
+  br i1 %tmp_10, label %tmp_11, label %tmp_12
 
-; <label>:11                                      ; preds = %8
-  br label %22
+tmp_11:                                      ; preds = %tmp_8
+  br label %tmp_22
 
-; <label>:12                                      ; preds = %8
-  %13 = load i40** %1, align 8
-  %14 = load i40* %13, align 8
-  %15 = mul i40 %14, 10
-  store i40 %15, i40* %13, align 8
-  %16 = load i32* %c, align 4
-  %17 = sub nsw i32 %16, 48
-  %18 = sext i32 %17 to i40
-  %19 = load i40** %1, align 8
-  %20 = load i40* %19, align 8
-  %21 = add i40 %20, %18
-  store i40 %21, i40* %19, align 8
-  br label %3
+tmp_12:                                      ; preds = %tmp_8
+  %tmp_13 = load i40** %tmp_1, align 8
+  %tmp_14 = load i40* %tmp_13, align 8
+  %tmp_15 = mul i40 %tmp_14, 10
+  store i40 %tmp_15, i40* %tmp_13, align 8
+  %tmp_16 = load i32* %tmp_c, align 4
+  %tmp_17 = sub nsw i32 %tmp_16, 48
+  %tmp_18 = sext i32 %tmp_17 to i40
+  %tmp_19 = load i40** %tmp_1, align 8
+  %tmp_20 = load i40* %tmp_19, align 8
+  %tmp_21 = add i40 %tmp_20, %tmp_18
+  store i40 %tmp_21, i40* %tmp_19, align 8
+  br label %tmp_3
 
-; <label>:22                                      ; preds = %11, %7
+tmp_22:                                      ; preds = %tmp_11, %tmp_7
   ret void
 }
 define void @accept_i32(i32* %it) nounwind uwtable {
-  %1 = alloca i32*, align 8
-  %c = alloca i32, align 4
-  store i32* %it, i32** %1, align 8
-  %2 = load i32** %1, align 8
-  store i32 0, i32* %2, align 8
-  br label %3
+  %tmp_1 = alloca i32*, align 8
+  %tmp_c = alloca i32, align 4
+  store i32* %it, i32** %tmp_1, align 8
+  %tmp_2 = load i32** %tmp_1, align 8
+  store i32 0, i32* %tmp_2, align 8
+  br label %tmp_3
 
-; <label>:3                                       ; preds = %0, %12
-  %4 = call i32 @getchar()
-  store i32 %4, i32* %c, align 4
-  %5 = load i32* %c, align 4
-  %6 = icmp slt i32 %5, 48
-  br i1 %6, label %7, label %8
+tmp_3:                                       ; preds = %tmp_0, %tmp_12
+  %tmp_4 = call i32 @getchar()
+  store i32 %tmp_4, i32* %tmp_c, align 4
+  %tmp_5 = load i32* %tmp_c, align 4
+  %tmp_6 = icmp slt i32 %tmp_5, 48
+  br i1 %tmp_6, label %tmp_7, label %tmp_8
 
-; <label>:7                                       ; preds = %3
-  br label %22
+tmp_7:                                       ; preds = %tmp_3
+  br label %tmp_22
 
-; <label>:8                                       ; preds = %3
-  %9 = load i32* %c, align 4
-  %10 = icmp sgt i32 %9, 57
-  br i1 %10, label %11, label %12
+tmp_8:                                       ; preds = %tmp_3
+  %tmp_9 = load i32* %tmp_c, align 4
+  %tmp_10 = icmp sgt i32 %tmp_9, 57
+  br i1 %tmp_10, label %tmp_11, label %tmp_12
 
-; <label>:11                                      ; preds = %8
-  br label %22
+tmp_11:                                      ; preds = %tmp_8
+  br label %tmp_22
 
-; <label>:12                                      ; preds = %8
-  %13 = load i32** %1, align 8
-  %14 = load i32* %13, align 8
-  %15 = mul i32 %14, 10
-  store i32 %15, i32* %13, align 8
-  %16 = load i32* %c, align 4
-  %17 = sub nsw i32 %16, 48
-  %18 = sext i32 %17 to i32
-  %19 = load i32** %1, align 8
-  %20 = load i32* %19, align 8
-  %21 = add i32 %20, %18
-  store i32 %21, i32* %19, align 8
-  br label %3
+tmp_12:                                      ; preds = %tmp_8
+  %tmp_13 = load i32** %tmp_1, align 8
+  %tmp_14 = load i32* %tmp_13, align 8
+  %tmp_15 = mul i32 %tmp_14, 10
+  store i32 %tmp_15, i32* %tmp_13, align 8
+  %tmp_16 = load i32* %tmp_c, align 4
+  %tmp_17 = sub nsw i32 %tmp_16, 48
+  %tmp_19 = load i32** %tmp_1, align 8
+  %tmp_20 = load i32* %tmp_19, align 8
+  %tmp_21 = add i32 %tmp_20, %tmp_17
+  store i32 %tmp_21, i32* %tmp_19, align 8
+  br label %tmp_3
 
-; <label>:22                                      ; preds = %11, %7
+tmp_22:                                      ; preds = %tmp_11, %tmp_7
   ret void
 }
 declare i32 @getchar()

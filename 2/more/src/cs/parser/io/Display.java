@@ -11,29 +11,29 @@ public class Display{
 
 	private static String function_integer(String type){
 		return "define void @display_" + type + "(" + type + " %it) nounwind uwtable {\n"
-		+ "  %1 = alloca " + type + ", align 8\n"
-		+ "  %c = alloca i32, align 4\n"
-		+ "  store " + type + " %it, " + type + "* %1, align 8\n"
-		+ "  %2 = load " + type + "* %1, align 8\n"
-		+ "  %3 = urem " + type + " %2, 10\n"
-		+ "  %4 = add " + type + " 48, %3\n"
-		+ "  %5 = trunc " + type + " %4 to i32\n"
-		+ "  store i32 %5, i32* %c, align 4\n"
-		+ "  %6 = load " + type + "* %1, align 8\n"
-		+ "  %7 = udiv " + type + " %6, 10\n"
-		+ "  store " + type + " %7, " + type + "* %1, align 8\n"
-		+ "  %8 = load " + type + "* %1, align 8\n"
-		+ "  %9 = icmp ugt " + type + " %8, 0\n"
-		+ "  br i1 %9, label %10, label %12\n"
+		+ "  %tmp_1 = alloca " + type + ", align 8\n"
+		+ "  %tmp_c = alloca i32, align 4\n"
+		+ "  store " + type + " %it, " + type + "* %tmp_1, align 8\n"
+		+ "  %tmp_2 = load " + type + "* %tmp_1, align 8\n"
+		+ "  %tmp_3 = urem " + type + " %tmp_2, 10\n"
+		+ "  %tmp_4 = add " + type + " 48, %tmp_3\n"
+		+ (type.equals("i32") ? "" : "%tmp_5 = trunc " + type + " %tmp_4 to i32\n")
+		+ "  store i32 " + (type.equals("i32") ? "%tmp_4" : "%tmp_5") + ", i32* %tmp_c, align 4\n"
+		+ "  %tmp_6 = load " + type + "* %tmp_1, align 8\n"
+		+ "  %tmp_7 = udiv " + type + " %tmp_6, 10\n"
+		+ "  store " + type + " %tmp_7, " + type + "* %tmp_1, align 8\n"
+		+ "  %tmp_8 = load " + type + "* %tmp_1, align 8\n"
+		+ "  %tmp_9 = icmp ugt " + type + " %tmp_8, 0\n"
+		+ "  br i1 %tmp_9, label %tmp_10, label %tmp_12\n"
 		+ "\n"
-		+ "; <label>:10                                      ; preds = %0\n"
-		+ "  %11 = load " + type + "* %1, align 8\n"
-		+ "  call void @display_" + type + "(" + type + " %11)\n"
-		+ "  br label %12\n"
+		+ "tmp_10:                                      ; preds = %tmp_0\n"
+		+ "  %tmp_11 = load " + type + "* %tmp_1, align 8\n"
+		+ "  call void @display_" + type + "(" + type + " %tmp_11)\n"
+		+ "  br label %tmp_12\n"
 		+ "\n"
-		+ "; <label>:12                                      ; preds = %10, %0\n"
-		+ "  %13 = load i32* %c, align 4\n"
-		+ "  %14 = call i32 @putchar(i32 %13)\n"
+		+ "tmp_12:                                      ; preds = %tmp_10, %tmp_0\n"
+		+ "  %tmp_13 = load i32* %tmp_c, align 4\n"
+		+ "  %tmp_14 = call i32 @putchar(i32 %tmp_13)\n"
 		+ "  ret void\n"
 		+ "}";
 	}
@@ -72,7 +72,7 @@ public class Display{
 			else System.out.println(Display.function_integer(type));
 		}
 
-		if(!Display.required.isEmpty()) System.out.println("declare i32 @putchar()");
+		if(!Display.required.isEmpty()) System.out.println("declare i32 @putchar(i32)");
 	}
 
 	private Variable variable;
