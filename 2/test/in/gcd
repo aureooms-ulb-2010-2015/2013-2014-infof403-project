@@ -1,0 +1,36 @@
+
+identification division.
+	program-id. Algo-Euclide.
+	author. Euclide.
+	date-written. BNC-300.
+environment division.
+	configuration section.
+	source-computer. x8086.
+	object-computer. LLVM.
+data division.
+	working-storage section.
+		77 a pic s9(9).
+		77 b pic s9(10) value 6.
+		77 c pic s9(5).
+procedure division.
+	main section.
+	start.
+		display 'a?' .
+		accept a.
+		display 'b?' .
+		accept b.
+		perform find until b = 0.
+		display 'pgcd' .
+		display a.
+		display ''.
+		stop run.
+	find.
+		move b to c.
+		perform diff until a < b.
+		move a to b.
+		move c to a.
+	diff.
+		* Compute a modulo b.
+		subtract b from a.
+
+end program Algo-Euclide.

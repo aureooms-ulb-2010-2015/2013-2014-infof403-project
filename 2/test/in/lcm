@@ -1,0 +1,47 @@
+identification division.
+	program-id. lcm.
+	author. uzhdu.
+	date-written. zhduzhgdh fuzgu fzguf z.
+environment division.
+	configuration section.
+	source-computer. zh.
+	object-computer. ueygf.
+data division.
+	working-storage section.
+		77 a pic s9(20).
+		77 b pic s9(20).
+		77 c pic s9(20).
+		77 A pic s9(20).
+		77 B pic s9(20).
+procedure division.
+	main section.
+	start.
+		display 'a?' .
+		accept a.
+		move a to A.
+		display 'b?' .
+		accept b.
+		move b to B.
+		perform pgcd.
+		display 'lcm' .
+		if (a = 0) then
+			display 0.
+		else
+			display (A / a * B).
+		end-if
+		display ''.
+		stop run.
+
+	pgcd.
+		perform find until b = 0.
+
+	find.
+		move b to c.
+		perform diff until a < b.
+		move a to b.
+		move c to a.
+	diff.
+		* Compute a modulo b.
+		subtract b from a.
+
+end program lcm.
