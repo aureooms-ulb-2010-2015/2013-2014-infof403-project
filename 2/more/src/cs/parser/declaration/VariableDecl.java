@@ -64,6 +64,6 @@ public abstract class VariableDecl<T> {
 
 	public abstract String getLLVMType();
 
-	public boolean getSigned(){return signed;}
+	public boolean isSigned(){return signed;}
 	
 }

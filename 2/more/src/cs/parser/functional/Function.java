@@ -13,7 +13,7 @@ public class Function{
 	}
 
 	public void genCode(){
-		if(this.name.equals(Function.MAIN)) System.out.printf("define i32 @main(){", this.name);
+		if(this.name.equals(Function.MAIN)) System.out.printf("define i64 @main(){", this.name);
 		else System.out.printf("define void @%s(){", this.name);
 		System.out.println();
 	}

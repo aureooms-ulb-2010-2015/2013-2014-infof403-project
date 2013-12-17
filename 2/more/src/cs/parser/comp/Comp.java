@@ -24,47 +24,22 @@ public class Comp {
 		this.l = l;
 		this.r = r;
 		this.op = op;
-
 		this.temp = temp;
 		
-		
-
-		boolean signed = false;
-
-		if(l.signed || r.signed){signed = true;}
+		boolean signed = l.isSigned() || r.isSigned();
 
 		switch(this.op){
 			case GE:
-				if(signed){
-					this.sop = "sge";
-				} 
-				else{
-					this.sop = "uge";
-				}
+				this.sop = signed ? "sge" : "uge";
 				break;
 			case LE:
-				if(signed){
-					this.sop = "sle";
-				}
-				else{
-					this.sop = "ule";
-				} 
+				this.sop = signed ? "sle" : "ule";
 				break;
 			case GT:
-				if(signed){
-					this.sop = "sgt";
-				}
-				else{
-					this.sop = "ugt";
-				} 
+				this.sop = signed ? "sgt" : "ugt";
 				break;
 			case LT:
-				if(signed){
-					this.sop = "slt";
-				}
-				else{
-					this.sop = "ult";
-				} 
+				this.sop = signed ? "slt" : "ult";
 				break;
 			case EQ:
 				this.sop = "eq";
@@ -83,7 +58,6 @@ public class Comp {
 
 	public void genCode(){
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();
-		
 		System.out.printf("%s = icmp %s %s %s, %s\n", this.temp, this.sop, greater, l.getName(), r.getName());
 	}
 

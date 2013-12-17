@@ -8,7 +8,7 @@ public class Assign {
 	protected IntegerVariable from;
 	protected  VariableDecl to;
 
-	public Assign(VariableDecl to, IntegerVariable from){
+	public Assign(IntegerVariable from, VariableDecl to){
 		this.from = from;
 		this.to = to;
 		this.genCode();

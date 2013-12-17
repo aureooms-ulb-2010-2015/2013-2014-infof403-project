@@ -14,13 +14,8 @@ public class AssignInt {
 		this.genCode();
 	}
 
-	//store i32 0, i32* %1
 	public void genCode(){
-		System.out.println( String.format("store i32 %s, i32* %s", Integer.toString(this.val), this.to) );
-
+		System.out.printf("%s = add i32 %s, 0\n", this.to, Integer.toString(this.val));
 	}
-
-
-
 
 }
