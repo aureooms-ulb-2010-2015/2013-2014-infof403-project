@@ -156,6 +156,7 @@ public class Parser{
 
 	protected void ensureDest(IntegerVariable left, IntegerVariable right){
 		if(left.getSize() > right.getSize()) this.truncSize(left, right);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
 	}
 
 	protected void truncSize(IntegerVariable from, IntegerVariable to){
@@ -210,36 +211,48 @@ public class Parser{
 			}
 			case ADD:{
 				
-				IntegerVariable expr = this.handle_EXPRESSION();
-
+				IntegerVariable right = this.handle_EXPRESSION();
 				this.read();
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-
-				String varName = token.getValue();
-
+				VariableDecl decl = variables.get(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),expr,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add");
+				String var_1 = variableAllocator.getNext();
+				IntegerVariable left = new IntegerVariable(decl, var_1);
+				new AssignTemp(left, decl);
+				this.ensureSize(left, right);
+
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned(), left.getSize(), var_0);
+				new Add(result, left, right);
+				this.ensureDest(result, new IntegerVariable(decl));
+				new Assign(result, decl);
 				break;
 			}
 			case SUBTRACT:{
 				
-				IntegerVariable expr = this.handle_EXPRESSION();
-
+				IntegerVariable right = this.handle_EXPRESSION();
 				this.read();
 				this.match(LexicalUnit.FROM);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-
-				String varName = token.getValue();
-
+				VariableDecl decl = variables.get(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),expr,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub");
+				String var_1 = variableAllocator.getNext();
+				IntegerVariable left = new IntegerVariable(decl, var_1);
+				new AssignTemp(left, decl);
+				this.ensureSize(left, right);
+
+				String var_0 = variableAllocator.getNext();
+				IntegerVariable result = new IntegerVariable(left.isSigned(), left.getSize(), var_0);
+				new Sub(result, left, right);
+				this.ensureDest(result, new IntegerVariable(decl));
+				new Assign(result, decl);
 				break;
 			}
 			case MULTIPLY:{

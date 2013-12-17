@@ -40,16 +40,22 @@ call void @diff()
 br label %register2
 register4:
 %register10 = load i32* @a
-store i32 %register10, i40* @b
-%register11 = load i24* @c
-store i24 %register11, i32* @a
+%register11 = sext i32 %register10 to i40
+store i40 %register11, i40* @b
+%register12 = load i24* @c
+%register13 = sext i24 %register12 to i32
+store i32 %register13, i32* @a
+ret void
 }
 
 define void @diff(){
 %register0 = load i40* @b
 %register1 = load i32* @a
-%register2 = sub i32 %register1, %register0
-store i32 %register2, i32* @a
+%register2 = sext i32 %register1 to i40
+%register3 = sub i40 %register2, %register0
+%register4 = trunc i40 %register3 to i32
+store i32 %register4, i32* @a
+ret void
 }
 
 @.str0 = private unnamed_addr constant [10 x i8] c"\27\76\61\6C\65\75\72\3A\27\00"

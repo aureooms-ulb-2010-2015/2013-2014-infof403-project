@@ -22,6 +22,12 @@ public class IntegerVariable implements Variable{
 		this.name = decl.getName();
 	}
 
+	public IntegerVariable(VariableDecl decl, String tmp){
+		this.signed = decl.isSigned();
+		this.size = Integer.decode(decl.getLLVMSize());
+		this.name = tmp;
+	}
+
 	public IntegerVariable(IntegerVariable other){
 		this.mimic(other);
 	}
