@@ -27,7 +27,7 @@ def main():
 			i += 1
 
 	#to LATEX
-	"""
+	
 
 	dont = []
 	
@@ -41,13 +41,12 @@ def main():
 		if(not take):
 			dont.append(i)
 
-
 	print(u("Rule"),a(),end=""),
 	i=0
-	for unit in grammar.rules_sorted:
+	for terminal in grammar.alphabet:
 		if(i not in dont):
-			print(u(unit), end=""),
-			if(i < len(grammar.alphabet)-len(dont)):
+			print(u(terminal), end=""),
+			if(i < len(grammar.alphabet)):
 				print(a(), end=""),
 		i+=1
 
@@ -61,8 +60,7 @@ def main():
 				else:
 					print(e(),a(), end="" )
 		print("\\\\ \hline")
-	"""
-"""
+
 def u(s):	
 	return '{:<20}'.format(s)
 def at(s):	
@@ -72,7 +70,6 @@ def a():
 def e():
 	return '{:<1}'.format(" ")
 
-"""
 	
 
 if __name__ == '__main__':
