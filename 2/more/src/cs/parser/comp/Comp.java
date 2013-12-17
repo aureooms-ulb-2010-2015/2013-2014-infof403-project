@@ -73,6 +73,8 @@ public class Comp {
 				this.sop = "eq";
 				break;
 		}
+
+		this.genCode();
 	}
 
 	/*
@@ -83,13 +85,10 @@ public class Comp {
 
 
 	public void genCode(){
-
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();
-
 		System.out.printf("%s = load %s* %s\n", this.temp1, l.getType(), l.getName());
 		System.out.printf("%s = load %s* %s\n", this.temp2, r.getType(), r.getName());
 		System.out.printf("%s = icmp %s %s %s, %s\n", this.temp3, this.sop, greater, this.temp1, this.temp2);
-		
 	}
 
 

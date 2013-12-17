@@ -21,8 +21,9 @@ public class AssignOp {
 		if(this.op == "div"){
 			if( l.signed || r.signed){ this.op = "sdiv";}
 			else {this.op = "udiv";}
-
 		}
+
+		this.genCode();
 	}
 
 	// %temp = add nsw i32 %2, %3
@@ -30,12 +31,9 @@ public class AssignOp {
 
 	//store i32 0, i32* %1
 	public void genCode(){
-
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();
-
 		System.out.printf("%s = %s %s %s, %s\n", tempVar, op, greater, l.getName(), r.getName() );
 		System.out.printf("store %s %s, %s%s* %s\n", greater, tempVar, to.getLLVMType(), to.getLLVMSize(), to.getName() );
-
 	}
 
 

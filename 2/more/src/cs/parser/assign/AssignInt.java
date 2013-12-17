@@ -11,7 +11,7 @@ public class AssignInt {
 	public AssignInt(String to, int val){
 		this.val = val;
 		this.to = to;
-		
+		this.genCode();
 	}
 
 	//store i32 0, i32* %1

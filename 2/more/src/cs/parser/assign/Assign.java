@@ -11,13 +11,12 @@ public class Assign {
 	public Assign(VariableDecl to, IntegerVariable from){
 		this.from = from;
 		this.to = to;
-		
+		this.genCode();
 	}
 
 	//store i32 0, i32* %1
 	public void genCode(){
 		System.out.println( String.format("store %s %s, %s%s* %s", from.getType(), from.getName(), to.getLLVMType(), to.getLLVMSize(), to.getName()) );
-
 	}
 
 

@@ -17,6 +17,7 @@ public class AssignSA {
 		this.tempVar = tempVar;
 		this.tempVar2 = tempVar2;
 		this.op = op;
+		this.genCode();
 	}
 
 	 
@@ -29,7 +30,6 @@ public class AssignSA {
 
 	public void genCode(){
 		System.out.printf("%s = load %s%s* %s\n", tempVar, to.getLLVMType(), to.getLLVMSize(), to.getName());
-
 		System.out.printf("%s = %s %s%s %s, %s\n", tempVar2, this.op, to.getLLVMType(), to.getLLVMSize(), tempVar, that_much.getName());
 		System.out.printf("store %s%s %s, %s%s* %s\n", to.getLLVMType(), to.getLLVMSize(), tempVar2, to.getLLVMType(), to.getLLVMSize(), to.getName());
 	}

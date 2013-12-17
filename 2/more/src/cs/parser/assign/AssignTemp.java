@@ -11,7 +11,7 @@ public class AssignTemp {
 	public AssignTemp(IntegerVariable to, VariableDecl from){
 		this.from = from;
 		this.to = to;
-		
+		this.genCode();
 	}
 
 	//store i32 0, i32* %1

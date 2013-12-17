@@ -139,10 +139,8 @@ public class Parser{
 	}
 
 	protected void createAssign(String var, IntegerVariable expr){
-		new Assign(variables.get(var),expr).genCode();
+		new Assign(variables.get(var), expr);
 	}
-
-	
 
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
@@ -164,7 +162,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.createAssign(varName,newVal);
+				this.createAssign(varName, newVal);
 				break;
 			case COMPUTE:
 				this.read();
@@ -181,7 +179,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.createAssign(varName,newVal);
+				this.createAssign(varName, newVal);
 				break;
 			case ADD:
 				
@@ -197,7 +195,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add").genCode();
+				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add");
 				break;
 			case SUBTRACT:
 				
@@ -213,7 +211,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub").genCode();
+				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub");
 				break;
 			case MULTIPLY:
 
@@ -223,7 +221,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignOp (tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "mul").genCode();
+				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "mul");
 				break;
 			case DIVIDE:
 				
@@ -231,7 +229,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignOp (tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "div").genCode();
+				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "div");
 				break;
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE});
@@ -404,7 +402,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.EQ, variableAllocator.getNext(),  variableAllocator.getNext(), var_0).genCode();
+				new Comp(left, right, Comp.Op.EQ, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -412,7 +410,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.LT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0).genCode();
+				new Comp(left, right, Comp.Op.LT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -420,7 +418,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.GT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0).genCode();
+				new Comp(left, right, Comp.Op.GT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -428,7 +426,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.LE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0).genCode();
+				new Comp(left, right, Comp.Op.LE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -436,7 +434,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.GE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0).genCode();
+				new Comp(left, right, Comp.Op.GE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
