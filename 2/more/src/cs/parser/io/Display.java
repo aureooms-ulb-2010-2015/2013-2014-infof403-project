@@ -1,15 +1,15 @@
 package cs.parser.io;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 import cs.parser.variable.*;
 
 public class Display{
 
-	private static Set<String> required = new HashSet<String>();
+	private static Map<String, Integer> required = new HashMap<String, Integer>();
 
-	private static String function_integer(String type){
+	private static String function_integer(String type, Integer size){
 		return "define void @display_" + type + "(" + type + " %it) nounwind uwtable {\n"
 		+ "  %tmp_1 = alloca " + type + ", align 8\n"
 		+ "  %tmp_c = alloca i32, align 4\n"
@@ -17,7 +17,12 @@ public class Display{
 		+ "  %tmp_2 = load " + type + "* %tmp_1, align 8\n"
 		+ "  %tmp_3 = urem " + type + " %tmp_2, 10\n"
 		+ "  %tmp_4 = add " + type + " 48, %tmp_3\n"
-		+ (type.equals("i32") ? "" : "%tmp_5 = trunc " + type + " %tmp_4 to i32\n")
+		+ (size == 32 ? "" : 
+			(size > 32 ?
+				"%tmp_5 = trunc " + type + " %tmp_4 to i32\n"
+				: "%tmp_5 = zext " + type + " %tmp_4 to i32\n"
+			)
+		)
 		+ "  store i32 " + (type.equals("i32") ? "%tmp_4" : "%tmp_5") + ", i32* %tmp_c, align 4\n"
 		+ "  %tmp_6 = load " + type + "* %tmp_1, align 8\n"
 		+ "  %tmp_7 = udiv " + type + " %tmp_6, 10\n"
@@ -67,9 +72,9 @@ public class Display{
 	}
 
 	public static void genLibCode(){
-		for(String type : required){
-			if(type.equals(StringVariable.TYPE)) System.out.println(Display.function_string());
-			else System.out.println(Display.function_integer(type));
+		for(Map.Entry<String, Integer> entry : required.entrySet()){
+			if(entry.getKey().equals(StringVariable.TYPE)) System.out.println(Display.function_string());
+			else System.out.println(Display.function_integer(entry.getKey(), entry.getValue()));
 		}
 
 		if(!Display.required.isEmpty()) System.out.println("declare i32 @putchar(i32)");
@@ -83,7 +88,7 @@ public class Display{
 	}
 	
 	public void genCode(){
-		Display.required.add(this.variable.getType());
+		Display.required.put(this.variable.getType(), this.variable.getSize());
 		if(this.variable.getType().equals(StringVariable.TYPE)) System.out.printf("call void @display_string(i8* getelementptr inbounds ([%d x i8]* %s, i32 0, i32 0))\n", this.variable.getSize(), this.variable.getName());
 		else System.out.printf("call void @display_%s(%s %s)\n", this.variable.getType(), this.variable.getType(), this.variable.getName());
 	}

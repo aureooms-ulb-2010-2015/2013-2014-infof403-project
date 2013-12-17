@@ -924,7 +924,7 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "@" + this.token.getValue());
+		new Accept(new IntegerVariable(this.variables.get(this.token.getValue())));
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
