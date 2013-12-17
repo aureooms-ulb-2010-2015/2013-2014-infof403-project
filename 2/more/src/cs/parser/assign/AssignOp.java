@@ -19,7 +19,7 @@ public class AssignOp {
 		this.op = op;
 
 		if(this.op == "div"){
-			if( l.signed || r.signed){ this.op = "sdiv";}
+			if( l.isSigned() || r.isSigned()){ this.op = "sdiv";}
 			else {this.op = "udiv";}
 		}
 

@@ -22,6 +22,7 @@ import cs.parser.comp.*;
 import cs.parser.call.*;
 import cs.parser.binary.*;
 import cs.parser.functional.*;
+import cs.parser.cast.*;
 
 import cs.parser.declaration.*;
 import cs.parser.assign.*;
@@ -138,6 +139,19 @@ public class Parser{
 
 		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize), signed);
 		else return new IntegerDecl(Integer.toString(8 * imageBitSize), signed);
+	}
+
+	protected void ensureSize(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.extendSize(right, left);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
+	}
+
+	protected void extendSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
+		from.mimic(extended);
+		new Ext(from, tmp);
 	}
 
 	protected void createAssign(String var, IntegerVariable expr){
@@ -403,7 +417,6 @@ public class Parser{
 			case EQUALS_SIGN:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
-
 				new Comp(left, right, Comp.Op.EQ, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -595,7 +608,7 @@ public class Parser{
 			case MINUS_SIGN:{
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable expr = this.handle_EXPRESSION();
-				IntegerVariable result = new IntegerVariable(expr.signed, expr.getSize(), var_0);
+				IntegerVariable result = new IntegerVariable(expr.isSigned(), expr.getSize(), var_0);
 				new Neg(result , expr.getName());
 				return result;
 			}

@@ -5,52 +5,48 @@
 define i32 @main(){
 call void @accept_i32(i32* @a)
 call void @accept_i40(i40* @b)
-br label %0
-; <label>:0
-%3 = load i40* @b
-store i32 0, i32* %4
-%6 = load i40* %3
-%7 = load i32* %4
-%5 = icmp eq i40 %6, %7
-%8 = xor i1 %5, true
-br i1 %8, label %1, label %2
-; <label>:1
+br label %register0
+; <label>:register0
+%register3 = load i40* @b
+%register4 = add i32 0, 0
+%register5 = icmp eq i40 %register3, %register4
+%register6 = xor i1 %register5, true
+br i1 %register6, label %register1, label %register2
+; <label>:register1
 call void @find()
-br label %0
-; <label>:2
+br label %register0
+; <label>:register2
 call void @display_string(i8* getelementptr inbounds ([10 x i8]* @.str0, i32 0, i32 0))
-%9 = load i32* @a
-call void @display_i32(i32 %9)
+%register7 = load i32* @a
+call void @display_i32(i32 %register7)
 return i64 0
 }
 
 define void @find(){
-%0 = load i24* @c
-store i24 %0, i40* @b
-br label %1
-; <label>:1
-%4 = load i32* @a
-%5 = load i40* @b
-%7 = load i32* %4
-%8 = load i40* %5
-%6 = icmp slt i40 %7, %8
-%9 = xor i1 %6, true
-br i1 %9, label %2, label %3
-; <label>:2
+%register0 = load i40* @b
+store i40 %register0, i24* @c
+br label %register1
+; <label>:register1
+%register4 = load i32* @a
+%register5 = load i40* @b
+%register6 = icmp slt i40 %register4, %register5
+%register7 = xor i1 %register6, true
+br i1 %register7, label %register2, label %register3
+; <label>:register2
 call void @diff()
-br label %1
-; <label>:3
-%10 = load i32* @a
-store i32 %10, i40* @b
-%11 = load i24* @c
-store i24 %11, i32* @a
+br label %register1
+; <label>:register3
+%register8 = load i32* @a
+store i32 %register8, i40* @b
+%register9 = load i24* @c
+store i24 %register9, i32* @a
 }
 
 define void @diff(){
-%0 = load i40* @b
-%1 = load i32* @a
-%2 = sub i32 %1, %0
-store i32 %2, i32* @a
+%register0 = load i40* @b
+%register1 = load i32* @a
+%register2 = sub i32 %register1, %register0
+store i32 %register2, i32* @a
 }
 
 @.str0 = private unnamed_addr constant [10 x i8] c"\27\76\61\6C\65\75\72\3A\27\00"
