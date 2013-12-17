@@ -1,5 +1,7 @@
 package cs.parser.variable;
 
+import cs.parser.declaration.*;
+
 public class IntegerVariable implements Variable{
 
 	private static final String TYPE_PREFIX = "i";
@@ -12,6 +14,12 @@ public class IntegerVariable implements Variable{
 		this.signed = signed;
 		this.size = size;
 		this.name = name;
+	}
+
+	public IntegerVariable(VariableDecl decl){
+		this.signed = decl.isSigned();
+		this.size = Integer.decode(decl.getLLVMSize());
+		this.name = decl.getName();
 	}
 
 	public IntegerVariable(IntegerVariable other){

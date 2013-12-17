@@ -154,99 +154,114 @@ public class Parser{
 		new Ext(from, tmp);
 	}
 
+	protected void ensureDest(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.truncSize(left, right);
+	}
+
+	protected void truncSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
+		from.mimic(truncated);
+		new Trunc(from, tmp);
+	}
+
 	protected void createAssign(String var, IntegerVariable expr){
-		new Assign(variables.get(var), expr);
+		
 	}
 
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
-		Assign assign = null;
-		String varName;
-		IntegerVariable newVal;
-		ATail tail;
 		switch(this.token.unit){
-			case MOVE:
-				newVal = this.handle_EXPRESSION(); 
+			case MOVE:{
+				IntegerVariable expr = this.handle_EXPRESSION(); 
 
 				this.read();
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
 
-				varName = token.getValue();
+				String varName = token.getValue();
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.createAssign(varName, newVal);
+				this.ensureDest(expr, new IntegerVariable(variables.get(varName)));
+				new Assign(expr, variables.get(varName));
 				break;
-			case COMPUTE:
+			}
+			case COMPUTE:{
 				this.read();
 
 				this.match(LexicalUnit.IDENTIFIER);
 
-				varName = token.getValue();
+				String varName = token.getValue();
 				
 				this.read();
 				this.match(LexicalUnit.EQUALS_SIGN);
 
-				newVal = this.handle_EXPRESSION();
+				IntegerVariable expr = this.handle_EXPRESSION();
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
-
-				this.createAssign(varName, newVal);
+				this.ensureDest(expr, new IntegerVariable(variables.get(varName)));
+				new Assign(expr, variables.get(varName));
 				break;
-			case ADD:
+			}
+			case ADD:{
 				
-				newVal = this.handle_EXPRESSION();
+				IntegerVariable expr = this.handle_EXPRESSION();
 
 				this.read();
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
 
-				varName = token.getValue();
+				String varName = token.getValue();
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add");
+				new AssignSA(this.variables.get(varName),expr,this.variableAllocator.getNext(),this.variableAllocator.getNext(),"add");
 				break;
-			case SUBTRACT:
+			}
+			case SUBTRACT:{
 				
-				newVal = this.handle_EXPRESSION();
+				IntegerVariable expr = this.handle_EXPRESSION();
 
 				this.read();
 				this.match(LexicalUnit.FROM);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
 
-				varName = token.getValue();
+				String varName = token.getValue();
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				new AssignSA(this.variables.get(varName),newVal,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub");
+				new AssignSA(this.variables.get(varName),expr,this.variableAllocator.getNext(),this.variableAllocator.getNext(), "sub");
 				break;
-			case MULTIPLY:
+			}
+			case MULTIPLY:{
 
 				//(VariableDecl left, Variable right, String temp, VariableDecl to, String op)
-				tail = this.handle_ASSIGN_TAIL();
+				ATail tail = this.handle_ASSIGN_TAIL();
 					
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
 				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "mul");
 				break;
-			case DIVIDE:
+			}
+			case DIVIDE:{
 				
-				tail = this.handle_ASSIGN_TAIL();
+				ATail tail = this.handle_ASSIGN_TAIL();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
 				new AssignOp(tail.getL(), tail.getR(), this.variableAllocator.getNext(), tail.getTo(), "div");
 				break;
+			}
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE});
 				break;
@@ -417,6 +432,7 @@ public class Parser{
 			case EQUALS_SIGN:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
+				this.ensureSize(left, right);
 				new Comp(left, right, Comp.Op.EQ, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -424,7 +440,7 @@ public class Parser{
 			case LOWER_THAN:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
-
+				this.ensureSize(left, right);
 				new Comp(left, right, Comp.Op.LT, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -432,7 +448,7 @@ public class Parser{
 			case GREATER_THAN:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
-
+				this.ensureSize(left, right);
 				new Comp(left, right, Comp.Op.GT, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -440,7 +456,7 @@ public class Parser{
 			case LOWER_OR_EQUALS:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
-
+				this.ensureSize(left, right);
 				new Comp(left, right, Comp.Op.LE, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -448,7 +464,7 @@ public class Parser{
 			case GREATER_OR_EQUALS:{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
-
+				this.ensureSize(left, right);
 				new Comp(left, right, Comp.Op.GE, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
@@ -615,7 +631,7 @@ public class Parser{
 			case IDENTIFIER:{
 				String var_0 = variableAllocator.getNext();
 				VariableDecl declared = this.variables.get(token.getValue());
-				IntegerVariable result = new IntegerVariable(declared.getSigned(),Integer.decode(declared.getLLVMSize()), var_0);
+				IntegerVariable result = new IntegerVariable(declared.isSigned(),Integer.decode(declared.getLLVMSize()), var_0);
 				new AssignTemp(result, this.variables.get(token.getValue()));
 				return result;
 			}

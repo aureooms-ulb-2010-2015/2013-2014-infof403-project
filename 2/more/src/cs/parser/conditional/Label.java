@@ -9,7 +9,7 @@ public class Label{
 	}
 
 	public void genCode(){
-		System.out.printf("; <label>:%s\n", this.label.substring(1));
+		System.out.printf("%s:\n", this.label.substring(1));
 	}
 	
 }

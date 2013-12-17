@@ -2,44 +2,47 @@
 @b = global i40 6
 @c = common global i24 0
 
-define i32 @main(){
+define i64 @main(){
 call void @accept_i32(i32* @a)
 call void @accept_i40(i40* @b)
 br label %register0
-; <label>:register0
+register0:
 %register3 = load i40* @b
 %register4 = add i32 0, 0
-%register5 = icmp eq i40 %register3, %register4
-%register6 = xor i1 %register5, true
-br i1 %register6, label %register1, label %register2
-; <label>:register1
+%register6 = sext i32 %register4 to i40
+%register5 = icmp eq i40 %register3, %register6
+%register7 = xor i1 %register5, true
+br i1 %register7, label %register1, label %register2
+register1:
 call void @find()
 br label %register0
-; <label>:register2
+register2:
 call void @display_string(i8* getelementptr inbounds ([10 x i8]* @.str0, i32 0, i32 0))
-%register7 = load i32* @a
-call void @display_i32(i32 %register7)
-return i64 0
+%register8 = load i32* @a
+call void @display_i32(i32 %register8)
+ret i64 0
 }
 
 define void @find(){
 %register0 = load i40* @b
-store i40 %register0, i24* @c
-br label %register1
-; <label>:register1
-%register4 = load i32* @a
-%register5 = load i40* @b
-%register6 = icmp slt i40 %register4, %register5
-%register7 = xor i1 %register6, true
-br i1 %register7, label %register2, label %register3
-; <label>:register2
+%register1 = trunc i40 %register0 to i24
+store i24 %register1, i24* @c
+br label %register2
+register2:
+%register5 = load i32* @a
+%register6 = load i40* @b
+%register8 = sext i32 %register5 to i40
+%register7 = icmp slt i40 %register8, %register6
+%register9 = xor i1 %register7, true
+br i1 %register9, label %register3, label %register4
+register3:
 call void @diff()
-br label %register1
-; <label>:register3
-%register8 = load i32* @a
-store i32 %register8, i40* @b
-%register9 = load i24* @c
-store i24 %register9, i32* @a
+br label %register2
+register4:
+%register10 = load i32* @a
+store i32 %register10, i40* @b
+%register11 = load i24* @c
+store i24 %register11, i32* @a
 }
 
 define void @diff(){
