@@ -25,18 +25,13 @@ public abstract class VariableDecl<T> {
 	}
 
 
-	//@b = global i32 2, align 4
-	//@a = common global i32 0
-	public void genCode(){ // in future test if allocated and allocate in llvm
+	public void genCode(){
 		if(!assigned){
 			System.out.printf("%s = common global %s%s 0\n", this.getName(),this.getLLVMType(), this.getLLVMSize());
 		}
 		else{
-			//store i32 %t3, i32* %t0
 			System.out.printf("%s = global %s%s %s\n", this.getName(), this.getLLVMType(), this.getLLVMSize(), this.getValue());
 		}
-
-		
 	}
 
 	public abstract String getValue();
@@ -51,7 +46,7 @@ public abstract class VariableDecl<T> {
 	}
 
 	public void setName(String name){
-		this.name = "@"+name;
+		this.name = "@" + name;
 	}
 
 	public String getLLVMSize(){
@@ -64,6 +59,12 @@ public abstract class VariableDecl<T> {
 
 	public abstract String getLLVMType();
 
-	public boolean isSigned(){return signed;}
+	public boolean isSigned(){
+		return signed;
+	}
+
+	public boolean isAssigned(){
+		return assigned;
+	}
 	
 }

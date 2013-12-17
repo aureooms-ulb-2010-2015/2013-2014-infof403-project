@@ -39,6 +39,18 @@ public class Parser{
 		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
 	}
 
+	private void checkVariables() throws Exception{
+		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
+			VariableDecl decl = entry.getValue();
+			if(decl.isAssigned()){
+				int value = Integer.decode(decl.getValue());
+				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
+					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
+				}
+			}
+		}
+	}
+
 	private void defLabel(String name) throws Exception{
 		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
 		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
@@ -373,6 +385,7 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_VAR_LIST();
 		System.out.printf("\n");
+		this.checkVariables();
 	}
 	
 	public void handle_ENV() throws Exception{
