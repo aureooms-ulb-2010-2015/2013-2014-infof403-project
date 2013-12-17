@@ -1,0 +1,44 @@
+
+
+          
+\begin{tabular}{|l|l|l|}
+
+\hline
+
+\textbf{Rules}              &   \textbf{First}               &   \textbf{go to} \\ \hline              
+<ASSIGNATION>        &   move, compute, add, subtract, multiply, divide  &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<ASSIGN\_TAIL>        &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   end\_of\_instruction, end\_of\_instruction           \\ \hline
+<CALL>               &   perform                                         &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<CALL\_TAIL>          &   until, end\_of\_instruction                       &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<DATA>               &   data                                            &   procedure                                        \\ \hline
+<ENV>                &   environment                                     &   data                                             \\ \hline
+<EXPRESSION>         &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_1>       &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_1\_TAIL>  &   and                                             &   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_2>       &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_2\_TAIL>  &   equals\_sign, lower\_than, greater\_than, lower\_or\_equals, greater\_or\_equals&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_3>       &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_3\_TAIL>  &   plus\_sign, minus\_sign                           &   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_4>       &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_4\_TAIL>  &   asterisk, slash                                 &   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_BASE>    &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false&   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<EXPRESSION\_TAIL>    &   or                                              &   then, equals\_sign, greater\_or\_equals, asterisk, lower\_than, end\_of\_instruction, slash, greater\_than, right\_parenthesis, plus\_sign, and, from, giving, lower\_or\_equals, to, comma, minus\_sign, or \\ \hline
+<IDENT>              &   identification                                  &   environment                                      \\ \hline
+<IF>                 &   if                                              &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<IF\_TAIL>            &   else, end\_if                                    &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<INSTRUCTION>        &   move, compute, add, subtract, multiply, divide, if, perform, accept, display, stop&   compute, divide, end\_if, perform, move, stop, accept, else, add, multiply, end, identifier, subtract, display, if \\ \hline
+<INSTRUCTION\_LIST>   &   move, compute, add, subtract, multiply, divide, if, perform, accept, display, stop&   identifier, end, end\_if, else                    \\ \hline
+<LABELS>             &   identifier                                      &   end                                              \\ \hline
+<LABELS\_TAIL>        &   identifier                                      &   end                                              \\ \hline
+<PROC>               &   procedure                                       &   eof                                              \\ \hline
+<PROGRAM>            &   identification                                  &   eof                                              \\ \hline
+<READ>               &   accept                                          &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<S>                  &   identification                                  &                                                       \\ \hline
+<VAR\_DECL>           &   integer                                         &   integer, procedure                               \\ \hline
+<VAR\_DECL\_TAIL>      &   end\_of\_instruction, value                       &   integer, procedure                               \\ \hline
+<VAR\_LIST>           &   integer                                         &   procedure                                        \\ \hline
+<WORDS>              &   identifier                                      &   end\_of\_instruction                               \\ \hline
+<WRITE>              &   display                                         &   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+<WRITE\_TAIL>         &   left\_parenthesis, not, minus\_sign, identifier, integer, true, false, string&   compute, divide, perform, move, stop, accept, else, add, multiply, end, subtract, display, if, end\_if, identifier \\ \hline
+
+\end{tabular}

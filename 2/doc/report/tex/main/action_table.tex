@@ -1,48 +1,214 @@
 
 
-\usepackage{lscape}
+\begin{longtable}{|l|l|l|}
 
-\begin{landscape}
-
-\hspace{-1.0cm}\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l}	
 \hline
-Rule                 &  ACCEPT              &  ADD                 &  AND                 &  ASTERISK            &  COMMA               &  COMPUTE             &  DATA                &  DISPLAY             &  DIVIDE              &  ELSE                &  END                 &  END_IF              &  END_OF_INSTRUCTION  &  ENVIRONMENT         &  EQUALS_SIGN         &  FALSE               &  FROM                &  GIVING              &  GREATER_OR_EQUALS   &  GREATER_THAN        &  IDENTIFICATION      &  IDENTIFIER          &  IF                  &  INTEGER             &  LEFT_PARENTHESIS    &  LOWER_OR_EQUALS     &  LOWER_THAN          &  MINUS_SIGN          &  MOVE                &  MULTIPLY            &  NOT                 &  OR                  &  PERFORM             &  PLUS_SIGN           &  PROCEDURE           &  RIGHT_PARENTHESIS   &  SLASH               &  STOP                &  STRING              &  SUBTRACT            &  THEN                &  TO                  &  TRUE                &  UNTIL               &  VALUE                 \\ \hline
-<READ>              57  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<VAR_LIST>            &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  62  &    &    &    &    &    &    &    &    &    &    &  63  &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<EXPRESSION_4_TAIL>   &    &  30  &  30  &  30  &    &    &    &    &    &    &    &  30  &    &  30  &    &  30  &  30  &  30  &  30  &    &    &    &    &    &  30  &  30  &  30  &    &    &    &  30  &    &  30  &    &  30  &  30  &    &    &    &  30  &  30  &    &    &    &  \\ \hline
-<EXPRESSION_2_TAIL>   &    &  22  &  22  &  22  &    &    &    &    &    &    &    &  22  &    &  22  &    &  22  &  22  &  22  &  22  &    &    &    &    &    &  22  &  22  &  22  &    &    &    &  22  &    &  22  &    &  22  &  22  &    &    &    &  22  &  22  &    &    &    &  \\ \hline
-<EXPRESSION_3_TAIL>   &    &  26  &  26  &  26  &    &    &    &    &    &    &    &  26  &    &  26  &    &  26  &  26  &  26  &  26  &    &    &    &    &    &  26  &  26  &  26  &    &    &    &  26  &    &  26  &    &  26  &  26  &    &    &    &  26  &  26  &    &    &    &  \\ \hline
-<PROC>                &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  55  &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<IDENT>               &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  40  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<VAR_DECL>            &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  59  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<WRITE>               &    &    &    &    &    &    &  66  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<S>                   &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  58  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<DATA>                &    &    &    &    &    &  10  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<INSTRUCTION>       47  &  44  &    &    &    &  44  &    &  48  &  44  &    &    &    &    &    &    &    &    &    &    &    &    &    &  45  &    &    &    &    &    &  44  &  44  &    &    &  46  &    &    &    &    &  49  &    &  44  &    &    &    &    &    &  \\ \hline
-<EXPRESSION_TAIL>     &    &  39  &  39  &  39  &    &    &    &    &    &    &    &  39  &    &  39  &    &  39  &  39  &  39  &  39  &    &    &    &    &    &  39  &  39  &  39  &    &    &    &  39  &    &  39  &    &  39  &  39  &    &    &    &  39  &  39  &    &    &    &  \\ \hline
-<EXPRESSION_1_TAIL>   &    &  15  &  15  &  15  &    &    &    &    &    &    &    &  15  &    &  15  &    &  15  &  15  &  15  &  15  &    &    &    &    &    &  15  &  15  &  15  &    &    &    &  15  &    &  15  &    &  15  &  15  &    &    &    &  15  &  15  &    &    &    &  \\ \hline
-<CALL_TAIL>           &    &    &    &    &    &    &    &    &    &    &    &  9   &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  8   &    &  \\ \hline
-<ASSIGNATION>         &  2   &    &    &    &  1   &    &    &  5   &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  0   &  4   &    &    &    &    &    &    &    &    &    &  3   &    &    &    &    &    &  \\ \hline
-<EXPRESSION_3>        &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  23  &    &    &    &    &    &  23  &    &  23  &  23  &    &    &  23  &    &    &  23  &    &    &    &    &    &    &    &    &    &    &    &  23  &    &    &  \\ \hline
-<WORDS>               &    &    &    &    &    &    &    &    &    &    &    &  65  &    &    &    &    &    &    &    &    &  64  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<EXPRESSION_2>        &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  16  &    &    &    &    &    &  16  &    &  16  &  16  &    &    &  16  &    &    &  16  &    &    &    &    &    &    &    &    &    &    &    &  16  &    &    &  \\ \hline
-<WRITE_TAIL>          &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  67  &    &    &    &    &    &  67  &    &  67  &  67  &    &    &  67  &    &    &  67  &    &    &    &    &    &    &    &  68  &    &    &    &  67  &    &    &  \\ \hline
-<PROGRAM>             &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  56  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<LABELS>              &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  52  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<IF_TAIL>             &    &    &    &    &    &    &    &    &  42  &    &  43  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<CALL>                &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  7   &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<LABELS_TAIL>         &    &    &    &    &    &    &    &    &    &  54  &    &    &    &    &    &    &    &    &    &    &  53  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<EXPRESSION_4>        &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  27  &    &    &    &    &    &  27  &    &  27  &  27  &    &    &  27  &    &    &  27  &    &    &    &    &    &    &    &    &    &    &    &  27  &    &    &  \\ \hline
-<ENV>                 &    &    &    &    &    &    &    &    &    &    &    &    &  11  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<EXPRESSION_BASE>     &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  37  &    &    &    &    &    &  34  &    &  35  &  31  &    &    &  33  &    &    &  32  &    &    &    &    &    &    &    &    &    &    &    &  36  &    &    &  \\ \hline
-<VAR_DECL_TAIL>       &    &    &    &    &    &    &    &    &    &    &    &  60  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  61  &  \\ \hline
-<EXPRESSION>          &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  12  &    &    &    &    &    &  12  &    &  12  &  12  &    &    &  12  &    &    &  12  &    &    &    &    &    &    &    &    &    &    &    &  12  &    &    &  \\ \hline
-<ASSIGN_TAIL>         &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  6   &    &    &    &    &    &  6   &    &  6   &  6   &    &    &  6   &    &    &  6   &    &    &    &    &    &    &    &    &    &    &    &  6   &    &    &  \\ \hline
-<EXPRESSION_1>        &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  13  &    &    &    &    &    &  13  &    &  13  &  13  &    &    &  13  &    &    &  13  &    &    &    &    &    &    &    &    &    &    &    &  13  &    &    &  \\ \hline
-<IF>                  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  41  &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &  \\ \hline
-<INSTRUCTION_LIST>  50  &  50  &    &    &    &  50  &    &  50  &  50  &  51  &  51  &  51  &    &    &    &    &    &    &    &    &    &  51  &  50  &    &    &    &    &    &  50  &  50  &    &    &  50  &    &    &    &    &  50  &    &  50  &    &    &    &    &    &  \\ \hline
 
-\end{tabular}
+\textbf{Rules}               &   \textbf{terminal}           &   \textbf{go to} \\ \hline
+<READ>               &   ACCEPT               &   57 \\ \hline
+<PROGRAM>            &   IDENTIFICATION       &   56 \\ \hline
+<VAR\_LIST>           &   INTEGER              &   62 \\ \hline
+                     &   PROCEDURE            &   63 \\ \hline
+<WRITE\_TAIL>         &   FALSE                &   67 \\ \hline
+                     &   IDENTIFIER           &   67 \\ \hline
+                     &   INTEGER              &   67 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   67 \\ \hline
+                     &   MINUS\_SIGN           &   67 \\ \hline
+                     &   NOT                  &   67 \\ \hline
+                     &   STRING               &   68 \\ \hline
+                     &   TRUE                 &   67 \\ \hline
+<EXPRESSION>         &   FALSE                &   12 \\ \hline
+                     &   IDENTIFIER           &   12 \\ \hline
+                     &   INTEGER              &   12 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   12 \\ \hline
+                     &   MINUS\_SIGN           &   12 \\ \hline
+                     &   NOT                  &   12 \\ \hline
+                     &   TRUE                 &   12 \\ \hline
+<EXPRESSION\_3\_TAIL>  &   AND                 &   26 \\ \hline
+                     &   ASTERISK             &   26 \\ \hline
+                     &   COMMA                &   26 \\ \hline
+                     &   END\_OF\_INSTRUCTION   &   26 \\ \hline
+                     &   EQUALS\_SIGN          &   26 \\ \hline
+                     &   FROM                 &   26 \\ \hline
+                     &   GIVING               &   26 \\ \hline
+                     &   GREATER\_OR\_EQUALS    &   26 \\ \hline
+                     &   GREATER\_THAN         &   26 \\ \hline
+                     &   LOWER\_OR\_EQUALS      &   26 \\ \hline
+                     &   LOWER\_THAN           &   26 \\ \hline
+                     &   MINUS\_SIGN           &   26 \\ \hline
+                     &   OR                   &   26 \\ \hline
+                     &   PLUS\_SIGN            &   26 \\ \hline
+                     &   RIGHT\_PARENTHESIS    &   26 \\ \hline
+                     &   SLASH                &   26 \\ \hline
+                     &   THEN                 &   26 \\ \hline
+                     &   TO                   &   26 \\ \hline
+<INSTRUCTION>        &   ACCEPT               &   47 \\ \hline
+                     &   ADD                  &   44 \\ \hline
+                     &   COMPUTE              &   44 \\ \hline
+                     &   DISPLAY              &   48 \\ \hline
+                     &   DIVIDE               &   44 \\ \hline
+                     &   IF                   &   45 \\ \hline
+                     &   MOVE                 &   44 \\ \hline
+                     &   MULTIPLY             &   44 \\ \hline
+                     &   PERFORM              &   46 \\ \hline
+                     &   STOP                 &   49 \\ \hline
+                     &   SUBTRACT             &   44 \\ \hline
+<IF>                 &   IF                   &   41 \\ \hline
+<EXPRESSION\_4>       &   FALSE                &   27 \\ \hline
+                     &   IDENTIFIER           &   27 \\ \hline
+                     &   INTEGER              &   27 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   27 \\ \hline
+                     &   MINUS\_SIGN           &   27 \\ \hline
+                     &   NOT                  &   27 \\ \hline
+                     &   TRUE                 &   27 \\ \hline
+<EXPRESSION\_4\_TAIL>  &   AND                  &   30 \\ \hline
+                     &   ASTERISK             &   30 \\ \hline
+                     &   COMMA                &   30 \\ \hline
+                     &   END\_OF\_INSTRUCTION   &   30 \\ \hline
+                     &   EQUALS\_SIGN          &   30 \\ \hline
+                     &   FROM                 &   30 \\ \hline
+                     &   GIVING               &   30 \\ \hline
+                     &   GREATER\_OR\_EQUALS    &   30 \\ \hline
+                     &   GREATER\_THAN         &   30 \\ \hline
+                     &   LOWER\_OR\_EQUALS      &   30 \\ \hline
+                     &   LOWER\_THAN           &   30 \\ \hline
+                     &   MINUS\_SIGN           &   30 \\ \hline
+                     &   OR                   &   30 \\ \hline
+                     &   PLUS\_SIGN            &   30 \\ \hline
+                     &   RIGHT\_PARENTHESIS    &   30 \\ \hline
+                     &   SLASH                &   30 \\ \hline
+                     &   THEN                 &   30 \\ \hline
+                     &   TO                   &   30 \\ \hline
+<IDENT>              &   IDENTIFICATION       &   40 \\ \hline
+<EXPRESSION\_2>       &   FALSE                &   16 \\ \hline
+                     &   IDENTIFIER           &   16 \\ \hline
+                     &   INTEGER              &   16 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   16 \\ \hline
+                     &   MINUS\_SIGN           &   16 \\ \hline
+                     &   NOT                  &   16 \\ \hline
+                     &   TRUE                 &   16 \\ \hline
+<LABELS>             &   IDENTIFIER           &   52 \\ \hline
+<WORDS>              &   END\_OF\_INSTRUCTION   &   65 \\ \hline
+                     &   IDENTIFIER           &   64 \\ \hline
+<LABELS\_TAIL>        &   END                  &   54 \\ \hline
+                     &   IDENTIFIER           &   53 \\ \hline
+<S>                  &   IDENTIFICATION       &   58 \\ \hline
+<IF\_TAIL>            &   ELSE                 &   42 \\ \hline
+                     &   END\_IF               &   43 \\ \hline
+<EXPRESSION\_2\_TAIL>  &   AND                  &   22 \\ \hline
+                     &   ASTERISK             &   22 \\ \hline
+                     &   COMMA                &   22 \\ \hline
+                     &   END\_OF\_INSTRUCTION   &   22 \\ \hline
+                     &   EQUALS\_SIGN          &   22 \\ \hline
+                     &   FROM                 &   22 \\ \hline
+                     &   GIVING               &   22 \\ \hline
+                     &   GREATER\_OR\_EQUALS    &   22 \\ \hline
+                     &   GREATER\_THAN         &   22 \\ \hline
+                     &   LOWER\_OR\_EQUALS      &   22 \\ \hline
+                     &   LOWER\_THAN           &   22 \\ \hline
+                     &   MINUS\_SIGN           &   22 \\ \hline
+                     &   OR                   &   22 \\ \hline
+                     &   PLUS\_SIGN            &   22 \\ \hline
+                     &   RIGHT\_PARENTHESIS    &   22 \\ \hline
+                     &   SLASH                &   22 \\ \hline
+                     &   THEN                 &   22 \\ \hline
+                     &   TO                   &   22 \\ \hline
+<EXPRESSION\_BASE>    &   FALSE                &   37 \\ \hline
+                     &   IDENTIFIER           &   34 \\ \hline
+                     &   INTEGER              &   35 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   31 \\ \hline
+                     &   MINUS\_SIGN           &   33 \\ \hline
+                     &   NOT                  &   32 \\ \hline
+                     &   TRUE                 &   36 \\ \hline
+<ENV>                &   ENVIRONMENT          &   11 \\ \hline
+<CALL\_TAIL>          &   END\_OF\_INSTRUCTION   &   9 \\ \hline
+                     &   UNTIL                &   8 \\ \hline
+<EXPRESSION\_TAIL>    &   AND                  &   39 \\ \hline
+                     &   ASTERISK             &   39 \\ \hline
+                     &   COMMA                &   39 \\ \hline
+                     &   END\_OF\_INSTRUCTION   &   39 \\ \hline
+                     &   EQUALS\_SIGN          &   39 \\ \hline
+                     &   FROM                 &   39 \\ \hline
+                     &   GIVING               &   39 \\ \hline
+                     &   GREATER\_OR\_EQUALS    &   39 \\ \hline
+                     &   GREATER\_THAN         &   39 \\ \hline
+                     &   LOWER\_OR\_EQUALS      &   39 \\ \hline
+                     &   LOWER\_THAN           &   39 \\ \hline
+                     &   MINUS\_SIGN           &   39 \\ \hline
+                     &   OR                   &   39 \\ \hline
+                     &   PLUS\_SIGN            &   39 \\ \hline
+                     &   RIGHT\_PARENTHESIS    &   39 \\ \hline
+                     &   SLASH                &   39 \\ \hline
+                     &   THEN                 &   39 \\ \hline
+                     &   TO                   &   39 \\ \hline
+<VAR\_DECL\_TAIL>      &   END\_OF\_INSTRUCTION   &   60 \\ \hline
+                     &   VALUE                &   61 \\ \hline
+<ASSIGN\_TAIL>        &   FALSE                &   6 \\ \hline
+                     &   IDENTIFIER           &   6 \\ \hline
+                     &   INTEGER              &   6 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   6 \\ \hline
+                     &   MINUS\_SIGN           &   6 \\ \hline
+                     &   NOT                  &   6 \\ \hline
+                     &   TRUE                 &   6 \\ \hline
+<DATA>               &   DATA                 &   10 \\ \hline
+<VAR\_DECL>           &   INTEGER              &   59 \\ \hline
+<PROC>               &   PROCEDURE            &   55 \\ \hline
+<EXPRESSION\_1\_TAIL>  &   AND                  &   15 \\ \hline
+                     &   ASTERISK             &   15 \\ \hline
+                     &   COMMA                &   15 \\ \hline
+                     &   END\_OF\_INSTRUCTION   &   15 \\ \hline
+                     &   EQUALS\_SIGN          &   15 \\ \hline
+                     &   FROM                 &   15 \\ \hline
+                     &   GIVING               &   15 \\ \hline
+                     &   GREATER\_OR\_EQUALS    &   15 \\ \hline
+                     &   GREATER\_THAN         &   15 \\ \hline
+                     &   LOWER\_OR\_EQUALS      &   15 \\ \hline
+                     &   LOWER\_THAN           &   15 \\ \hline
+                     &   MINUS\_SIGN           &   15 \\ \hline
+                     &   OR                   &   15 \\ \hline
+                     &   PLUS\_SIGN            &   15 \\ \hline
+                     &   RIGHT\_PARENTHESIS    &   15 \\ \hline
+                     &   SLASH                &   15 \\ \hline
+                     &   THEN                 &   15 \\ \hline
+                     &   TO                   &   15 \\ \hline
+<WRITE>              &   DISPLAY              &   66 \\ \hline
+<EXPRESSION\_3>       &   FALSE                &   23 \\ \hline
+                     &   IDENTIFIER           &   23 \\ \hline
+                     &   INTEGER              &   23 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   23 \\ \hline
+                     &   MINUS\_SIGN           &   23 \\ \hline
+                     &   NOT                  &   23 \\ \hline
+                     &   TRUE                 &   23 \\ \hline
+<INSTRUCTION\_LIST>   &   ACCEPT               &   50 \\ \hline
+                     &   ADD                  &   50 \\ \hline
+                     &   COMPUTE              &   50 \\ \hline
+                     &   DISPLAY              &   50 \\ \hline
+                     &   DIVIDE               &   50 \\ \hline
+                     &   ELSE                 &   51 \\ \hline
+                     &   END                  &   51 \\ \hline
+                     &   END\_IF               &   51 \\ \hline
+                     &   IDENTIFIER           &   51 \\ \hline
+                     &   IF                   &   50 \\ \hline
+                     &   MOVE                 &   50 \\ \hline
+                     &   MULTIPLY             &   50 \\ \hline
+                     &   PERFORM              &   50 \\ \hline
+                     &   STOP                 &   50 \\ \hline
+                     &   SUBTRACT             &   50 \\ \hline
+<CALL>               &   PERFORM              &   7 \\ \hline
+<ASSIGNATION>        &   ADD                  &   2 \\ \hline
+                     &   COMPUTE              &   1 \\ \hline
+                     &   DIVIDE               &   5 \\ \hline
+                     &   MOVE                 &   0 \\ \hline
+                     &   MULTIPLY             &   4 \\ \hline
+                     &   SUBTRACT             &   3 \\ \hline
+<EXPRESSION\_1>       &   FALSE                &   13 \\ \hline
+                     &   IDENTIFIER           &   13 \\ \hline
+                     &   INTEGER              &   13 \\ \hline
+                     &   LEFT\_PARENTHESIS     &   13 \\ \hline
+                     &   MINUS\_SIGN           &   13 \\ \hline
+                     &   NOT                  &   13 \\ \hline
+                     &   TRUE                 &   13 \\ \hline
 
-\end{landscape}
+\hline
 
+\end{longtable}
