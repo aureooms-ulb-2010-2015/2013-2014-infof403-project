@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 
 
 def is_non_terminal(element):
