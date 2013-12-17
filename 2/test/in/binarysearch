@@ -1,0 +1,64 @@
+identification division.
+	program-id. binarysearch.
+	author. ZNHDIZHBDIUZ.
+	date-written. AEGHUFE.
+
+environment division.
+	configuration section.
+	source-computer. ZDUIHZU.
+	object-computer. LLVzbUDZOGBDOZM.
+
+data division.
+	working-storage section.
+		77 v pic 9(20) value -1.
+		77 i pic 9(20).
+		77 j pic 9(20).
+		77 p pic 9(20) value 0.
+
+procedure division.
+	main section.
+	start.
+		display '[ < , = , > => 0 , 1 , 2 ]'.
+		display 'upper limit?'.
+		accept j.
+		move 0 to i.
+		perform guess until (i = j) or (v = 1).
+		if not(v = 1) then
+			perform ask.
+			if v = 1 then
+				perform easy.
+			else
+				perform cheater.
+			end-if
+		else
+			perform easy.
+		end-if
+		stop run.
+
+	ask.
+		display p.
+		display ' ?'.
+		accept v.
+
+	cheater.
+		display 'cheater!'.
+
+	easy.
+		display 'easy'.
+
+	median.
+		compute p = (i + j) / 2.
+
+	guess.
+		perform median.
+		perform ask.
+		if v > 1 then
+			move p to i.
+		else
+			if v < 1 then
+				move p to j.
+			end-if
+		end-if
+
+
+end program binarysearch.

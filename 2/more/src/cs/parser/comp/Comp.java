@@ -49,12 +49,6 @@ public class Comp {
 		this.genCode();
 	}
 
-	/*
-	%2 = load i32* %a, align 4
-  	%3 = load i32* %b, align 4
-  	%4 = icmp slt i32 %2, %3
-  	*/
-
 
 	public void genCode(){
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();

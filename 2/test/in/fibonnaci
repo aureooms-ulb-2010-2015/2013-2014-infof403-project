@@ -1,0 +1,32 @@
+identification division.
+	program-id. fibonnaci.
+	author. ZNHDIZHBDIUZ.
+	date-written. AEGHUFE.
+
+environment division.
+	configuration section.
+	source-computer. ZDUIHZU.
+	object-computer. LLVzbUDZOGBDOZM.
+
+data division.
+	working-storage section.
+		77 a pic 9(20) value 0.
+		77 b pic 9(20) value 1.
+		77 c pic 9(20).
+		77 n pic 9(20).
+
+procedure division.
+	main section.
+	start.
+		accept n.
+		perform inc until n = 0.
+		display a.
+		display ''.
+		stop run.
+	inc.
+		compute c = a + b.
+		move b to a.
+		move c to b.
+		subtract 1 from n.
+
+end program fibonnaci.

@@ -25,14 +25,20 @@ import cs.parser.assign.*;
 
 public class Parser{
 
-	protected Scanner cobolScanner;
-	protected Symbol<String> token;
-	protected boolean inBuffer = false;
-	protected VariableAllocator variableAllocator = new VariableAllocator();
+	private Scanner cobolScanner;
+	private Symbol<String> token;
+	private boolean inBuffer = false;
+	private VariableAllocator variableAllocator = new VariableAllocator();
 	
-	protected Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
-	protected Set<String> labelsUse = new HashSet<String>();
-	protected Set<String> labelsDef = new HashSet<String>();
+	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+	private Set<String> labelsUse = new HashSet<String>();
+	private Set<String> labelsDef = new HashSet<String>();
+
+	private String currentLabel = "%0";
+
+	private void resetCurrentLabel(){
+		this.currentLabel = "%0";
+	}
 
 	private VariableDecl getVariable(String name) throws Exception{
 		if(this.variables.containsKey(name)) return this.variables.get(name);
@@ -71,9 +77,9 @@ public class Parser{
 		}
 	}
 
-	protected StringPool stringPool = new StringPool();
+	private StringPool stringPool = new StringPool();
 
-	protected String program_id;
+	private String program_id;
 
 
 	public Parser(Scanner cobolScanner){
@@ -113,16 +119,16 @@ public class Parser{
 		Accept.genLibCode();
 	}
 
-	protected int parseInteger(){
+	private int parseInteger(){
 		return Integer.decode(token.getValue());
 	}
 
-	protected double parseReal(){
+	private double parseReal(){
 		return Double.parseDouble(token.getValue());
 	}
 
 
-	protected VariableDecl parseImage(){
+	private VariableDecl parseImage(){
 		int imSize = 0;
 		String image = token.getValue();
 		boolean signed = false;
@@ -177,12 +183,12 @@ public class Parser{
 		else return new IntegerDecl(Integer.toString(8 * imageBitSize), signed);
 	}
 
-	protected void ensureSize(IntegerVariable left, IntegerVariable right){
+	private void ensureSize(IntegerVariable left, IntegerVariable right){
 		if(left.getSize() > right.getSize()) this.extendSize(right, left);
 		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
 	}
 
-	protected void extendSize(IntegerVariable from, IntegerVariable to){
+	private void extendSize(IntegerVariable from, IntegerVariable to){
 		String var = variableAllocator.getNext();
 		IntegerVariable tmp = from.clone();
 		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
@@ -190,12 +196,12 @@ public class Parser{
 		new Ext(from, tmp);
 	}
 
-	protected void ensureDest(IntegerVariable left, IntegerVariable right){
+	private void ensureDest(IntegerVariable left, IntegerVariable right){
 		if(left.getSize() > right.getSize()) this.truncSize(left, right);
 		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
 	}
 
-	protected void truncSize(IntegerVariable from, IntegerVariable to){
+	private void truncSize(IntegerVariable from, IntegerVariable to){
 		String var = variableAllocator.getNext();
 		IntegerVariable tmp = from.clone();
 		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
@@ -203,7 +209,7 @@ public class Parser{
 		new Trunc(from, tmp);
 	}
 
-	protected void createAssign(String var, IntegerVariable expr){
+	private void createAssign(String var, IntegerVariable expr){
 		
 	}
 
@@ -354,10 +360,16 @@ public class Parser{
 		String function = this.token.getValue();
 		this.useLabel(function);
 		String[] labels = this.handle_CALL_TAIL();
-		if(labels != null) new Label(labels[1]);
+		if(labels != null){
+			new Label(labels[1]);
+			this.currentLabel = labels[1];
+		}
 		new Perform(function);
 		if(labels != null) new Jump(labels[0]);
-		if(labels != null) new Label(labels[2]);
+		if(labels != null){
+			new Label(labels[2]);
+			this.currentLabel = labels[2];
+		}
 	}
 	
 	public String[] handle_CALL_TAIL() throws Exception{
@@ -369,6 +381,7 @@ public class Parser{
 				String label_2 = variableAllocator.getNext();
 				new Jump(label_0);
 				new Label(label_0);
+				this.currentLabel = label_0;
 				Variable condition = this.handle_EXPRESSION();
 				String tmp = variableAllocator.getNext();
 				new Not(tmp, condition.getName());
@@ -448,16 +461,23 @@ public class Parser{
 	public IntegerVariable handle_EXPRESSION_1_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
-			case AND:
+			case AND:{
 				String var_0 = variableAllocator.getNext();
-				String label_0 = variableAllocator.getNext();
+				String var_1 = variableAllocator.getNext();
+				String var_2 = variableAllocator.getNext();
 				String label_1 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(false,1,var_0);
-				And op = new And(result, label_0, label_1);
+				String label_2 = variableAllocator.getNext();
+				IntegerVariable tmp1 = new IntegerVariable(false,1,var_0);
+				IntegerVariable tmp2 = new IntegerVariable(false,1,var_1);
+				IntegerVariable result = new IntegerVariable(false,1,var_2);
+				And op = new And(tmp1, tmp2, result, this.currentLabel, label_1, label_2);
 				op.genCodeLeft(left);
+				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_2();
 				op.genCodeRight(right);
+				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_1_TAIL(result);
+			}
 			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
 			case THEN:
@@ -730,17 +750,23 @@ public class Parser{
 	public IntegerVariable handle_EXPRESSION_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
-			case OR:
+			case OR:{
 				String var_0 = variableAllocator.getNext();
-				String label_0 = variableAllocator.getNext();
+				String var_1 = variableAllocator.getNext();
+				String var_2 = variableAllocator.getNext();
 				String label_1 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(false,1,var_0);
-				Or op = new Or(result, label_0, label_1);
+				String label_2 = variableAllocator.getNext();
+				IntegerVariable tmp1 = new IntegerVariable(false,1,var_0);
+				IntegerVariable tmp2 = new IntegerVariable(false,1,var_1);
+				IntegerVariable result = new IntegerVariable(false,1,var_2);
+				Or op = new Or(tmp1, tmp2, result, this.currentLabel, label_1, label_2);
 				op.genCodeLeft(left);
+				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_1();
 				op.genCodeRight(right);
+				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_TAIL(result);
-
+			}
 			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
 			case THEN:
@@ -811,12 +837,15 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.THEN);
 		new Label(label_0);
+		this.currentLabel = label_0;
 		this.handle_INSTRUCTION_LIST();
 		new Jump(label_2);
 		new Label(label_1);
+		this.currentLabel = label_1;
 		this.handle_IF_TAIL();
 		new Jump(label_2);
 		new Label(label_2);
+		this.currentLabel = label_2;
 	}
 	
 	public void handle_IF_TAIL() throws Exception{
@@ -923,6 +952,7 @@ public class Parser{
 		switch(this.token.unit){
 			case IDENTIFIER:
 				variableAllocator.reset();
+				this.resetCurrentLabel();
 				String function = this.token.getValue();
 				this.defLabel(function);
 				new Function(function);
