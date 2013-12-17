@@ -1,0 +1,44 @@
+
+identification division.
+	program-id. CAST.
+	author. AURELIEN.
+	date-written. NOW.
+
+environment division.
+	configuration section.
+	source-computer. x8086.
+	object-computer. LLVM.
+
+data division.
+	working-storage section.
+		77 A pic 9(4) .
+		77 B pic 9(10) .
+		77 C pic 9(14) .
+		77 D pic 9(18) .
+		
+procedure division.
+	main section.
+	start.
+	
+		compute A = A and B and C and D.
+		compute B = B and C and D and A.
+		compute C = C and D and A and B.
+		compute D = D and A and B and C.
+
+		compute A = B and A and C and D.
+		compute B = A and C and D and B.
+		compute C = C and D and B and A.
+		compute D = D and B and A and C.
+
+		compute A = B and C and A and D.
+		compute B = C and A and D and B.
+		compute C = A and D and B and C.
+		compute D = D and B and C and A.
+
+		compute A = B and D and A and C.
+		compute B = D and A and C and B.
+		compute C = A and C and B and D.
+		compute D = C and B and D and A.
+
+
+end program CAST.

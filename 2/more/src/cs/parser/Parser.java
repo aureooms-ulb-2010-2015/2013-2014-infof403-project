@@ -467,16 +467,13 @@ public class Parser{
 				String var_2 = variableAllocator.getNext();
 				String label_1 = variableAllocator.getNext();
 				String label_2 = variableAllocator.getNext();
-				IntegerVariable tmp1 = new IntegerVariable(false,1,var_0);
-				IntegerVariable tmp2 = new IntegerVariable(false,1,var_1);
-				IntegerVariable result = new IntegerVariable(false,1,var_2);
-				And op = new And(tmp1, tmp2, result, this.currentLabel, label_1, label_2);
+				And op = new And(var_0, var_1, var_2, this.currentLabel, label_1, label_2);
 				op.genCodeLeft(left);
 				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_2();
 				op.genCodeRight(right);
 				this.currentLabel = label_2;
-				return this.handle_EXPRESSION_1_TAIL(result);
+				return this.handle_EXPRESSION_1_TAIL(new IntegerVariable(false, 1, var_2));
 			}
 			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
@@ -756,16 +753,13 @@ public class Parser{
 				String var_2 = variableAllocator.getNext();
 				String label_1 = variableAllocator.getNext();
 				String label_2 = variableAllocator.getNext();
-				IntegerVariable tmp1 = new IntegerVariable(false,1,var_0);
-				IntegerVariable tmp2 = new IntegerVariable(false,1,var_1);
-				IntegerVariable result = new IntegerVariable(false,1,var_2);
-				Or op = new Or(tmp1, tmp2, result, this.currentLabel, label_1, label_2);
+				Or op = new Or(var_0, var_1, var_2, this.currentLabel, label_1, label_2);
 				op.genCodeLeft(left);
 				this.currentLabel = label_1;
 				IntegerVariable right = this.handle_EXPRESSION_1();
 				op.genCodeRight(right);
 				this.currentLabel = label_2;
-				return this.handle_EXPRESSION_TAIL(result);
+				return this.handle_EXPRESSION_TAIL(new IntegerVariable(false, 1, var_2));
 			}
 			case RIGHT_PARENTHESIS:
 			case LOWER_OR_EQUALS:
