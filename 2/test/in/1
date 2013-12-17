@@ -34,6 +34,7 @@ procedure division.
 		display 'valeur:' .
 		                   /write the content of a on stdout.
 		display a.
+		display ''.
 		                   /stop the program.
 		stop run.
 	                   /create a label called 'find'.

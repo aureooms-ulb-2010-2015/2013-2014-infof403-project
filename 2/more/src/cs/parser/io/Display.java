@@ -67,6 +67,7 @@ public class Display{
 		+ "  br label %2\n"
 		+ "\n"
 		+ "; <label>:14                                      ; preds = %2\n"
+		+ "  %15 = call i32 @putchar(i32 10)\n"
 		+ "  ret void\n"
 		+ "}";
 	}

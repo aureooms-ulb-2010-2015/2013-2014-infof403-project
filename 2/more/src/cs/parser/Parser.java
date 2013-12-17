@@ -1095,7 +1095,7 @@ public class Parser{
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
-				StringVariable variable = stringPool.get(token.getValue());
+				StringVariable variable = stringPool.get(token.getValue().substring(1, token.getValue().length() - 1));
 				new Display(variable);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);

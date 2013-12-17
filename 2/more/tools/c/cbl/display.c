@@ -22,4 +22,5 @@ void display_string(char* string){
 		putchar(*string);
 		++string;
 	}
+	putchar('\n');
 }
