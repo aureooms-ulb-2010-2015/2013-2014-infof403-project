@@ -2,8 +2,8 @@
 
 void accept_i64(size_t* it);
 
+size_t i;
 int main(){
-	size_t i;
 	accept_i64(&i);
 	return 0;
 }

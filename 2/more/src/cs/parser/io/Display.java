@@ -3,6 +3,8 @@ package cs.parser.io;
 import java.util.Set;
 import java.util.HashSet;
 
+import cs.parser.variable.*;
+
 public class Display{
 
 	private static Set<String> required = new HashSet<String>();
@@ -71,19 +73,17 @@ public class Display{
 		if(!Display.required.isEmpty()) System.out.println("declare i32 @putchar()");
 	}
 
-	private String type;
-	private String variable;
+	private Variable variable;
 
-	public Display(String type, String variable){
-		this.type = type;
+	public Display(Variable variable){
 		this.variable = variable;
 		this.genCode();
 	}
 	
 	public void genCode(){
-		Display.required.add(this.type);
-		if(type.equals("string")) System.out.printf("call void @display_string(i8* getelementptr inbounds ([13 x i8]* %s, i32 0, i32 0))\n", this.variable);
-		else System.out.printf("call void @display_%s(%s %s)\n", this.type, this.type, this.variable);
+		Display.required.add(this.variable.getType());
+		if(this.variable.getType().equals(StringVariable.TYPE)) System.out.printf("call void @display_string(i8* getelementptr inbounds ([%d x i8]* %s, i32 0, i32 0))\n", this.variable.getSize(), this.variable.getName());
+		else System.out.printf("call void @display_%s(%s %s)\n", this.variable.getType(), this.variable.getType(), this.variable.getName());
 	}
 
 }

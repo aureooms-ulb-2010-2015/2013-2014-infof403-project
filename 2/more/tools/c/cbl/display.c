@@ -3,8 +3,8 @@
 void display_i64(size_t it);
 void display_string(char* string);
 
+size_t i;
 int main(){
-	size_t i;
 	display_i64(i);
 	display_string("Hello world!\"\n");
 	return 0;

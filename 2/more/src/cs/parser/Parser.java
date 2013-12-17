@@ -879,7 +879,7 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "%" + this.token.getValue());
+		new Accept("i" + this.variables.get(this.token.getValue()).getLLVMSize(), "@" + this.token.getValue());
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
@@ -989,14 +989,14 @@ public class Parser{
 			case TRUE:
 			case FALSE:
 				this.unread();
-				Variable expression = this.handle_EXPRESSION();
-				new Display(expression.getType(), expression.getName());
+				IntegerVariable expression = this.handle_EXPRESSION();
+				new Display(expression);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;
 			case STRING:
-				String variableName = stringPool.get(token.getValue());
-				new Display(StringVariable.TYPE, variableName);
+				StringVariable variable = stringPool.get(token.getValue());
+				new Display(variable);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				break;

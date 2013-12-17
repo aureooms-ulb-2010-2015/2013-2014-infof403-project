@@ -4,14 +4,14 @@ public class IntegerVariable implements Variable{
 
 	private static final String TYPE_PREFIX = "i";
 
+	public boolean signed;
 	public int size;
 	public String name;
-	public boolean signed;
 
 	public IntegerVariable(boolean signed, int size, String name){
+		this.signed = signed;
 		this.size = size;
 		this.name = name;
-		this.signed = signed;
 	}
 
 	public String getType(){

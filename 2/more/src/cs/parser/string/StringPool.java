@@ -3,6 +3,7 @@ package cs.parser.string;
 import java.util.Map;
 import java.util.HashMap;
 
+import cs.parser.variable.*;
 
 public class StringPool{
 
@@ -12,11 +13,11 @@ public class StringPool{
 	private Map<String, Integer> pool = new HashMap<String, Integer>();
 	private int next = -1;
 
-	public String get(String value){
+	public StringVariable get(String value){
 		if(!this.pool.containsKey(value)){
 			this.pool.put(value, ++next);
 		}
-		return StringPool.VAR_NAME_PREFIX + this.pool.get(value).toString();
+		return new StringVariable(value.getBytes().length + 1, StringPool.VAR_NAME_PREFIX + this.pool.get(value).toString());
 	}
 
 	public void genCode(){
