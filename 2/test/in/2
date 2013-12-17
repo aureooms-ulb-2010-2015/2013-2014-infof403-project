@@ -21,6 +21,8 @@ data division.
                     /code of our program.
 		77 d pic s9(5).
                     /code of our program.
+		77 e pic s9(5).
+                    /code of our program.
 procedure division.
 	main section.
 	* Euclide's Algorithm.
@@ -40,8 +42,8 @@ procedure division.
 		display a.
 		                   /stop the program.
 		                   /test if lol.
-		if a < (a + d) then
-			display a.
+		if e < d then
+			display e.
 		else
 			display d.
 		end-if

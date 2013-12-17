@@ -1,14 +1,10 @@
 package cs.parser;
 
+import java.util.Set;
+import java.util.HashSet;
 
-import java.util.List;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
-
-
 
 import cs.lexer.*;
 
@@ -34,11 +30,33 @@ public class Parser{
 	protected boolean inBuffer = false;
 	protected VariableAllocator variableAllocator = new VariableAllocator();
 	
-	protected HashMap<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+	protected Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+	protected Set<String> labelsUse = new HashSet<String>();
+	protected Set<String> labelsDef = new HashSet<String>();
 
-	public VariableDecl getVariable(String name) throws Exception{
+	private VariableDecl getVariable(String name) throws Exception{
 		if(this.variables.containsKey(name)) return this.variables.get(name);
 		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
+	}
+
+	private void defLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
+		else this.labelsDef.add(name);
+	}
+
+	private void useLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
+	}
+
+	private void checkLabels() throws Exception{
+		for(String label : labelsDef){
+			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
+		}
+		for(String label : labelsUse){
+			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
+		}
 	}
 
 	protected StringPool stringPool = new StringPool();
@@ -77,6 +95,7 @@ public class Parser{
 
 	public void compile() throws Exception{
 		this.handle_S();
+		this.checkLabels();
 		stringPool.genCode();
 		Display.genLibCode();
 		Accept.genLibCode();
@@ -306,6 +325,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 		String function = this.token.getValue();
+		this.useLabel(function);
 		String[] labels = this.handle_CALL_TAIL();
 		if(labels != null) new Label(labels[1]);
 		new Perform(function);
@@ -861,6 +881,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 		String function = this.token.getValue();
+		this.defLabel(function);
 		new Function(function);
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -875,6 +896,7 @@ public class Parser{
 			case IDENTIFIER:
 				variableAllocator.reset();
 				String function = this.token.getValue();
+				this.defLabel(function);
 				new Function(function);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
