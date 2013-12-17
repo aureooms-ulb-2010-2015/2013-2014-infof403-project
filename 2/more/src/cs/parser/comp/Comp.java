@@ -18,18 +18,15 @@ public class Comp {
 	protected Op op;
 	protected String sop;
 
-	protected String temp1;
-	protected String temp2;
-	protected String temp3;
+	protected String temp;
 
-	public Comp (IntegerVariable l, IntegerVariable r, Op op, String temp1, String temp2, String temp3){
+	public Comp (IntegerVariable l, IntegerVariable r, Op op, String temp){
 		this.l = l;
 		this.r = r;
 		this.op = op;
 
-		this.temp1 = temp1;
-		this.temp2 = temp2;
-		this.temp3 = temp3;
+		this.temp = temp;
+		
 		
 
 		boolean signed = false;
@@ -86,9 +83,8 @@ public class Comp {
 
 	public void genCode(){
 		String greater = (l.getSize() >= r.getSize() ) ? l.getType() :  r.getType();
-		System.out.printf("%s = load %s* %s\n", this.temp1, l.getType(), l.getName());
-		System.out.printf("%s = load %s* %s\n", this.temp2, r.getType(), r.getName());
-		System.out.printf("%s = icmp %s %s %s, %s\n", this.temp3, this.sop, greater, this.temp1, this.temp2);
+		
+		System.out.printf("%s = icmp %s %s %s, %s\n", this.temp, this.sop, greater, l.getName(), r.getName());
 	}
 
 

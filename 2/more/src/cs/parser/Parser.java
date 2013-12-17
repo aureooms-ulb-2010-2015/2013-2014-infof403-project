@@ -404,7 +404,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.EQ, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
+				new Comp(left, right, Comp.Op.EQ, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -412,7 +412,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.LT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
+				new Comp(left, right, Comp.Op.LT, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -420,7 +420,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.GT, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
+				new Comp(left, right, Comp.Op.GT, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -428,7 +428,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.LE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
+				new Comp(left, right, Comp.Op.LE, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
@@ -436,7 +436,7 @@ public class Parser{
 				IntegerVariable right = this.handle_EXPRESSION_3();
 				String var_0 = variableAllocator.getNext();
 
-				new Comp(left, right, Comp.Op.GE, variableAllocator.getNext(),  variableAllocator.getNext(), var_0);
+				new Comp(left, right, Comp.Op.GE, var_0);
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
