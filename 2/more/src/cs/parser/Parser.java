@@ -11,8 +11,7 @@ import java.util.HashMap;
 
 
 import cs.lexer.*;
-import cs.parser.functAST.*;
-import cs.parser.exprAST.*;
+
 
 import cs.parser.io.*;
 import cs.parser.variable.*;
@@ -311,6 +310,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_VAR_LIST();
+		System.out.printf("\n");
 	}
 	
 	public void handle_ENV() throws Exception{
