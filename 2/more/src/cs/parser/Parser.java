@@ -36,6 +36,11 @@ public class Parser{
 	
 	protected HashMap<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
 
+	public VariableDecl getVariable(String name) throws Exception{
+		if(this.variables.containsKey(name)) return this.variables.get(name);
+		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
+	}
+
 	protected StringPool stringPool = new StringPool();
 
 	protected String program_id;
@@ -187,8 +192,8 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.ensureDest(expr, new IntegerVariable(variables.get(varName)));
-				new Assign(expr, variables.get(varName));
+				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
+				new Assign(expr, getVariable(varName));
 				break;
 			}
 			case COMPUTE:{
@@ -205,8 +210,8 @@ public class Parser{
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
-				this.ensureDest(expr, new IntegerVariable(variables.get(varName)));
-				new Assign(expr, variables.get(varName));
+				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
+				new Assign(expr, getVariable(varName));
 				break;
 			}
 			case ADD:{
@@ -216,7 +221,7 @@ public class Parser{
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-				VariableDecl decl = variables.get(token.getValue());
+				VariableDecl decl = getVariable(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
@@ -239,7 +244,7 @@ public class Parser{
 				this.match(LexicalUnit.FROM);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-				VariableDecl decl = variables.get(token.getValue());
+				VariableDecl decl = getVariable(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
@@ -292,7 +297,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 
-		return new ATail(left,right,this.variables.get(token.getValue()));
+		return new ATail(left,right,this.getVariable(token.getValue()));
 	}
 	
 	public void handle_CALL() throws Exception{
@@ -643,9 +648,9 @@ public class Parser{
 			}
 			case IDENTIFIER:{
 				String var_0 = variableAllocator.getNext();
-				VariableDecl declared = this.variables.get(token.getValue());
+				VariableDecl declared = this.getVariable(token.getValue());
 				IntegerVariable result = new IntegerVariable(declared.isSigned(),Integer.decode(declared.getLLVMSize()), var_0);
-				new AssignTemp(result, this.variables.get(token.getValue()));
+				new AssignTemp(result, this.getVariable(token.getValue()));
 				return result;
 			}
 			case INTEGER:{
@@ -924,7 +929,7 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		new Accept(new IntegerVariable(this.variables.get(this.token.getValue())));
+		new Accept(new IntegerVariable(this.getVariable(this.token.getValue())));
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}

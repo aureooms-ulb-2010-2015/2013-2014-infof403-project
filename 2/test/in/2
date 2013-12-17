@@ -19,6 +19,8 @@ data division.
 		            /(5) for 5 digits.
 		77 c pic s9(5).
                     /code of our program.
+		77 d pic s9(5).
+                    /code of our program.
 procedure division.
 	main section.
 	* Euclide's Algorithm.
@@ -28,6 +30,8 @@ procedure division.
 		accept a.
 		                   /read int from stdin and put it into b.
 		accept b.
+		move b to d.
+		move a to e.
 		                   /call find label until b equals 0.
 		perform find until b = 0.
 		                   /write 'valeur:' on stdout.
@@ -36,16 +40,16 @@ procedure division.
 		display a.
 		                   /stop the program.
 		                   /test if lol.
-		if a < (a + b) then
+		if a < (a + d) then
 			display a.
 		else
-			display b.
+			display d.
 		end-if
 
 		stop run.
 	                   /create a label called 'find'.
 	find.
-		move c to b.
+		move b to c.
 		                   /call diff label until a is less than b.
 		perform diff until a < b.
 		                   /put the value of a into b.
