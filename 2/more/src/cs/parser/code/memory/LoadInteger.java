@@ -1,14 +1,14 @@
-package cs.parser.code.assign; 
+package cs.parser.code.memory; 
 
 import cs.parser.data.variable.*;
 import cs.parser.data.declaration.*;
 
-public class AssignInt {
+public class LoadInteger {
 
 	protected int val;
 	protected String to;
 
-	public AssignInt(String to, int val){
+	public LoadInteger(String to, int val){
 		this.val = val;
 		this.to = to;
 		this.genCode();

@@ -1,16 +1,16 @@
-package cs.parser.code.assign; 
+package cs.parser.ast.assign; 
 
 import cs.parser.data.variable.*;
 import cs.parser.data.declaration.*;
 
-public class ATail {
+public class AssignmentTail {
 
 
 	public IntegerVariable l;
 	public IntegerVariable r;
 	public VariableDecl to;
 
-	public ATail (IntegerVariable l, IntegerVariable r, VariableDecl to){
+	public AssignmentTail (IntegerVariable l, IntegerVariable r, VariableDecl to){
 		this.to = to;
 		this.l = l;
 		this.r = r;
