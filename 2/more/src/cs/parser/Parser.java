@@ -1,27 +1,27 @@
 package cs.parser;
 
-import java.util.Set;
-import java.util.HashSet;
-
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import cs.lexer.*;
 
+import cs.parser.code.io.*;
+import cs.parser.code.comp.*;
+import cs.parser.code.call.*;
+import cs.parser.code.cast.*;
+import cs.parser.code.unary.*;
+import cs.parser.code.binary.*;
+import cs.parser.code.string.*;
+import cs.parser.code.assign.*;
+import cs.parser.code.functional.*;
+import cs.parser.code.conditional.*;
 
-import cs.parser.io.*;
-import cs.parser.variable.*;
-import cs.parser.string.*;
-import cs.parser.conditional.*;
-import cs.parser.comp.*;
+import cs.parser.data.variable.*;
+import cs.parser.data.declaration.*;
 
-import cs.parser.call.*;
-import cs.parser.binary.*;
-import cs.parser.functional.*;
-import cs.parser.cast.*;
-
-import cs.parser.declaration.*;
-import cs.parser.assign.*;
+import cs.parser.error.*;
 
 public class Parser{
 
