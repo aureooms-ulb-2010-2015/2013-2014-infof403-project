@@ -20,7 +20,7 @@ procedure division.
 		display 'b?' .
 		accept b.
 		perform find until b = 0.
-		display 'pgcd' .
+		display 'gcd' .
 		display a.
 		display ''.
 		stop run.

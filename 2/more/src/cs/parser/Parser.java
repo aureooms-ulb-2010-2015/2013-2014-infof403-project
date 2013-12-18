@@ -29,137 +29,7 @@ import cs.parser.error.*;
 
 public class Parser{
 
-	private Scanner cobolScanner;
-	private Symbol<String> token;
-	private boolean inBuffer = false;
-	private VariableAllocator variableAllocator = new VariableAllocator();
-	
-	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
-	private Set<String> labelsUse = new HashSet<String>();
-	private Set<String> labelsDef = new HashSet<String>();
-
-	private String currentLabel = "%0";
-
-	private void resetCurrentLabel(){
-		this.currentLabel = "%0";
-	}
-
-	private VariableDecl getVariable(String name) throws Exception{
-		if(this.variables.containsKey(name)) return this.variables.get(name);
-		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
-	}
-
-	private void checkVariables() throws Exception{
-		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
-			VariableDecl decl = entry.getValue();
-			if(decl.isAssigned()){
-				int value = Integer.decode(decl.getValue());
-				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
-					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
-				}
-			}
-		}
-	}
-
-	private void defLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
-		else this.labelsDef.add(name);
-	}
-
-	private void useLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
-	}
-
-	private void checkLabels() throws Exception{
-		for(String label : labelsDef){
-			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
-		}
-		for(String label : labelsUse){
-			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
-		}
-	}
-
-	private StringPool stringPool = new StringPool();
-
-	private String program_id;
-
-
-	public Parser(Scanner cobolScanner){
-		this.cobolScanner = cobolScanner;
-	}
-
-	private void read() throws Exception{
-		if(this.inBuffer) this.inBuffer = false;
-		else this.token = cobolScanner.next_token();
-	}
-
-	private void unread() throws Exception{
-		this.inBuffer = true;
-	}
-
-	private void match(LexicalUnit unit) throws Exception{
-		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
-	}
-
-	private boolean is_token_unit(LexicalUnit unit){
-		return this.token.unit.equals(unit);
-	}
-
-	private void handle_bad_token(LexicalUnit[] units) throws Exception{
-		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	private void handle_bad_token(LexicalUnit unit) throws Exception{
-		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	public void compile() throws Exception{
-		this.handle_S();
-		this.checkLabels();
-		stringPool.genCode();
-		Display.genLibCode();
-		Accept.genLibCode();
-	}
-
-	private int parseInteger(){
-		return Integer.decode(token.getValue());
-	}
-
-	private double parseReal(){
-		return Double.parseDouble(token.getValue());
-	}
-
-	private void ensureSize(IntegerVariable left, IntegerVariable right){
-		if(left.getSize() > right.getSize()) this.extendSize(right, left);
-		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
-	}
-
-	private void extendSize(IntegerVariable from, IntegerVariable to){
-		String var = variableAllocator.getNext();
-		IntegerVariable tmp = from.clone();
-		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
-		from.mimic(extended);
-		new Ext(from, tmp);
-	}
-
-	private void ensureDest(IntegerVariable left, IntegerVariable right){
-		if(left.getSize() > right.getSize()) this.truncSize(left, right);
-		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
-	}
-
-	private void truncSize(IntegerVariable from, IntegerVariable to){
-		String var = variableAllocator.getNext();
-		IntegerVariable tmp = from.clone();
-		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
-		from.mimic(truncated);
-		new Trunc(from, tmp);
-	}
-
-	private void createAssign(String var, IntegerVariable expr){
-		
-	}
+	// BEGIN OF PARSING AUTOMATON
 
 	private void handle_ASSIGNATION() throws Exception{
 		this.read();
@@ -997,7 +867,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.INTEGER);
 
-				newVariable.setValue(this.parseInteger());
+				newVariable.setValue(Integer.decode(token.getValue()));
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -1074,6 +944,126 @@ public class Parser{
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.LEFT_PARENTHESIS, LexicalUnit.NOT, LexicalUnit.MINUS_SIGN, LexicalUnit.IDENTIFIER, LexicalUnit.INTEGER, LexicalUnit.TRUE, LexicalUnit.FALSE, LexicalUnit.STRING});
 				break;
+		}
+	}
+
+
+	// END OF PARSING AUTOMATON
+
+	private Scanner cobolScanner;
+	
+	private String program_id;
+	private StringPool stringPool = new StringPool();
+
+	private Symbol<String> token;
+	private boolean inBuffer = false;
+	private VariableAllocator variableAllocator = new VariableAllocator();
+	
+	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+	private Set<String> labelsUse = new HashSet<String>();
+	private Set<String> labelsDef = new HashSet<String>();
+
+	private String currentLabel = "%0";
+
+
+
+	public Parser(Scanner cobolScanner){
+		this.cobolScanner = cobolScanner;
+	}
+
+	private void read() throws Exception{
+		if(this.inBuffer) this.inBuffer = false;
+		else this.token = cobolScanner.next_token();
+	}
+
+	private void unread() throws Exception{
+		this.inBuffer = true;
+	}
+
+	private void match(LexicalUnit unit) throws Exception{
+		if(!this.token.unit.equals(unit)) this.handle_bad_token(unit);
+	}
+
+	private void handle_bad_token(LexicalUnit[] units) throws Exception{
+		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	private void handle_bad_token(LexicalUnit unit) throws Exception{
+		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	public void compile() throws Exception{
+		this.handle_S();
+		this.checkLabels();
+		stringPool.genCode();
+		Display.genLibCode();
+		Accept.genLibCode();
+	}
+
+	private void ensureSize(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.extendSize(right, left);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
+	}
+
+	private void extendSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
+		from.mimic(extended);
+		new Ext(from, tmp);
+	}
+
+	private void ensureDest(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.truncSize(left, right);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
+	}
+
+	private void truncSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
+		from.mimic(truncated);
+		new Trunc(from, tmp);
+	}
+
+	private void resetCurrentLabel(){
+		this.currentLabel = "%0";
+	}
+
+	private VariableDecl getVariable(String name) throws Exception{
+		if(this.variables.containsKey(name)) return this.variables.get(name);
+		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
+	}
+
+	private void checkVariables() throws Exception{
+		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
+			VariableDecl decl = entry.getValue();
+			if(decl.isAssigned()){
+				int value = Integer.decode(decl.getValue());
+				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
+					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
+				}
+			}
+		}
+	}
+
+	private void defLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
+		else this.labelsDef.add(name);
+	}
+
+	private void useLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
+	}
+
+	private void checkLabels() throws Exception{
+		for(String label : labelsDef){
+			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
+		}
+		for(String label : labelsUse){
+			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
 		}
 	}
 	
