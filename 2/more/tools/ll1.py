@@ -58,7 +58,7 @@ class LL1Grammar:
 				if len(rule) > 1:
 					for current, next in zip(rule[:-1], rule[1:]):
 						if is_non_terminal(current) and self.get_first(next) not in self.follow[current]:
-							self.follow[current] += self.get_first(next)
+							self.follow[current] = list(set(self.follow[current]) | set(self.get_first(next)))
 
 
 		end = False

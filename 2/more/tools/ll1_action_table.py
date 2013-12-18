@@ -27,26 +27,98 @@ def main():
 			i += 1
 
 	#to LATEX
-	print("\\hspace{-1.0cm}\\begin{tabular}{|l|l|l|}")
-	print(u("Rules"),a(),u("First"),a(),u("go to"))
+
+	"""for unit in grammar.rules_sorted:
+		print(unit," ",grammar.follow[unit] )
+		print()
+		print()
+
+	"""
+	print("\\begin{tabular}{|l|l|l|}")
+	print ("\\\\ \\hline")
+	print(u("Rule"),a(),u("First"),a(),u("Follow"), "\\\\")
 	print ("\\\\ \\hline")
 
 	for unit in grammar.rules_sorted:
 		sfollow=""
 		sfirst =""
-		count = 0;
-		firstkeys = grammar.first.keys()
-		followkeys = grammar.follow.keys()
+		fiKcount = 0;
+		foKcount = 0;
+		sfi= 0;
+		sfo = 0;
+		
+		firstkeys = []
+		followkeys = []
+		for key in grammar.first:
+			firstkeys.append(key)
 
+		for key in grammar.follow:
+			followkeys.append(key)
+			
+		
+		line = ""
+		limit = 25
+		while ((fiKcount <  len(grammar.first[unit])) or (foKcount < len(grammar.follow[unit] ) ) ):
+			line+=a()
+			
+
+			
+			moreFirsts=(fiKcount < len(grammar.first[unit]) )
+			if(moreFirsts):
+				sizeNextFirst=len(grammar.first[unit][fiKcount])+2
+
+			while ( sfi + sizeNextFirst < limit and moreFirsts ):
+				newfirst = grammar.first[unit][fiKcount]+", "
+				line+= newfirst
+				sfi+=len(newfirst)
+
+				fiKcount+=1
+				
+
+				moreFirsts=(fiKcount < len(grammar.first[unit]) )
+				if(moreFirsts):
+					sizeNextFirst=len(grammar.first[unit][fiKcount])+2
+				
+
+				
+
+			
+			sfi=0
+			line+=a()+" "
+
+			moreKeys = (foKcount < len(grammar.follow[unit] ) )
+			if(moreKeys):
+				sizeNextFollow = len(grammar.follow[unit][foKcount])+2
+			while ( sfo + sizeNextFollow < limit and moreKeys ):
+				newFollow = grammar.follow[unit][foKcount]+", "
+				line+= newFollow
+				sfo+=len(newFollow)
+				foKcount+=1
+
+				
+				moreKeys = (foKcount < len(grammar.follow[unit] ) )
+				if(moreKeys):
+					sizeNextFollow = len(grammar.follow[unit][foKcount])+2
+				
+				
+
+				
+			sfo = 0
+			
+			line+="\\\\ \n  "
+		line+="\hline"
+		line=line.lower()
+		line = unit +"  "+line
+		line = line.replace("_","\\_")
+		print(line)
+			
 		
 
 
-		for follow in grammar.follow[unit]:
-			sfollow+=follow+", "
-		for first in grammar.first[unit]:
-			sfirst+=first+", "
-		print(u(unit).replace("_","\\_"),a(),s(sfirst).replace("_","\\_").lower(),a(),s(sfollow).replace("_","\\_").lower()," \\\\ \hline")
-	
+
+
+
+		
 	"""
 	dont = []
 	
