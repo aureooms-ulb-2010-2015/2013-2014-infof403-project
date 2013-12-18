@@ -1065,6 +1065,8 @@ public class Parser{
 		for(String label : labelsUse){
 			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
 		}
+
+		if(!labelsDef.contains("start")) throw new SCOBOLSemanticalException("error: 'start' label is not defined");
 	}
 	
 }
