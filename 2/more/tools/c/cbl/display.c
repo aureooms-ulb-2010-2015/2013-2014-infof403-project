@@ -1,16 +1,25 @@
 #include <stdio.h>
 
-void display_i64(size_t it);
+void display_si64(__int64_t it);
+void display_i64(__int64_t it);
 void display_string(char* string);
 
-size_t i;
+__int64_t i;
 int main(){
 	display_i64(i);
 	display_string("Hello world!\"\n");
 	return 0;
 }
 
-void display_i64(size_t it){
+void display_si64(__int64_t it){
+	if(it < 0){
+		putchar('-');
+		it = -it;
+	}
+	display_i64(it);
+}
+
+void display_i64(__int64_t it){
 	int c = '0' + it % 10;
 	it /= 10;
 	if(it > 0) display_i64(it);

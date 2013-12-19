@@ -8,11 +8,11 @@ environment division.
 	object-computer. ueygf.
 data division.
 	working-storage section.
-		77 a pic s9(20).
-		77 b pic s9(20).
-		77 c pic s9(20).
-		77 A pic s9(20).
-		77 B pic s9(20).
+		77 a pic s9(19).
+		77 b pic s9(19).
+		77 c pic s9(19).
+		77 A pic s9(19).
+		77 B pic s9(19).
 procedure division.
 	main section.
 	start.
