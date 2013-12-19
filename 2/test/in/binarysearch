@@ -10,22 +10,21 @@ environment division.
 
 data division.
 	working-storage section.
-		77 v pic 9(20) value -1.
-		77 i pic 9(20).
-		77 j pic 9(20).
-		77 p pic 9(20) value 0.
+		77 v pic s9(19) value -1.
+		77 i pic 9(19) value 0.
+		77 j pic 9(19).
+		77 p pic 9(19) value 0.
 
 procedure division.
 	main section.
 	start.
-		display '[ < , = , > => 0 , 1 , 2 ]'.
+		display '[ < , = , > => -1 , 0 , 1 ]'.
 		display 'upper limit?'.
 		accept j.
-		move 0 to i.
-		perform guess until (i = j) or (v = 1).
-		if not(v = 1) then
+		perform guess until (i = j) or (v = 0).
+		if not(v = 0) then
 			perform ask.
-			if v = 1 then
+			if v = 0 then
 				perform easy.
 			else
 				perform cheater.
@@ -52,10 +51,10 @@ procedure division.
 	guess.
 		perform median.
 		perform ask.
-		if v > 1 then
+		if v > 0 then
 			move p to i.
 		else
-			if v < 1 then
+			if v < 0 then
 				move p to j.
 			end-if
 		end-if
