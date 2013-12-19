@@ -15,6 +15,7 @@ import cs.parser.code.unary.*;
 import cs.parser.code.binary.*;
 import cs.parser.code.string.*;
 import cs.parser.code.memory.*;
+import cs.parser.code.system.*;
 import cs.parser.code.functional.*;
 import cs.parser.code.conditional.*;
 
@@ -229,7 +230,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_VAR_LIST();
-		System.out.printf("\n");
+		System.out.println("");
 		this.checkVariables();
 	}
 	
@@ -708,6 +709,7 @@ public class Parser{
 				this.match(LexicalUnit.RUN);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+				new Exit();
 				break;
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE, LexicalUnit.IF, LexicalUnit.PERFORM, LexicalUnit.ACCEPT, LexicalUnit.DISPLAY, LexicalUnit.STOP});
@@ -998,6 +1000,7 @@ public class Parser{
 		stringPool.genCode();
 		Display.genLibCode();
 		Accept.genLibCode();
+		Exit.genLibCode();
 	}
 
 	private void ensureSize(IntegerVariable left, IntegerVariable right){
