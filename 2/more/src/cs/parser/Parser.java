@@ -201,9 +201,7 @@ public class Parser{
 				new Label(label_0);
 				this.currentLabel = label_0;
 				IntegerVariable condition = this.handle_EXPRESSION();
-				String tmp = variableAllocator.getNext();
-				new Not(tmp, condition);
-				new If(tmp, label_1, label_2);
+				new If(condition.getName(), label_2, label_1);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				return new String[]{label_0, label_1, label_2};
