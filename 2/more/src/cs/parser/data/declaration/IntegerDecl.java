@@ -1,6 +1,6 @@
 package cs.parser.data.declaration;
 
-public class IntegerDecl extends VariableDecl<Integer>{
+public class IntegerDecl extends VariableDecl<Long>{
 	
 
 
@@ -14,7 +14,7 @@ public class IntegerDecl extends VariableDecl<Integer>{
 
 	public String getLLVMType(){return "i";}
 
-	public String getValue(){return Integer.toString(val);}
+	public String getValue(){return Long.toString(val);}
 	
 
 }

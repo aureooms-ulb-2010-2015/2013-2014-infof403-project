@@ -536,8 +536,8 @@ public class Parser{
 			}
 			case INTEGER:{
 				String var_0 = variableAllocator.getNext();
-				IntegerVariable result = new IntegerVariable(true, 32, var_0);
-				new LoadInteger(var_0, Integer.decode(this.token.getValue()));
+				IntegerVariable result = new IntegerVariable(true, 64, var_0);
+				new LoadInteger(var_0, Long.decode(this.token.getValue()));
 				return result;
 			}
 			case TRUE:{
@@ -867,7 +867,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.INTEGER);
 
-				newVariable.setValue(Integer.decode(token.getValue()));
+				newVariable.setValue(Long.decode(token.getValue()));
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -1040,7 +1040,7 @@ public class Parser{
 		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
 			VariableDecl decl = entry.getValue();
 			if(decl.isAssigned()){
-				int value = Integer.decode(decl.getValue());
+				long value = Long.decode(decl.getValue());
 				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
 					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
 				}
