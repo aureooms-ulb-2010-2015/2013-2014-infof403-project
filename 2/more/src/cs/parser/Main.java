@@ -3,6 +3,17 @@ package cs.parser;
 import cs.lexer.*;
 
 
+/**
+ * Simple Main for the SCOBOL Parser.
+ *
+ * Input is read from stdin.
+ * Output is written on stdout.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Main{
 	public static void main(String args[])throws Exception{
 		Scanner cobolScanner = new Scanner(System.in);

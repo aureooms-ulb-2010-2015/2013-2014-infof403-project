@@ -10,10 +10,10 @@ environment division.
 
 data division.
 	working-storage section.
-		77 a pic 9(38) value 0.
-		77 b pic 9(38) value 1.
-		77 c pic 9(38).
-		77 n pic 9(38).
+		77 a pic 9(19) value 0.
+		77 b pic 9(19) value 1.
+		77 c pic 9(19).
+		77 n pic 9(19).
 
 procedure division.
 	main section.

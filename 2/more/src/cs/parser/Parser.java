@@ -1,215 +1,37 @@
 package cs.parser;
 
-import java.util.Set;
-import java.util.HashSet;
-
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import cs.lexer.*;
 
+import cs.parser.code.io.*;
+import cs.parser.code.comp.*;
+import cs.parser.code.call.*;
+import cs.parser.code.cast.*;
+import cs.parser.code.unary.*;
+import cs.parser.code.binary.*;
+import cs.parser.code.string.*;
+import cs.parser.code.memory.*;
+import cs.parser.code.system.*;
+import cs.parser.code.functional.*;
+import cs.parser.code.conditional.*;
 
-import cs.parser.io.*;
-import cs.parser.variable.*;
-import cs.parser.string.*;
-import cs.parser.conditional.*;
-import cs.parser.comp.*;
+import cs.parser.data.variable.*;
+import cs.parser.data.declaration.*;
 
-import cs.parser.call.*;
-import cs.parser.binary.*;
-import cs.parser.functional.*;
-import cs.parser.cast.*;
+import cs.parser.ast.assign.*;
 
-import cs.parser.declaration.*;
-import cs.parser.assign.*;
+import cs.parser.utils.*;
+
+import cs.parser.error.*;
 
 public class Parser{
 
-	private Scanner cobolScanner;
-	private Symbol<String> token;
-	private boolean inBuffer = false;
-	private VariableAllocator variableAllocator = new VariableAllocator();
-	
-	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
-	private Set<String> labelsUse = new HashSet<String>();
-	private Set<String> labelsDef = new HashSet<String>();
 
-	private String currentLabel = "%0";
-
-	private void resetCurrentLabel(){
-		this.currentLabel = "%0";
-	}
-
-	private VariableDecl getVariable(String name) throws Exception{
-		if(this.variables.containsKey(name)) return this.variables.get(name);
-		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
-	}
-
-	private void checkVariables() throws Exception{
-		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
-			VariableDecl decl = entry.getValue();
-			if(decl.isAssigned()){
-				int value = Integer.decode(decl.getValue());
-				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
-					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
-				}
-			}
-		}
-	}
-
-	private void defLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
-		else this.labelsDef.add(name);
-	}
-
-	private void useLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
-	}
-
-	private void checkLabels() throws Exception{
-		for(String label : labelsDef){
-			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
-		}
-		for(String label : labelsUse){
-			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
-		}
-	}
-
-	private StringPool stringPool = new StringPool();
-
-	private String program_id;
-
-
-	public Parser(Scanner cobolScanner){
-		this.cobolScanner = cobolScanner;
-	}
-
-	public void read() throws Exception{
-		if(this.inBuffer) this.inBuffer = false;
-		else this.token = cobolScanner.next_token();
-	}
-
-	public void unread() throws Exception{
-		this.inBuffer = true;
-	}
-
-	public void match(LexicalUnit unit) throws Exception{
-		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
-	}
-
-	public boolean is_token_unit(LexicalUnit unit){
-		return this.token.unit.equals(unit);
-	}
-
-	public void handle_bad_token(LexicalUnit[] units) throws Exception{
-		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	public void handle_bad_token(LexicalUnit unit) throws Exception{
-		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	public void compile() throws Exception{
-		this.handle_S();
-		this.checkLabels();
-		stringPool.genCode();
-		Display.genLibCode();
-		Accept.genLibCode();
-	}
-
-	private int parseInteger(){
-		return Integer.decode(token.getValue());
-	}
-
-	private double parseReal(){
-		return Double.parseDouble(token.getValue());
-	}
-
-
-	private VariableDecl parseImage(){
-		int imSize = 0;
-		String image = token.getValue();
-		boolean signed = false;
-		boolean floating = false;
-		String nines = "";
-
-		boolean inside = false;
-
-		int i = 0;
-
-		if(image.charAt(i) == 's'){
-			++i;
-			signed = true;
-		}
-
-		++i;
-		if(i < image.length() && image.charAt(i) == '('){
-			for(++i; i < image.length(); ++i){	
-				if(image.charAt(i) == ')'){
-					imSize += Integer.decode(nines);
-					nines = "";
-					break;
-				}
-				else nines += image.charAt(i);
-			}
-		}
-		else{
-			++imSize;
-		}
-		++i;
-		if(i < image.length()){
-			floating = true;
-			++i;
-			if(i < image.length() && image.charAt(i) == '('){
-				for(++i; i < image.length(); ++i){	
-					if(image.charAt(i) == ')'){
-						imSize += Integer.decode(nines);
-						nines = "";
-						break;
-					}
-					else nines += image.charAt(i);
-				}
-			}
-			else{
-				++imSize;
-			}
-		}
-		
-		int imageBitSize = (int) Math.ceil( ( Math.log(Math.pow(10,imSize))/Math.log(2) ) / 8);
-
-		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize), signed);
-		else return new IntegerDecl(Integer.toString(8 * imageBitSize), signed);
-	}
-
-	private void ensureSize(IntegerVariable left, IntegerVariable right){
-		if(left.getSize() > right.getSize()) this.extendSize(right, left);
-		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
-	}
-
-	private void extendSize(IntegerVariable from, IntegerVariable to){
-		String var = variableAllocator.getNext();
-		IntegerVariable tmp = from.clone();
-		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
-		from.mimic(extended);
-		new Ext(from, tmp);
-	}
-
-	private void ensureDest(IntegerVariable left, IntegerVariable right){
-		if(left.getSize() > right.getSize()) this.truncSize(left, right);
-		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
-	}
-
-	private void truncSize(IntegerVariable from, IntegerVariable to){
-		String var = variableAllocator.getNext();
-		IntegerVariable tmp = from.clone();
-		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
-		from.mimic(truncated);
-		new Trunc(from, tmp);
-	}
-
-	public void handle_ASSIGNATION() throws Exception{
+	private void handle_ASSIGNATION() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case MOVE:{
@@ -226,7 +48,7 @@ public class Parser{
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
 				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
-				new Assign(expr, getVariable(varName));
+				new Store(expr, getVariable(varName));
 				break;
 			}
 			case COMPUTE:{
@@ -244,7 +66,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
-				new Assign(expr, getVariable(varName));
+				new Store(expr, getVariable(varName));
 				break;
 			}
 			case ADD:{
@@ -260,14 +82,14 @@ public class Parser{
 
 				String var_1 = variableAllocator.getNext();
 				IntegerVariable left = new IntegerVariable(decl, var_1);
-				new AssignTemp(left, decl);
+				new Load(left, decl);
 				this.ensureSize(left, right);
 
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable result = new IntegerVariable(left.isSigned(), left.getSize(), var_0);
 				new Add(result, left, right);
 				this.ensureDest(result, new IntegerVariable(decl));
-				new Assign(result, decl);
+				new Store(result, decl);
 				break;
 			}
 			case SUBTRACT:{
@@ -283,20 +105,19 @@ public class Parser{
 
 				String var_1 = variableAllocator.getNext();
 				IntegerVariable left = new IntegerVariable(decl, var_1);
-				new AssignTemp(left, decl);
+				new Load(left, decl);
 				this.ensureSize(left, right);
 
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable result = new IntegerVariable(left.isSigned(), left.getSize(), var_0);
 				new Sub(result, left, right);
 				this.ensureDest(result, new IntegerVariable(decl));
-				new Assign(result, decl);
+				new Store(result, decl);
 				break;
 			}
 			case MULTIPLY:{
 
-				//(VariableDecl left, Variable right, String temp, VariableDecl to, String op)
-				ATail tail = this.handle_ASSIGN_TAIL();
+				AssignmentTail tail = this.handle_ASSIGN_TAIL();
 					
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -308,12 +129,12 @@ public class Parser{
 				new Mul(result, tail.getL(), tail.getR());
 
 				this.ensureDest(result, new IntegerVariable(tail.getTo()));
-				new Assign(result, tail.getTo());
+				new Store(result, tail.getTo());
 				break;
 			}
 			case DIVIDE:{
 				
-				ATail tail = this.handle_ASSIGN_TAIL();
+				AssignmentTail tail = this.handle_ASSIGN_TAIL();
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
@@ -325,7 +146,7 @@ public class Parser{
 				new Div(result, tail.getL(), tail.getR());
 
 				this.ensureDest(result, new IntegerVariable(tail.getTo()));
-				new Assign(result, tail.getTo());
+				new Store(result, tail.getTo());
 				break;
 			}
 			default:
@@ -334,7 +155,7 @@ public class Parser{
 		}
 	}
 	
-	public ATail handle_ASSIGN_TAIL() throws Exception{
+	private AssignmentTail handle_ASSIGN_TAIL() throws Exception{
 
 		IntegerVariable left = (IntegerVariable)this.handle_EXPRESSION();
 		this.read();
@@ -345,10 +166,10 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 
-		return new ATail(left,right,this.getVariable(token.getValue()));
+		return new AssignmentTail(left,right,this.getVariable(token.getValue()));
 	}
 	
-	public void handle_CALL() throws Exception{
+	private void handle_CALL() throws Exception{
 		this.read();
 		this.match(LexicalUnit.PERFORM);
 		this.read();
@@ -368,7 +189,7 @@ public class Parser{
 		}
 	}
 	
-	public String[] handle_CALL_TAIL() throws Exception{
+	private String[] handle_CALL_TAIL() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case UNTIL:
@@ -379,9 +200,7 @@ public class Parser{
 				new Label(label_0);
 				this.currentLabel = label_0;
 				IntegerVariable condition = this.handle_EXPRESSION();
-				String tmp = variableAllocator.getNext();
-				new Not(tmp, condition);
-				new If(tmp, label_1, label_2);
+				new If(condition.getName(), label_2, label_1);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 				return new String[]{label_0, label_1, label_2};
@@ -394,7 +213,7 @@ public class Parser{
 	}
 	
 	
-	public void handle_DATA() throws Exception{
+	private void handle_DATA() throws Exception{
 		this.read();
 		this.match(LexicalUnit.DATA);
 		this.read();
@@ -408,11 +227,11 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_VAR_LIST();
-		System.out.printf("\n");
+		System.out.println("");
 		this.checkVariables();
 	}
 	
-	public void handle_ENV() throws Exception{
+	private void handle_ENV() throws Exception{
 		this.read();
 		this.match(LexicalUnit.ENVIRONMENT);
 		this.read();
@@ -443,18 +262,18 @@ public class Parser{
 	
 
 
-	public IntegerVariable handle_EXPRESSION() throws Exception{
+	private IntegerVariable handle_EXPRESSION() throws Exception{
 		IntegerVariable left = this.handle_EXPRESSION_1();
 		return this.handle_EXPRESSION_TAIL(left);
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_1() throws Exception{
+	private IntegerVariable handle_EXPRESSION_1() throws Exception{
 		IntegerVariable left = this.handle_EXPRESSION_2();
 		return this.handle_EXPRESSION_1_TAIL(left);
 	}
 	
-	public IntegerVariable handle_EXPRESSION_1_TAIL(IntegerVariable left) throws Exception{
+	private IntegerVariable handle_EXPRESSION_1_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case AND:{
@@ -499,12 +318,12 @@ public class Parser{
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_2() throws Exception{
+	private IntegerVariable handle_EXPRESSION_2() throws Exception{
 		IntegerVariable left = this.handle_EXPRESSION_3();
 		return this.handle_EXPRESSION_2_TAIL(left);
 	}
 	
-	public IntegerVariable handle_EXPRESSION_2_TAIL(IntegerVariable left) throws Exception{
+	private IntegerVariable handle_EXPRESSION_2_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 
 		switch(this.token.unit){
@@ -572,13 +391,13 @@ public class Parser{
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_3() throws Exception{
+	private IntegerVariable handle_EXPRESSION_3() throws Exception{
 		IntegerVariable left = this.handle_EXPRESSION_4();
 		return this.handle_EXPRESSION_3_TAIL(left);
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_3_TAIL(IntegerVariable left) throws Exception{
+	private IntegerVariable handle_EXPRESSION_3_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case PLUS_SIGN:{
@@ -627,13 +446,13 @@ public class Parser{
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_4() throws Exception{
+	private IntegerVariable handle_EXPRESSION_4() throws Exception{
 		IntegerVariable left = this.handle_EXPRESSION_BASE();
 		return this.handle_EXPRESSION_4_TAIL(left);
 	}
 
 	
-	public IntegerVariable handle_EXPRESSION_4_TAIL(IntegerVariable left) throws Exception{
+	private IntegerVariable handle_EXPRESSION_4_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case ASTERISK:{
@@ -684,7 +503,7 @@ public class Parser{
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_BASE() throws Exception{
+	private IntegerVariable handle_EXPRESSION_BASE() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case LEFT_PARENTHESIS:{
@@ -711,25 +530,25 @@ public class Parser{
 				String var_0 = variableAllocator.getNext();
 				VariableDecl declared = this.getVariable(token.getValue());
 				IntegerVariable result = new IntegerVariable(declared.isSigned(),Integer.decode(declared.getLLVMSize()), var_0);
-				new AssignTemp(result, this.getVariable(token.getValue()));
+				new Load(result, this.getVariable(token.getValue()));
 				return result;
 			}
 			case INTEGER:{
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable result = new IntegerVariable(true, 32, var_0);
-				new AssignInt(var_0, Integer.decode(this.token.getValue()));
+				new LoadInteger(var_0, Integer.decode(this.token.getValue()));
 				return result;
 			}
 			case TRUE:{
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable result = new IntegerVariable(true, 1, var_0);
-				new AssignInt(var_0, 1);
+				new LoadInteger(var_0, 1);
 				return result;
 			}
 			case FALSE:{
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable result = new IntegerVariable(true, 1, var_0);
-				new AssignInt(var_0, 0);
+				new LoadInteger(var_0, 0);
 				return result;
 			}
 			default:
@@ -740,7 +559,7 @@ public class Parser{
 
 	}
 	
-	public IntegerVariable handle_EXPRESSION_TAIL(IntegerVariable left) throws Exception{
+	private IntegerVariable handle_EXPRESSION_TAIL(IntegerVariable left) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case OR:{
@@ -784,7 +603,7 @@ public class Parser{
 		return null;
 	}
 	
-	public void handle_IDENT() throws Exception{
+	private void handle_IDENT() throws Exception{
 		this.read();
 		this.match(LexicalUnit.IDENTIFICATION);
 		this.read();
@@ -816,7 +635,7 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public void handle_IF() throws Exception{
+	private void handle_IF() throws Exception{
 		this.read();
 		this.match(LexicalUnit.IF);
 		String label_0 = variableAllocator.getNext();
@@ -838,7 +657,7 @@ public class Parser{
 		this.currentLabel = label_2;
 	}
 	
-	public void handle_IF_TAIL() throws Exception{
+	private void handle_IF_TAIL() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case ELSE:
@@ -854,7 +673,7 @@ public class Parser{
 		}
 	}
 	
-	public void handle_INSTRUCTION() throws Exception{
+	private void handle_INSTRUCTION() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case MOVE:
@@ -887,6 +706,7 @@ public class Parser{
 				this.match(LexicalUnit.RUN);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
+				new Exit();
 				break;
 			default:
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.MOVE, LexicalUnit.COMPUTE, LexicalUnit.ADD, LexicalUnit.SUBTRACT, LexicalUnit.MULTIPLY, LexicalUnit.DIVIDE, LexicalUnit.IF, LexicalUnit.PERFORM, LexicalUnit.ACCEPT, LexicalUnit.DISPLAY, LexicalUnit.STOP});
@@ -894,7 +714,7 @@ public class Parser{
 		}
 	}
 	
-	public void handle_INSTRUCTION_LIST() throws Exception{
+	private void handle_INSTRUCTION_LIST() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case MOVE:
@@ -924,7 +744,7 @@ public class Parser{
 		}
 	}
 	
-	public void handle_LABELS() throws Exception{
+	private void handle_LABELS() throws Exception{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 		String function = this.token.getValue();
@@ -937,7 +757,7 @@ public class Parser{
 		this.handle_LABELS_TAIL();
 	}
 	
-	public void handle_LABELS_TAIL() throws Exception{
+	private void handle_LABELS_TAIL() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
@@ -961,7 +781,7 @@ public class Parser{
 		}
 	}
 	
-	public void handle_PROC() throws Exception{
+	private void handle_PROC() throws Exception{
 		this.read();
 		this.match(LexicalUnit.PROCEDURE);
 		this.read();
@@ -987,14 +807,14 @@ public class Parser{
 		this.match(LexicalUnit.DOT);
 	}
 	
-	public void handle_PROGRAM() throws Exception{
+	private void handle_PROGRAM() throws Exception{
 		this.handle_IDENT();
 		this.handle_ENV();
 		this.handle_DATA();
 		this.handle_PROC();
 	}
 	
-	public void handle_READ() throws Exception{
+	private void handle_READ() throws Exception{
 		this.read();
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
@@ -1004,13 +824,13 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
 	
-	public void handle_S() throws Exception{
+	private void handle_S() throws Exception{
 		this.handle_PROGRAM();
 		this.read();
 		this.match(LexicalUnit.EOF);
 	}
 	
-	public void handle_VAR_DECL() throws Exception{
+	private void handle_VAR_DECL() throws Exception{
 
 		this.read();
 		this.match(LexicalUnit.INTEGER);
@@ -1026,7 +846,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IMAGE);
 
-		VariableDecl newVariable = (VariableDecl) this.parseImage();
+		VariableDecl newVariable = (VariableDecl) Image.parse(this.token.getValue());
 
 		newVariable.setName(variableName);
 
@@ -1037,7 +857,7 @@ public class Parser{
 
 	}
 
-	public void handle_VAR_DECL_TAIL(VariableDecl newVariable) throws Exception{
+	private void handle_VAR_DECL_TAIL(VariableDecl newVariable) throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case END_OF_INSTRUCTION:
@@ -1046,7 +866,7 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.INTEGER);
 
-				newVariable.setValue(this.parseInteger());
+				newVariable.setValue(Integer.decode(token.getValue()));
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -1060,7 +880,7 @@ public class Parser{
 
 	}
 	
-	public void handle_VAR_LIST() throws Exception{
+	private void handle_VAR_LIST() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case INTEGER:
@@ -1077,7 +897,7 @@ public class Parser{
 		}
 	}
 	
-	public void handle_WORDS() throws Exception{
+	private void handle_WORDS() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case IDENTIFIER:
@@ -1092,13 +912,13 @@ public class Parser{
 		}
 	}
 	
-	public void handle_WRITE() throws Exception{
+	private void handle_WRITE() throws Exception{
 		this.read();
 		this.match(LexicalUnit.DISPLAY);
 		this.handle_WRITE_TAIL();
 	}
 	
-	public void handle_WRITE_TAIL() throws Exception{
+	private void handle_WRITE_TAIL() throws Exception{
 		this.read();
 		switch(this.token.unit){
 			case LEFT_PARENTHESIS:
@@ -1124,6 +944,129 @@ public class Parser{
 				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.LEFT_PARENTHESIS, LexicalUnit.NOT, LexicalUnit.MINUS_SIGN, LexicalUnit.IDENTIFIER, LexicalUnit.INTEGER, LexicalUnit.TRUE, LexicalUnit.FALSE, LexicalUnit.STRING});
 				break;
 		}
+	}
+
+
+	// END OF PARSING AUTOMATON
+
+	private Scanner cobolScanner;
+	
+	private String program_id;
+	private StringPool stringPool = new StringPool();
+
+	private Symbol<String> token;
+	private boolean inBuffer = false;
+	private VariableAllocator variableAllocator = new VariableAllocator();
+	
+	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
+	private Set<String> labelsUse = new HashSet<String>();
+	private Set<String> labelsDef = new HashSet<String>();
+
+	private String currentLabel = "%0";
+
+
+
+	public Parser(Scanner cobolScanner){
+		this.cobolScanner = cobolScanner;
+	}
+
+	private void read() throws Exception{
+		if(this.inBuffer) this.inBuffer = false;
+		else this.token = cobolScanner.next_token();
+	}
+
+	private void unread() throws Exception{
+		this.inBuffer = true;
+	}
+
+	private void match(LexicalUnit unit) throws Exception{
+		if(!this.token.unit.equals(unit)) this.handle_bad_token(unit);
+	}
+
+	private void handle_bad_token(LexicalUnit[] units) throws Exception{
+		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	private void handle_bad_token(LexicalUnit unit) throws Exception{
+		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	}
+
+	public void compile() throws Exception{
+		this.handle_S();
+		this.checkLabels();
+		stringPool.genCode();
+		Display.genLibCode();
+		Accept.genLibCode();
+		Exit.genLibCode();
+	}
+
+	private void ensureSize(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.extendSize(right, left);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
+	}
+
+	private void extendSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable extended = new IntegerVariable(from.isSigned(), to.getSize(), var);
+		from.mimic(extended);
+		new Ext(from, tmp);
+	}
+
+	private void ensureDest(IntegerVariable left, IntegerVariable right){
+		if(left.getSize() > right.getSize()) this.truncSize(left, right);
+		else if(left.getSize() < right.getSize()) this.extendSize(left, right);
+	}
+
+	private void truncSize(IntegerVariable from, IntegerVariable to){
+		String var = variableAllocator.getNext();
+		IntegerVariable tmp = from.clone();
+		IntegerVariable truncated = new IntegerVariable(to.isSigned(), to.getSize(), var);
+		from.mimic(truncated);
+		new Trunc(from, tmp);
+	}
+
+	private void resetCurrentLabel(){
+		this.currentLabel = "%0";
+	}
+
+	private VariableDecl getVariable(String name) throws Exception{
+		if(this.variables.containsKey(name)) return this.variables.get(name);
+		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
+	}
+
+	private void checkVariables() throws Exception{
+		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
+			VariableDecl decl = entry.getValue();
+			if(decl.isAssigned()){
+				int value = Integer.decode(decl.getValue());
+				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
+					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
+				}
+			}
+		}
+	}
+
+	private void defLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
+		else this.labelsDef.add(name);
+	}
+
+	private void useLabel(String name) throws Exception{
+		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
+		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
+	}
+
+	private void checkLabels() throws Exception{
+		for(String label : labelsDef){
+			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
+		}
+		for(String label : labelsUse){
+			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
+		}
+
+		if(!labelsDef.contains("start")) throw new SCOBOLSemanticalException("error: 'start' label is not defined");
 	}
 	
 }

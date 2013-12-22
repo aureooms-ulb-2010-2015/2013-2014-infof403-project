@@ -10,7 +10,7 @@ Temporary variables representing SCOBOL literals are created in LLVM IR as signe
 
 \subsection{Labels treated as functions}
 
-In SCOBOL labels can be used. We chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. This choice implies that the SCOBOL keyword $stop$ is not considered.
+In SCOBOL labels can be used. We chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. Keyword $stop$ is then considered as $exit(0)$.
 
 \subsection{Lazy evaluation}
 
