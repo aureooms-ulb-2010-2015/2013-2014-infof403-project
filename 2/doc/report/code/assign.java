@@ -1,8 +1,3 @@
-package cs.parser.assign; 
-
-import cs.parser.variable.*;
-import cs.parser.declaration.*;
-
 public class Assign {
 
 	protected IntegerVariable from;

@@ -209,10 +209,6 @@ public class Parser{
 		new Trunc(from, tmp);
 	}
 
-	private void createAssign(String var, IntegerVariable expr){
-		
-	}
-
 	public void handle_ASSIGNATION() throws Exception{
 		this.read();
 		switch(this.token.unit){
