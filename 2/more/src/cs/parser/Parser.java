@@ -30,7 +30,6 @@ import cs.parser.error.*;
 
 public class Parser{
 
-	// BEGIN OF PARSING AUTOMATON
 
 	private void handle_ASSIGNATION() throws Exception{
 		this.read();

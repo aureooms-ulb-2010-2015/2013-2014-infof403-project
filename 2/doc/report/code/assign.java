@@ -1,14 +1,9 @@
-package cs.parser.code.memory; 
-
-import cs.parser.data.variable.*;
-import cs.parser.data.declaration.*;
-
-public class Store {
+public class Assign {
 
 	protected IntegerVariable from;
 	protected  VariableDecl to;
 
-	public Store(IntegerVariable from, VariableDecl to){
+	public Assign(IntegerVariable from, VariableDecl to){
 		this.from = from;
 		this.to = to;
 		this.genCode();

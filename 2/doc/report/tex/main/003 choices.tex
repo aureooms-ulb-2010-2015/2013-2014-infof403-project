@@ -1,0 +1,24 @@
+\section{Choices}
+
+Here are described some choices we made for our implementation.
+
+
+\subsection{Literal size}
+
+Temporary variables representing SCOBOL literals are created in LLVM IR as signed integer on 64 bits. This is a direct consequence of the language used for our project: Java.
+
+
+\subsection{Labels treated as functions}
+
+In SCOBOL labels can be used. We chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. Keyword $stop$ is then considered as $exit(0)$.
+
+\subsection{Lazy evaluation}
+
+Our LLVM IR code is written using the $lazy evaluation$ strategy. Composed boolean expressions (with $OR$ and $AND$) are evaluated only if necessary. This choice makes the execution of the code much faster.
+
+\subsection{byte integers}
+
+To reduce RAM fragmentation we chose to code LLVM IR integers on a size multiple of 8.
+
+
+
