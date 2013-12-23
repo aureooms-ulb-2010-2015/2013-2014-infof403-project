@@ -3,13 +3,13 @@
 
 
 \subsection{Making it \emph{LL(1)}}
-In order to make a grammar \emph{LL(1)} we had to apply some modifications on it. We had to remove left recursion, left-factor rules, remove unit productions.
+In order to make a grammar \emph{LL(1)} we had to apply some modifications on it. We had to remove left recursion, left-factor rules and remove unit productions.
 
 \subsubsection{Left recursion}
 
 Top-down parsing is impossible on a left-recursive grammar. To solve this issue we replaced every left recursive rule by a right-recursive one.
 
-The following rules have transformed into right-recursive:
+The following rules have been transformed into right-recursive:
 \begin{itemize}
 	\item \verb!<LABELS>!
 	\item \verb!<WORDS>!
@@ -26,7 +26,7 @@ $$A -> \alpha A'$$
 $$A' -> \beta_{1} | ... | \beta_{n}$$
 
 For top-down parsers, rules must be left-factored.
-It's for this reason that we modified the productions rules for:
+It's for this reason that we modified the productions rules :
 \begin{itemize}
 	\item \verb!<CALL>!
 	\item \verb!<VAR_DECL>!
@@ -50,7 +50,7 @@ As \verb!<LABEL>! and \verb!<END_INST>! both resolve to a single terminal, we ch
 
 \subsubsection{Respect priority and associativity of operators}
 
-The priority of operators must be defined by the grammar. We have divided the \verb!<EXPRESSION>! rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the lef to the root we are sure priority of operators is respected.  
+The priority of operators must be defined by the grammar. We have divided the \verb!<EXPRESSION>! rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the leaves to the root we are sure priority of operators is respected.  
 
 
 
