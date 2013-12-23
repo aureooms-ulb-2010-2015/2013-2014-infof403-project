@@ -1,6 +1,6 @@
 
 identification division.
-	program-id. signed.
+	program-id. multiply_.
 	author. dfdfd df ddf df .
 	date-written. dfdffd fd df.
 environment division.
@@ -9,21 +9,24 @@ environment division.
 	object-computer. LLfffffffffffffffffffVM.
 data division.
 	working-storage section.
-		77 a pic s9(19) value 42.
-		77 A pic s9(19) value 42.
+		77 a pic s9(19).
 		77 b pic s9(19).
+		77 c pic s9(19).
 procedure division.
 	main section.
 	start.
-		perform loop until (1 = 0) or (not 1) or 0 or (1 - 1) or (not 2013).
-		stop run.
-	loop.
-		display a.
-		display ''.
-		display A.
-		display ''.
+		accept a.
 		accept b.
-		add b to a.
-		subtract -b from A.
+		display a * b.
+		display ''.
+		display -a * -b.
+		display ''.
+		multiply a, b giving c.
+		display c.
+		display ''.
+		multiply -a, -b giving c.
+		display c.
+		display ''.
+		stop run.
 
-end program signed.
+end program multiply_.
