@@ -13,6 +13,7 @@ package cs.parser.code.functional;
 public class Function{
 
 	public static String MAIN = "start";
+	public static String USER_PREFIX = "__USER__";
 	
 	private String name;
 
@@ -23,7 +24,7 @@ public class Function{
 
 	public void genCode(){
 		if(this.name.equals(Function.MAIN)) System.out.printf("define i64 @main(){", this.name);
-		else System.out.printf("define void @%s(){", this.name);
+		else System.out.printf("define void @%s%s(){", Function.USER_PREFIX, this.name);
 		System.out.println();
 	}
 }

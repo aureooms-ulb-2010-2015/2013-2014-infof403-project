@@ -1,5 +1,6 @@
 package cs.parser.code.call;
 
+import cs.parser.code.functional.*;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Perform{
 	}
 
 	public void genCode(){
-		System.out.printf("call void @%s()\n", this.function);
+		if(this.function.equals(Function.MAIN)) System.out.printf("call void @%s()\n", this.function);
+		else System.out.printf("call void @%s%s()\n", Function.USER_PREFIX, this.function);
 	}
 }
