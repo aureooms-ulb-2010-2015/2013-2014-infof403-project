@@ -28,11 +28,6 @@ def main():
 
 	#to LATEX
 
-	"""for unit in grammar.rules_sorted:
-		print(unit," ",grammar.follow[unit] )
-		print()
-		print()
-
 	"""
 	print("\\begin{tabular}{|l|l|l|}")
 	print ("\\\\ \\hline")
@@ -132,38 +127,32 @@ def main():
 		if(not take):
 			dont.append(i)
 
-	print(u("Rule"),a(),end=""),
-	i=0
-	for terminal in grammar.alphabet:
-		if(i not in dont):
-			print(u(terminal), end=""),
-			if(i < len(grammar.alphabet)):
-				print(a(), end=""),
-		i+=1
-
+	
+	"""
 	print("\\\\ \hline")
-	for key in action_table:
-		print(u(key), end=""),
-		for i in range(len(grammar.alphabet)):
-			if (i not in dont):
-				if(action_table[key][i]!=None):
-					print(at(action_table[key][i]),a(), end="" )
-				else:
-					print(e(),a(), end="" )
-		print("\\\\ \hline")
+	
+	print(u(key), end=""),
+	for i in range(len(grammar.alphabet)):
+		if (i not in dont):
+			if(action_table[key][i]!=None):
+				print(at(action_table[key][i]),a(), end="" )
+			else:
+				print(e(),a(), end="" )
+	print("\\\\ \hline")
 	"""
-	"""
+	
+	
 	print(u("Rules"),a(),u("terminal"),a(),u("go to"))
 
 
-	for key in action_table:
+	for key in grammar.rules_sorted:
 		i = 0
 		print(u(key),end="")
 		for go in action_table[key]:
 			if(go!=None):
 				print(u(" "), a(),u(grammar.alphabet[i]) ,a(), go)
 			i+=1
-	"""
+	
 
 def u(s):	
 	return '{:<20}'.format(s)
