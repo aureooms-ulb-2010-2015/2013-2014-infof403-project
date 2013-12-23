@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 
 
-public class SCOBOLGrammaticalException extends Exception {
+public class GrammaticalException extends Exception {
 
 	static String format_expected(LexicalUnit[] expected){
 		if(expected.length == 0) return "";
@@ -29,22 +29,22 @@ public class SCOBOLGrammaticalException extends Exception {
 		return out;
 	}
 
-	public SCOBOLGrammaticalException() { 
+	public GrammaticalException() { 
 		super(); 
 	}
-	public SCOBOLGrammaticalException(String message) { 
+	public GrammaticalException(String message) { 
 		super(message); 
 	}
-	public SCOBOLGrammaticalException(String message, Throwable cause) { 
+	public GrammaticalException(String message, Throwable cause) { 
 		super(message, cause); 
 	}
-	public SCOBOLGrammaticalException(Throwable cause) { 
+	public GrammaticalException(Throwable cause) { 
 		super(cause); 
 	}
-	public SCOBOLGrammaticalException(LexicalUnit expected, LexicalUnit received, String value, Integer line, Integer column){
+	public GrammaticalException(LexicalUnit expected, LexicalUnit received, String value, Integer line, Integer column){
 		super(String.format("stdin:%d:%d:expected %s received %s (%s)", line, column, expected, received, value));
 	}
-	public SCOBOLGrammaticalException(LexicalUnit[] expected, LexicalUnit received, String value, Integer line, Integer column){
+	public GrammaticalException(LexicalUnit[] expected, LexicalUnit received, String value, Integer line, Integer column){
 		super(String.format("stdin:%d:%d:expected %s received %s (%s)", line, column, format_expected(expected), received, value));
 	}
 

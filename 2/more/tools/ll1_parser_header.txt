@@ -1,56 +1,46 @@
 package cs.parser;
 
-
-import java.util.List;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
-
-
+import java.util.HashSet;
 
 import cs.lexer.*;
-import cs.parser.functAST.*;
-import cs.parser.exprAST.*;
-import cs.parser.declAST.*;
 
-public class Parser{
+import cs.parser.code.io.*;
+import cs.parser.code.comp.*;
+import cs.parser.code.call.*;
+import cs.parser.code.cast.*;
+import cs.parser.code.unary.*;
+import cs.parser.code.binary.*;
+import cs.parser.code.string.*;
+import cs.parser.code.memory.*;
+import cs.parser.code.system.*;
+import cs.parser.code.functional.*;
+import cs.parser.code.conditional.*;
 
-	protected Scanner cobolScanner;
-	protected Symbol<String> token;
-	protected boolean inBuffer = false;
-	
-	protected HashMap<String,VariableExprAST> variables = new HashMap<String,VariableExprAST>();
+import cs.parser.data.variable.*;
+import cs.parser.data.declaration.*;
 
+import cs.parser.ast.assign.*;
 
-	public Parser(Scanner cobolScanner){
-		this.cobolScanner = cobolScanner;
-	}
+import cs.parser.utils.*;
 
-	public void read() throws Exception{
-		if(this.inBuffer) this.inBuffer = false;
-		else this.token = cobolScanner.next_token();
-	}
+import cs.parser.error.*;
 
-	public void unread() throws Exception{
-		this.inBuffer = true;
-	}
+/**
+ *
+ * The S-COBOL parser.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
 
-	public void match(LexicalUnit unit) throws Exception{
-		if(!this.is_token_unit(unit)) this.handle_bad_token(unit);
-	}
+public class Parser extends ParserBase{
 
-	public boolean is_token_unit(LexicalUnit unit){
-		return this.token.unit.equals(unit);
-	}
-
-	public void handle_bad_token(LexicalUnit[] units) throws Exception{
-		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	public void handle_bad_token(LexicalUnit unit) throws Exception{
-		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	public Parser(Scanner scanner, SemanticalAnalyzer semanticalAnalyzer){
+		super(scanner, semanticalAnalyzer);
 	}
 
 	public void compile() throws Exception{

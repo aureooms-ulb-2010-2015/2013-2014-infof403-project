@@ -30,7 +30,7 @@ import cs.parser.error.*;
 
 /**
  *
- * The S-CCOBOL parser.
+ * The S-COBOL parser.
  *
  * @author  Chaste Gauvain
  * @author  Ooms Aurélien
@@ -38,7 +38,7 @@ import cs.parser.error.*;
  */
 
 
-public class Parser{
+public class Parser extends ParserBase{
 
 	// BEGIN OF PARSING AUTOMATON
 
@@ -58,8 +58,8 @@ public class Parser{
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
-				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
-				new Store(expr, getVariable(varName));
+				this.ensureDest(expr, new IntegerVariable(this.semanticalAnalyzer.getVariable(varName)));
+				new Store(expr, this.semanticalAnalyzer.getVariable(varName));
 				break;
 			}
 			case COMPUTE:{
@@ -76,8 +76,8 @@ public class Parser{
 
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
-				this.ensureDest(expr, new IntegerVariable(getVariable(varName)));
-				new Store(expr, getVariable(varName));
+				this.ensureDest(expr, new IntegerVariable(this.semanticalAnalyzer.getVariable(varName)));
+				new Store(expr, this.semanticalAnalyzer.getVariable(varName));
 				break;
 			}
 			case ADD:{
@@ -87,7 +87,7 @@ public class Parser{
 				this.match(LexicalUnit.TO);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-				VariableDecl decl = getVariable(token.getValue());
+				VariableDecl decl = this.semanticalAnalyzer.getVariable(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
@@ -110,7 +110,7 @@ public class Parser{
 				this.match(LexicalUnit.FROM);
 				this.read();
 				this.match(LexicalUnit.IDENTIFIER);
-				VariableDecl decl = getVariable(token.getValue());
+				VariableDecl decl = this.semanticalAnalyzer.getVariable(token.getValue());
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
 
@@ -177,7 +177,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 
-		return new AssignmentTail(left,right,this.getVariable(token.getValue()));
+		return new AssignmentTail(left,right,this.semanticalAnalyzer.getVariable(token.getValue()));
 	}
 	
 	private void handle_CALL() throws Exception{
@@ -186,7 +186,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 		String function = this.token.getValue();
-		this.useLabel(function);
+		this.semanticalAnalyzer.useLabel(function);
 		String[] labels = this.handle_CALL_TAIL();
 		if(labels != null){
 			new Label(labels[1]);
@@ -239,7 +239,7 @@ public class Parser{
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.handle_VAR_LIST();
 		System.out.println("");
-		this.checkVariables();
+		this.semanticalAnalyzer.checkVariables();
 	}
 	
 	private void handle_ENV() throws Exception{
@@ -539,9 +539,9 @@ public class Parser{
 			}
 			case IDENTIFIER:{
 				String var_0 = variableAllocator.getNext();
-				VariableDecl declared = this.getVariable(token.getValue());
+				VariableDecl declared = this.semanticalAnalyzer.getVariable(token.getValue());
 				IntegerVariable result = new IntegerVariable(declared.isSigned(),Integer.decode(declared.getLLVMSize()), var_0);
-				new Load(result, this.getVariable(token.getValue()));
+				new Load(result, this.semanticalAnalyzer.getVariable(token.getValue()));
 				return result;
 			}
 			case INTEGER:{
@@ -627,7 +627,7 @@ public class Parser{
 		this.match(LexicalUnit.DOT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		this.program_id = this.token.getValue();
+		this.semanticalAnalyzer.setProgramId(this.token.getValue());
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 		this.read();
@@ -759,7 +759,7 @@ public class Parser{
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
 		String function = this.token.getValue();
-		this.defLabel(function);
+		this.semanticalAnalyzer.defLabel(function);
 		new Function(function);
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -775,7 +775,7 @@ public class Parser{
 				variableAllocator.reset();
 				this.resetCurrentLabel();
 				String function = this.token.getValue();
-				this.defLabel(function);
+				this.semanticalAnalyzer.defLabel(function);
 				new Function(function);
 				this.read();
 				this.match(LexicalUnit.END_OF_INSTRUCTION);
@@ -812,8 +812,7 @@ public class Parser{
 		this.match(LexicalUnit.PROGRAM);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		if(!this.program_id.equals(this.token.getValue()))
-			throw new SCOBOLSemanticalException("error: program id does not match");
+		this.semanticalAnalyzer.matchProgramId(this.token.getValue());
 		this.read();
 		this.match(LexicalUnit.DOT);
 	}
@@ -830,7 +829,7 @@ public class Parser{
 		this.match(LexicalUnit.ACCEPT);
 		this.read();
 		this.match(LexicalUnit.IDENTIFIER);
-		new Accept(new IntegerVariable(this.getVariable(this.token.getValue())));
+		new Accept(new IntegerVariable(this.semanticalAnalyzer.getVariable(this.token.getValue())));
 		this.read();
 		this.match(LexicalUnit.END_OF_INSTRUCTION);
 	}
@@ -864,7 +863,7 @@ public class Parser{
 
 		this.handle_VAR_DECL_TAIL(newVariable);
 		newVariable.genCode();
-		this.variables.put(variableName,newVariable);
+		this.semanticalAnalyzer.declareVariable(variableName, newVariable);
 
 	}
 
@@ -960,52 +959,22 @@ public class Parser{
 
 	// END OF PARSING AUTOMATON
 
-	private Scanner cobolScanner;
-	
-	private String program_id;
-	private StringPool stringPool = new StringPool();
 
-	private Symbol<String> token;
-	private boolean inBuffer = false;
+	private StringPool stringPool = new StringPool();
 	private VariableAllocator variableAllocator = new VariableAllocator();
-	
-	private Map<String,VariableDecl> variables = new HashMap<String,VariableDecl>();
-	private Set<String> labelsUse = new HashSet<String>();
-	private Set<String> labelsDef = new HashSet<String>();
 
 	private String currentLabel = "%0";
 
 
 
-	public Parser(Scanner cobolScanner){
-		this.cobolScanner = cobolScanner;
-	}
-
-	private void read() throws Exception{
-		if(this.inBuffer) this.inBuffer = false;
-		else this.token = cobolScanner.next_token();
-	}
-
-	private void unread() throws Exception{
-		this.inBuffer = true;
-	}
-
-	private void match(LexicalUnit unit) throws Exception{
-		if(!this.token.unit.equals(unit)) this.handle_bad_token(unit);
-	}
-
-	private void handle_bad_token(LexicalUnit[] units) throws Exception{
-		throw new SCOBOLGrammaticalException(units, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
-	}
-
-	private void handle_bad_token(LexicalUnit unit) throws Exception{
-		throw new SCOBOLGrammaticalException(unit, this.token.unit, this.token.getValue(), (Integer) this.token.get(Symbol.LINE), (Integer) this.token.get(Symbol.COLUMN));
+	public Parser(Scanner scanner, SemanticalAnalyzer semanticalAnalyzer){
+		super(scanner, semanticalAnalyzer);
 	}
 
 	public void compile() throws Exception{
 		this.handle_S();
-		this.checkLabels();
-		stringPool.genCode();
+		this.semanticalAnalyzer.checkLabels();
+		this.stringPool.genCode();
 		Display.genLibCode();
 		Accept.genLibCode();
 		Exit.genLibCode();
@@ -1039,45 +1008,6 @@ public class Parser{
 
 	private void resetCurrentLabel(){
 		this.currentLabel = "%0";
-	}
-
-	private VariableDecl getVariable(String name) throws Exception{
-		if(this.variables.containsKey(name)) return this.variables.get(name);
-		else throw new SCOBOLSemanticalException("error: no such variable '" + name + "'");
-	}
-
-	private void checkVariables() throws Exception{
-		for(Map.Entry<String, VariableDecl> entry : variables.entrySet()){
-			VariableDecl decl = entry.getValue();
-			if(decl.isAssigned()){
-				long value = Long.decode(decl.getValue());
-				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
-					throw new SCOBOLSemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
-				}
-			}
-		}
-	}
-
-	private void defLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		if(this.labelsDef.contains(name)) throw new SCOBOLSemanticalException("error: '" + name + "' label already defined");
-		else this.labelsDef.add(name);
-	}
-
-	private void useLabel(String name) throws Exception{
-		if(this.variables.containsKey(name)) throw new SCOBOLSemanticalException("error: '" + name + "' is a variable");
-		else if(!this.labelsUse.contains(name)) labelsUse.add(name);
-	}
-
-	private void checkLabels() throws Exception{
-		for(String label : labelsDef){
-			if(!this.labelsUse.contains(label) && !label.equals("start")) throw new SCOBOLSemanticalException("error: '" + label + "' label is not used");
-		}
-		for(String label : labelsUse){
-			if(!this.labelsDef.contains(label)) throw new SCOBOLSemanticalException("error: '" + label + "' label is not defined");
-		}
-
-		if(!labelsDef.contains("start")) throw new SCOBOLSemanticalException("error: 'start' label is not defined");
 	}
 	
 }

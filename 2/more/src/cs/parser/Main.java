@@ -16,10 +16,11 @@ import cs.lexer.*;
 
 public class Main{
 	public static void main(String args[])throws Exception{
-		Scanner cobolScanner = new Scanner(System.in);
-		Parser cobolParser = new Parser(cobolScanner);
+		Scanner scanner = new Scanner(System.in);
+		SemanticalAnalyzer semanticalAnalyzer = new SemanticalAnalyzer();
+		Parser parser = new Parser(scanner, semanticalAnalyzer);
 		try{
-			cobolParser.compile();
+			parser.compile();
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
