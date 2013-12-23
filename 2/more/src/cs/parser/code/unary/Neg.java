@@ -23,6 +23,6 @@ public class Neg{
 	}
 
 	public void genCode(){
-		System.out.printf("%s = sub %s 0, %s\n", this.var_0.getName(), this.var_0.getType(), this.var_1);
+		System.out.printf("%s = sub nsw %s 0, %s\n", this.var_0.getName(), this.var_0.getType(), this.var_1);
 	}
 }

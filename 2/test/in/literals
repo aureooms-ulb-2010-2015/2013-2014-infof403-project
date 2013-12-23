@@ -1,0 +1,23 @@
+
+identification division.
+	program-id. literals.
+	author. dfdfd df ddf df .
+	date-written. dfdffd fd df.
+environment division.
+	configuration section.
+	source-computer. ddfffffffffffff.
+	object-computer. LLfffffffffffffffffffVM.
+data division.
+	working-storage section.
+procedure division.
+	main section.
+	start.
+		display 3 + (5 * 90) / -30 * -(2) + (8 - 1000 + 1) + 1000.
+		display ''.
+		display 3 + (5 * 90) / -30 * -(2) + 8 - 1000 + (1) - -1000.
+		display ''.
+		display 3 + 5 * 90 / -30 * (-2) + (8 - 1000) + (1) - ---1000.
+		display ''.
+		stop run.
+
+end program literals.
