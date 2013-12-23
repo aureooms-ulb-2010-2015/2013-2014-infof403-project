@@ -6,9 +6,11 @@ doc:
 	report.pdf : PDF report
 
 test:
-	in      : input example files
-	out     : expected output for the file examples
-	run     : test script
+	in       : input example files
+	tmp      : LLVM IR code for example files (generated with dist/scc.jar)
+	out      : LLVM bytecode for example files (generated with llvm-as)
+	run      : test script
+	Makefile : the Makefile
 
 dist:
 	scc.jar : S-COBOL compiler program
@@ -17,6 +19,7 @@ more:
 	MANIFEST.MF : manifest for the program
 	src         : source code of the program
 
+scc      : run script for dist/scc.jar
 README   : this file
 Makefile : the Makefile
 
@@ -25,21 +28,11 @@ Makefile : the Makefile
 # USAGE
 
 
-clean it   : make clean
-compile it : make
-doc it     : make doc
-test it    : python3 test/run
-run it     : java -jar dist/scc.jar [<filename>]
+clean it      : make clean
+compile it    : make
+doc it        : make doc
+prepare tests : cd test && make
+test it       : python3 test/run
+run it        : java -jar dist/scc.jar [<filename>]
 
-# interestiong sources:
-
-building AST classes: http://llvm.org/docs/tutorial/LangImpl2.html
-code generation from AST classes: http://llvm.org/docs/tutorial/LangImpl3.html 
-
-guidelines on LLVM IR syntax : https://gustavus.edu/+max/courses/S2009/MCS-388/
-
-type size in LLVM: http://llvm.org/docs/LangRef.html#integer-type 
-does an i32 in llvm is signed?
-
-image size in cobol : http://www.3480-3590-data-conversion.com/article-packed-fields.html
 
