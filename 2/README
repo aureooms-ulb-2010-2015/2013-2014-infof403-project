@@ -17,6 +17,8 @@ dist:
 more:
 	MANIFEST.MF : manifest for the program
 	src         : source code of the program
+	tools       : contains tools to generate the parser skeleton, first, follows, etc.
+
 
 scc      : run script for dist/scc.jar
 README   : this file
