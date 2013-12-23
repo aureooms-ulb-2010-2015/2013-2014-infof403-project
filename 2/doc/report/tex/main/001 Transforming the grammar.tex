@@ -26,14 +26,23 @@ $$A -> \alpha A'$$
 $$A' -> \beta_{1} | ... | \beta_{n}$$
 
 For top-down parsers, rules must be left-factored.
-It's for this reason that we modified the productions rules for
-\verb!<CALL>!, \verb!<VAR_DECL>! and \verb!<WRITE>!.
+It's for this reason that we modified the productions rules for:
+\begin{itemize}
+	\item \verb!<CALL>!
+	\item \verb!<VAR_DECL>!
+	\item \verb!<WRITE>!
+\end{itemize}
 
 
 \subsubsection{Checking end of Program}
 
 To be able to spot the end of the program we added a simple rule :
-\verb!<S> -> <PROGRAM> EOF!
+
+\begin{center}
+\begin{BVerbatim}[commandchars=\\\{\}]
+<S> -> <PROGRAM> EOF
+\end{BVerbatim}
+\end{center}
 
 \subsubsection{Note}
 

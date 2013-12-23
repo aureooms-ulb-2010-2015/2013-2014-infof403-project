@@ -15,7 +15,7 @@ The production rules that have been modified from the original grammar are shown
 \textcolor{black}{[ 4]                     -> MULTIPLY <ASSIGN_TAIL> END_OF_INSTRUCTION}
 \textcolor{black}{[ 5]                     -> DIVIDE <ASSIGN_TAIL> END_OF_INSTRUCTION}
 \textcolor{black}{[ 6]       <ASSIGN_TAIL> -> <EXPRESSION> COMMA <EXPRESSION> GIVING IDENTIFIER}
-\textcolor{black}{[ 7]              <CALL> -> PERFORM IDENTIFIER <CALL_TAIL>}
+\textcolor{red}{[ 7]              <CALL> -> PERFORM IDENTIFIER <CALL_TAIL>}
 \textcolor{black}{[ 8]         <CALL_TAIL> -> UNTIL <EXPRESSION> END_OF_INSTRUCTION}
 \textcolor{black}{[ 9]                     -> END_OF_INSTRUCTION}
 \textcolor{black}{[10]              <DATA> -> DATA DIVISION END_OF_INSTRUCTION WORKING_STORAGE SECTION}
@@ -65,23 +65,23 @@ The production rules that have been modified from the original grammar are shown
 \textcolor{black}{[49]                     -> STOP RUN END_OF_INSTRUCTION}
 \textcolor{black}{[50]  <INSTRUCTION_LIST> -> <INSTRUCTION> <INSTRUCTION_LIST>}
 \textcolor{black}{[51]                     -> ε}
-\textcolor{black}{[52]            <LABELS> -> IDENTIFIER END_OF_INSTRUCTION <INSTRUCTION_LIST> <LABELS_TAIL>}
-\textcolor{black}{[53]       <LABELS_TAIL> -> IDENTIFIER END_OF_INSTRUCTION <INSTRUCTION_LIST> <LABELS_TAIL>}
-\textcolor{black}{[54]                     -> ε}
+\textcolor{red}{[52]            <LABELS> -> IDENTIFIER END_OF_INSTRUCTION <INSTRUCTION_LIST> <LABELS_TAIL>}
+\textcolor{red}{[53]       <LABELS_TAIL> -> IDENTIFIER END_OF_INSTRUCTION <INSTRUCTION_LIST> <LABELS_TAIL>}
+\textcolor{red}{[54]                     -> ε}
 \textcolor{black}{[55]              <PROC> -> PROCEDURE DIVISION END_OF_INSTRUCTION IDENTIFIER SECTION}
                             \textcolor{black}{END_OF_INSTRUCTION <LABELS> END PROGRAM IDENTIFIER DOT}
 \textcolor{black}{[56]           <PROGRAM> -> <IDENT> <ENV> <DATA> <PROC>}
 \textcolor{black}{[57]              <READ> -> ACCEPT IDENTIFIER END_OF_INSTRUCTION}
 \textcolor{red}{[58]                 <S> -> <PROGRAM> EOF}
-\textcolor{black}{[59]          <VAR_DECL> -> INTEGER IDENTIFIER PIC IMAGE <VAR_DECL_TAIL>}
-\textcolor{black}{[60]     <VAR_DECL_TAIL> -> END_OF_INSTRUCTION}
-\textcolor{black}{[61]                     -> VALUE INTEGER END_OF_INSTRUCTION}
+\textcolor{red}{[59]          <VAR_DECL> -> INTEGER IDENTIFIER PIC IMAGE <VAR_DECL_TAIL>}
+\textcolor{red}{[60]     <VAR_DECL_TAIL> -> END_OF_INSTRUCTION}
+\textcolor{red}{[61]                     -> VALUE INTEGER END_OF_INSTRUCTION}
 \textcolor{black}{[62]          <VAR_LIST> -> <VAR_DECL> <VAR_LIST>}
 \textcolor{black}{[63]                     -> ε}
 \textcolor{red}{[64]             <WORDS> -> IDENTIFIER <WORDS>}
 \textcolor{black}{[65]                     -> ε}
-\textcolor{black}{[66]             <WRITE> -> DISPLAY <WRITE_TAIL>}
-\textcolor{black}{[67]        <WRITE_TAIL> -> <EXPRESSION> END_OF_INSTRUCTION}
-\textcolor{black}{[68]                     -> STRING END_OF_INSTRUCTION}
+\textcolor{red}{[66]             <WRITE> -> DISPLAY <WRITE_TAIL>}
+\textcolor{red}{[67]        <WRITE_TAIL> -> <EXPRESSION> END_OF_INSTRUCTION}
+\textcolor{red}{[68]                     -> STRING END_OF_INSTRUCTION}
 \end{Verbatim}
 \endgroup
