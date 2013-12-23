@@ -2,14 +2,19 @@
 \section{Work on the Grammar}
 
 
-\subsection{Making it $LL(1)$}
-In order to make a grammar $LL(1)$ we had to apply some modifications on it. We had to remove left recursion, left-factor rules, remove unit productions.
+\subsection{Making it \emph{LL(1)}}
+In order to make a grammar \emph{LL(1)} we had to apply some modifications on it. We had to remove left recursion, left-factor rules, remove unit productions.
 
 \subsubsection{Left recursion}
 
 Top-down parsing is impossible on a left-recursive grammar. To solve this issue we replaced every left recursive rule by a right-recursive one.
 
-the following rules have transformed into right-recursive: $LABELS$, $WORDS$, $EXPRESSION$.
+The following rules have transformed into right-recursive:
+\begin{itemize}
+	\item \verb!<LABELS>!
+	\item \verb!<WORDS>!
+	\item \verb!<EXPRESSION>!
+\end{itemize}
 
 
 \subsubsection{Left-factoring rules}
@@ -22,21 +27,21 @@ $$A' -> \beta_{1} | ... | \beta_{n}$$
 
 For top-down parsers, rules must be left-factored.
 It's for this reason that we modified the productions rules for
-$CALL$, $VAR_DECL$, $WRITE$.
+\verb!<CALL>!, \verb!<VAR_DECL>! and \verb!<WRITE>!.
 
 
 \subsubsection{Checking end of Program}
 
-To be able to spot the en of the program we added a simple rule :
-$$<S> -> <PROGRAM> EOF$$
+To be able to spot the end of the program we added a simple rule :
+\verb!<S> -> <PROGRAM> EOF!
 
 \subsubsection{Note}
 
-As $LABEL$ and $END\_INST$ both resolve to a single terminal, we chose to remove them from the grammar and replace their occurences in the other rules by the only terminal they represent.
+As \verb!<LABEL>! and \verb!<END_INST>! both resolve to a single terminal, we chose to remove them from the grammar and replace their occurences in the other rules by the only terminal they represent.
 
 \subsubsection{Respect priority and associativity of operators}
 
-The priority of operators must be defined by the grammar. We have divided the $EXPRESSION$ rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the lef to the root we are sure priority of operators is respected.  
+The priority of operators must be defined by the grammar. We have divided the \verb!<EXPRESSION>! rule in different level \ref{expression}. This way an expression can be seen like a tree. The highest is the priority of an operator, the deepest it will be in the expression.\\ As the code is generated from the lef to the root we are sure priority of operators is respected.  
 
 
 
@@ -46,5 +51,5 @@ See \ref{app:grammar} for the resulting grammar.
 
 \subsection{First, Follows, Action table}
 
-We wrote python scripts implementing algorithms seen in class to generate the $first$, $follow$ sets and the $action table$. See \ref{app:firsts and follows} and \ref{app:action table}.
+We wrote python scripts implementing algorithms seen in class to generate the \emph{first}, \emph{follow} sets and the \emph{action table}. See \ref{app:firsts and follows} and \ref{app:action table}.
 

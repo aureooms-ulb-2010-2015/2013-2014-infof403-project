@@ -1,12 +1,11 @@
 \section{Casting temporary variables}
 
-In LLVM, arithmetic operations cannot operate on variables of different size. At each new variable created or computaion a cast is necessary to make sure both operand of the expression have the same size. This is done using 
-$$this.ensureDest(var_1, var_2 );$$
+In LLVM, arithmetic operations cannot operate on variables of different size. At each new variable created or computaion a cast is necessary to make sure both operand of the expression have the same size. This is done using \verb!this.ensureDest(var_1, dest);! and \verb!this.ensureSize(var_1, var_2);!
 
 \subsection{Example}
-See the code generating an LLVM IR assignation from the $ADD$ SCOBOL keyword \ref{add}, and the assignation class \ref{assign}.
+See the code generating an LLVM IR assignation from the \verb!ADD! SCOBOL keyword \ref{add}, and the assignation class \ref{assign}.
 
 
 
-\myinputminted[firstline=3, lastline=28, linenos=false]{java}{code/code_gen.java}{Code generation for the $ADD$ SCOBOL keyword}{add}{2}
+\myinputminted[firstline=3, lastline=28, linenos=false]{java}{code/code_gen.java}{Code generation for the \texttt{ADD} SCOBOL keyword}{add}{2}
 \myinputminted[firstline=1, lastline=15, linenos=false]{java}{code/assign.java}{Assign}{assign}{0}

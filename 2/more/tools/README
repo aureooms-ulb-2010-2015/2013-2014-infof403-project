@@ -1,4 +1,19 @@
+# CONTENT
+
+
+c                             : c example files
+ctollvm                       : sh script to generate LLVM IR from c code
+ll1_action_table.py           : python3 script to generate the action table
+ll1_grammar.json              : SCOBOL grammar in JSON
+ll1_grammar_pretty_printer.py : python3 script to print the grammar
+ll1_parser_generator.py       : python3 script to generate the parser code
+ll1_parser_header.txt         : head of the parser
+ll1.py                        : python3 module containing a class to handle ll1 grammars
+
+
+
 # USAGE
+
 
 PARSER
 	python3 ll1_parser_generator.py ll1_grammar.json ll1_parser_header.txt
