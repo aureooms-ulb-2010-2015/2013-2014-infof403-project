@@ -1,6 +1,14 @@
 package cs.parser.data.declaration;
 
 
+/**
+ *
+ * Base struct for variables declaration.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
 
 public abstract class VariableDecl<T> {
 	protected T val;

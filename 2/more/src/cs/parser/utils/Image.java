@@ -2,6 +2,16 @@ package cs.parser.utils;
 
 import cs.parser.data.declaration.*;
 
+
+/**
+ *
+ * Utility tool for image parsing.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Image{
 
 	public static VariableDecl parse(String image){

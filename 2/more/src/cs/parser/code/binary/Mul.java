@@ -2,6 +2,16 @@ package cs.parser.code.binary;
 
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator for the '*' binary operator.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Mul extends Op{
 
 	public Mul(IntegerVariable var_0, IntegerVariable var_1, IntegerVariable var_2){

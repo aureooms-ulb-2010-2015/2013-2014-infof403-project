@@ -2,6 +2,16 @@ package cs.parser.code.unary;
 
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator for the '-' unary operator.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Neg{
 	private IntegerVariable var_0;
 	private String var_1;

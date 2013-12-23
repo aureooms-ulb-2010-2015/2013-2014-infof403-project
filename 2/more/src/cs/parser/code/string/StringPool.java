@@ -3,6 +3,15 @@ package cs.parser.code.string;
 import java.util.*;
 import cs.parser.data.variable.*;
 
+/**
+ *
+ * Code generator for string constants.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class StringPool{
 
 	private static String VAR_NAME_PREFIX = "@.str";

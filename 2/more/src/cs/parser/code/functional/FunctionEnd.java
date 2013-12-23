@@ -1,6 +1,15 @@
 package cs.parser.code.functional;
 
 
+/**
+ *
+ * Code generator for functions return value.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class FunctionEnd{
 	
 	private String name;

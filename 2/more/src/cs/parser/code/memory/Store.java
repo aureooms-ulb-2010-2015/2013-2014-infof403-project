@@ -3,6 +3,16 @@ package cs.parser.code.memory;
 import cs.parser.data.variable.*;
 import cs.parser.data.declaration.*;
 
+
+/**
+ *
+ * Code generator for global variable store operation.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Store {
 
 	protected IntegerVariable from;

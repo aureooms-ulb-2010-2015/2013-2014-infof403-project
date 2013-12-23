@@ -3,6 +3,16 @@ package cs.parser.code.comp;
 import cs.parser.data.variable.*;
 import cs.parser.data.declaration.*;
 
+
+/**
+ *
+ * Code generator for '<, <=, >, >=, =' comparison operators.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Comp {
 
 	public enum Op{

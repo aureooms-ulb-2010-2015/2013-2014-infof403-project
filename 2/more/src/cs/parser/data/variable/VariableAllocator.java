@@ -1,5 +1,15 @@
 package cs.parser.data.variable;
 
+
+/**
+ *
+ * Simple allocator for temporary variables.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class VariableAllocator{
 	
 	private int next = -1;

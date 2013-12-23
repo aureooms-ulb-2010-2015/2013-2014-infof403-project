@@ -1,5 +1,15 @@
 package cs.parser.code.system;
 
+
+/**
+ *
+ * Code generator for the 'stop run' call.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Exit{
 
 	public Exit(){

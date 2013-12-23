@@ -2,6 +2,16 @@ package cs.parser.code.unary;
 
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator for the 'not' unary operator.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Not{
 	private String var_0;
 	private IntegerVariable var_1;

@@ -3,6 +3,16 @@ package cs.parser.code.io;
 import java.util.*;
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator for accept calls.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Accept{
 
 	private static Map<String, Integer> required = new HashMap<String, Integer>();

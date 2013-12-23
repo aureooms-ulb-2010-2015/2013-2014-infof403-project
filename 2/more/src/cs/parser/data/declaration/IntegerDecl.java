@@ -1,9 +1,18 @@
 package cs.parser.data.declaration;
 
+
+/**
+ *
+ * Struct for integer variables declaration.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
+
 public class IntegerDecl extends VariableDecl<Long>{
 	
-
-
 	public IntegerDecl(){
 		super();
 	}

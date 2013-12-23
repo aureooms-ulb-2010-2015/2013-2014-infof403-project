@@ -2,6 +2,16 @@ package cs.parser.code.cast;
 
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator for truncation casts.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Trunc{
 	private IntegerVariable var_0;
 	private IntegerVariable var_1;
@@ -16,5 +26,3 @@ public class Trunc{
 		System.out.printf("%s = trunc %s %s to %s\n", this.var_0.getName(), this.var_1.getType(), this.var_1.getName(), this.var_0.getType());
 	}
 }
-
- //%6 = trunc i64 %5 to i32

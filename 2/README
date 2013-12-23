@@ -9,7 +9,6 @@ test:
 	in       : input example files
 	tmp      : LLVM IR code for example files (generated with dist/scc.jar)
 	out      : LLVM bytecode for example files (generated with llvm-as)
-	run      : test script
 	Makefile : the Makefile
 
 dist:
@@ -32,7 +31,6 @@ clean it      : make clean
 compile it    : make
 doc it        : make doc
 prepare tests : cd test && make
-test it       : python3 test/run
 run it        : java -jar dist/scc.jar [<filename>]
 
 

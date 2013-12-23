@@ -3,6 +3,15 @@ package cs.parser.ast.assign;
 import cs.parser.data.variable.*;
 import cs.parser.data.declaration.*;
 
+/**
+ *
+ * AST struct for multiply and divide assignment operations.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class AssignmentTail {
 
 

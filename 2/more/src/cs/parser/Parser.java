@@ -28,8 +28,17 @@ import cs.parser.utils.*;
 
 import cs.parser.error.*;
 
-public class Parser{
+/**
+ *
+ * The S-CCOBOL parser.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
 
+
+public class Parser{
 
 	private void handle_ASSIGNATION() throws Exception{
 		this.read();

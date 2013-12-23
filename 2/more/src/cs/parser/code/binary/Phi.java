@@ -3,6 +3,16 @@ package cs.parser.code.binary;
 import cs.parser.data.variable.*;
 import cs.parser.code.conditional.*;
 
+
+/**
+ *
+ * Code generator base for 'and, or' binary operators.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Phi{
 	private String var_0;
 	private String var_1;

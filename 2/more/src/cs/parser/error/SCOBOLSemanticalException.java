@@ -1,5 +1,15 @@
 package cs.parser.error;
 
+
+/**
+ *
+ * Struct for semantical exceptions.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class SCOBOLSemanticalException extends Exception {
 
 	public SCOBOLSemanticalException() { 

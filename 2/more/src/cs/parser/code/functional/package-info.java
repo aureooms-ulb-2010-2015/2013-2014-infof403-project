@@ -1,4 +1,4 @@
 /**
- * Provides code generation for function definitions.
+ * Provides code generation for function blocks.
  */
 package cs.parser.code.functional;

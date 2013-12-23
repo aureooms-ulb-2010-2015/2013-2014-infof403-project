@@ -4,6 +4,16 @@ import cs.lexer.*;
 
 import java.util.Arrays;
 
+/**
+ *
+ * Struct for grammatical exceptions.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
+
 public class SCOBOLGrammaticalException extends Exception {
 
 	static String format_expected(LexicalUnit[] expected){

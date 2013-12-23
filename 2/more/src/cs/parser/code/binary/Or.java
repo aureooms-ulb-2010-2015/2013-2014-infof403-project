@@ -3,6 +3,16 @@ package cs.parser.code.binary;
 import cs.parser.data.variable.*;
 import cs.parser.code.conditional.*;
 
+
+/**
+ *
+ * Code generator for the 'or' binary operator.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Or extends Phi{
 
 	public Or(String var_0, String var_1, String var_2, String label_0, String label_1, String label_2){

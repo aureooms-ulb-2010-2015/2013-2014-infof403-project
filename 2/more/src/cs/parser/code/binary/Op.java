@@ -2,6 +2,16 @@ package cs.parser.code.binary;
 
 import cs.parser.data.variable.*;
 
+
+/**
+ *
+ * Code generator base for '+, *, /, -' binary operators.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Op{
 	private IntegerVariable var_0;
 	private IntegerVariable var_1;

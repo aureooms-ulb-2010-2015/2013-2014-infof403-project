@@ -2,6 +2,16 @@ package cs.parser.data.variable;
 
 import cs.parser.data.declaration.*;
 
+
+/**
+ *
+ * Struct for integer variables.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class IntegerVariable implements Variable{
 
 	private static final String TYPE_PREFIX = "i";

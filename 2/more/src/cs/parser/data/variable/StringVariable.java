@@ -1,5 +1,15 @@
 package cs.parser.data.variable;
 
+
+/**
+ *
+ * Struct for string variables.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class StringVariable implements Variable{
 
 	public static final String TYPE = "string";

@@ -1,6 +1,15 @@
 package cs.parser.code.functional;
 
 
+/**
+ *
+ * Code generator for functions definition.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Function{
 
 	public static String MAIN = "start";

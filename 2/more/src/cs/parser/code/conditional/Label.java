@@ -1,5 +1,15 @@
 package cs.parser.code.conditional;
 
+
+/**
+ *
+ * Code generator for jump labels.
+ *
+ * @author  Chaste Gauvain
+ * @author  Ooms Aurélien
+ *
+ */
+
 public class Label{
 	private String label;
 	
