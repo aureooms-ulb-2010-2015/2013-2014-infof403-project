@@ -41,7 +41,9 @@ public class SemanticalAnalyzer{
 			VariableDecl decl = entry.getValue();
 			if(decl.isAssigned()){
 				long value = Long.decode(decl.getValue());
-				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()))){
+				int signed = decl.isSigned() ? 1 : 0;
+				if(value > 0) value = -value;
+				if(value >= Math.pow(2, Integer.decode(decl.getLLVMSize()) - signed)){
 					throw new SemanticalException("error: literal " + decl.getValue() + " cannot fit in '" + decl.getName() + "' (" + decl.getLLVMType() + ")");
 				}
 			}
