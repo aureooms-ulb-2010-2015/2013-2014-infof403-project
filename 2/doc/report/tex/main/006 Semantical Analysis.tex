@@ -1,15 +1,14 @@
-\newpage\cleardoublepage\phantomsection
 \section{Semantical Analysis}
 
-Our parser implements a simple semantical analysis. If a semantical error occurs an explicit $SemanticalException$ is thrown explaining the error. Here is the list of the errors our parser recognises.
+Our parser implements a simple semantical analysis. If a semantical error occurs an explicit \emph{SemanticalException} is thrown explaining the error. Here is the list of the errors our parser recognises.
 
 \begin{itemize}
 
 \item Usage of variables: when a variable is used, in an arithmetic expression or assignation, the analyser checks first if this variable exists.
-\item Variable sizes: for every variable assignation the size of the variable is checked to match its new content.
+\item Variable sizes: for variable declarations the size of the variable is checked to match its new content.
+\item Variable names: we don't let the user define several variables with the same name.
 \item Labels names: we don't let the user define several labels with the same name or with a name already used for a variable.
 \item Program ID: the semantical analyser verifies that the program ID's at the beginning and the end of the SCOBOL program match.
-
 
 \end {itemize}
 

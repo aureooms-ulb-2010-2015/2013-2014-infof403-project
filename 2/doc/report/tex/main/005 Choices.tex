@@ -1,4 +1,3 @@
-\newpage\cleardoublepage\phantomsection
 \section{Choices}
 
 Here are described some choices we made for our implementation.
@@ -11,15 +10,15 @@ Temporary variables representing SCOBOL literals are created in LLVM IR as signe
 
 \subsection{Labels treated as functions}
 
-In SCOBOL labels can be used. Since we will only consider the main section we chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. Keyword \verb!stop! is then considered as \verb!exit(0)!.
+In SCOBOL labels can be used. Since we will only consider the main section we chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. The \verb!stop run.! instruction is then considered as \verb!exit(0)!.
 
 \subsection{Lazy evaluation}
 
-Composed boolean expressions (with \verb!or! and/or \verb!and!) parts are evaluated only if necessary. This choice makes the execution of the code much faster and allows end users to write composed boolean expressions like in C or \CXX.
+Composed boolean expressions (with \verb!or! and/or \verb!and!) parts are evaluated only if necessary. This choice makes the execution of the code much faster and allows end users to write composed boolean expressions behaving like if they were written in C or \CXX.
 
-\subsection{byte integers}
+\subsection{Multibytes sized integers}
 
-To reduce RAM fragmentation we chose to code LLVM IR integers on a size multiple of 8.
+This is just an arbitrary choice, we could easily modify the code to handle multibits sized integers.
 
 
 
