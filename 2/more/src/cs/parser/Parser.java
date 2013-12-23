@@ -526,7 +526,8 @@ public class Parser extends ParserBase{
 			case NOT:{
 				String var_0 = variableAllocator.getNext();
 				IntegerVariable expr = this.handle_EXPRESSION();
-				IntegerVariable result = new IntegerVariable(expr.isSigned(), expr.getSize(), var_0);
+				IntegerVariable result = new IntegerVariable(false, 1, var_0);
+				this.ensureDest(expr, result);
 				new Not(result.getName(), expr);
 				return result;
 			}
