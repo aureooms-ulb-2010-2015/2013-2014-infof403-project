@@ -301,27 +301,18 @@ public class Parser extends ParserBase{
 				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_1_TAIL(new IntegerVariable(false, 1, var_2));
 			}
-			case RIGHT_PARENTHESIS:
-			case LOWER_OR_EQUALS:
 			case THEN:
-			case ASTERISK:
-			case GIVING:
-			case OR:
-			case EQUALS_SIGN:
-			case MINUS_SIGN:
-			case LOWER_THAN:
-			case END_OF_INSTRUCTION:
-			case SLASH:
-			case TO:
-			case GREATER_THAN:
-			case PLUS_SIGN:
-			case COMMA:
-			case GREATER_OR_EQUALS:
 			case FROM:
+			case GIVING:
+			case TO:
+			case END_OF_INSTRUCTION:
+			case COMMA:
+			case RIGHT_PARENTHESIS:
+			case OR:
 				this.unread();
 				return left;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.AND, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.AND, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.OR});
 				break;
 
 		}
@@ -378,23 +369,19 @@ public class Parser extends ParserBase{
 				IntegerVariable result = new IntegerVariable(false,1,var_0);
 				return this.handle_EXPRESSION_2_TAIL(result);
 			}
-			case RIGHT_PARENTHESIS:
-			case THEN:
-			case ASTERISK:
-			case GIVING:
-			case OR:
-			case MINUS_SIGN:
-			case END_OF_INSTRUCTION:
-			case SLASH:
-			case TO:
-			case PLUS_SIGN:
-			case COMMA:
-			case FROM:
 			case AND:
+			case THEN:
+			case FROM:
+			case GIVING:
+			case TO:
+			case END_OF_INSTRUCTION:
+			case COMMA:
+			case RIGHT_PARENTHESIS:
+			case OR:
 				this.unread();
 				return left;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.MINUS_SIGN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.FROM, LexicalUnit.AND});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.EQUALS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.GREATER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.AND, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.OR});
 				break;
 
 		}
@@ -430,26 +417,24 @@ public class Parser extends ParserBase{
 				new Sub(result, left, right);
 				return this.handle_EXPRESSION_3_TAIL(result);
 			}
-			case RIGHT_PARENTHESIS:
-			case LOWER_OR_EQUALS:
-			case THEN:
-			case ASTERISK:
-			case GIVING:
-			case OR:
-			case LOWER_THAN:
-			case END_OF_INSTRUCTION:
-			case SLASH:
-			case TO:
-			case FROM:
-			case GREATER_THAN:
-			case COMMA:
-			case GREATER_OR_EQUALS:
-			case EQUALS_SIGN:
 			case AND:
+			case THEN:
+			case FROM:
+			case GREATER_OR_EQUALS:
+			case GIVING:
+			case LOWER_THAN:
+			case LOWER_OR_EQUALS:
+			case TO:
+			case END_OF_INSTRUCTION:
+			case COMMA:
+			case EQUALS_SIGN:
+			case GREATER_THAN:
+			case RIGHT_PARENTHESIS:
+			case OR:
 				this.unread();
 				return left;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.FROM, LexicalUnit.GREATER_THAN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.EQUALS_SIGN, LexicalUnit.AND});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.PLUS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.AND, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.GIVING, LexicalUnit.LOWER_THAN, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA, LexicalUnit.EQUALS_SIGN, LexicalUnit.GREATER_THAN, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.OR});
 				break;
 
 		}
@@ -487,26 +472,26 @@ public class Parser extends ParserBase{
 				
 				return this.handle_EXPRESSION_4_TAIL(result);
 			}
-			case RIGHT_PARENTHESIS:
-			case LOWER_OR_EQUALS:
 			case THEN:
-			case GIVING:
-			case OR:
-			case END_OF_INSTRUCTION:
 			case EQUALS_SIGN:
-			case MINUS_SIGN:
-			case LOWER_THAN:
-			case TO:
-			case GREATER_THAN:
-			case PLUS_SIGN:
-			case COMMA:
 			case GREATER_OR_EQUALS:
-			case FROM:
+			case LOWER_THAN:
+			case END_OF_INSTRUCTION:
+			case GREATER_THAN:
+			case RIGHT_PARENTHESIS:
+			case PLUS_SIGN:
 			case AND:
+			case FROM:
+			case GIVING:
+			case LOWER_OR_EQUALS:
+			case TO:
+			case COMMA:
+			case MINUS_SIGN:
+			case OR:
 				this.unread();
 				return left;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.GIVING, LexicalUnit.OR, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM, LexicalUnit.AND});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.ASTERISK, LexicalUnit.SLASH, LexicalUnit.THEN, LexicalUnit.EQUALS_SIGN, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.GREATER_THAN, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.PLUS_SIGN, LexicalUnit.AND, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.TO, LexicalUnit.COMMA, LexicalUnit.MINUS_SIGN, LexicalUnit.OR});
 				break;
 
 		}
@@ -588,27 +573,17 @@ public class Parser extends ParserBase{
 				this.currentLabel = label_2;
 				return this.handle_EXPRESSION_TAIL(new IntegerVariable(false, 1, var_2));
 			}
-			case RIGHT_PARENTHESIS:
-			case LOWER_OR_EQUALS:
 			case THEN:
-			case ASTERISK:
-			case GIVING:
-			case EQUALS_SIGN:
-			case MINUS_SIGN:
-			case LOWER_THAN:
-			case END_OF_INSTRUCTION:
-			case SLASH:
-			case TO:
-			case GREATER_THAN:
-			case PLUS_SIGN:
-			case COMMA:
-			case GREATER_OR_EQUALS:
 			case FROM:
-			case AND:
+			case GIVING:
+			case TO:
+			case END_OF_INSTRUCTION:
+			case COMMA:
+			case RIGHT_PARENTHESIS:
 				this.unread();
 				return left;
 			default:
-				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.OR, LexicalUnit.RIGHT_PARENTHESIS, LexicalUnit.LOWER_OR_EQUALS, LexicalUnit.THEN, LexicalUnit.ASTERISK, LexicalUnit.GIVING, LexicalUnit.EQUALS_SIGN, LexicalUnit.MINUS_SIGN, LexicalUnit.LOWER_THAN, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.SLASH, LexicalUnit.TO, LexicalUnit.GREATER_THAN, LexicalUnit.PLUS_SIGN, LexicalUnit.COMMA, LexicalUnit.GREATER_OR_EQUALS, LexicalUnit.FROM, LexicalUnit.AND});
+				this.handle_bad_token(new LexicalUnit[]{LexicalUnit.OR, LexicalUnit.THEN, LexicalUnit.FROM, LexicalUnit.GIVING, LexicalUnit.TO, LexicalUnit.END_OF_INSTRUCTION, LexicalUnit.COMMA, LexicalUnit.RIGHT_PARENTHESIS});
 				break;
 
 		}

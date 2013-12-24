@@ -24,3 +24,5 @@ GRAMMAR
 ACTION TABLE
 	python3 ll1_action_table.py ll1_grammar.json
 
+FF TABLE 
+	python3 ll1_ff_table.py ll1_grammar.json 
