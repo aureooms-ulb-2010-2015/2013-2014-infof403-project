@@ -59,8 +59,8 @@ public class Image{
 			}
 			else ++imSize;
 		}
-		
-		int imageBitSize = (int) Math.ceil( ( Math.log(Math.pow(10,imSize))/Math.log(2) ) / 8);
+
+		int imageBitSize = (int) Math.ceil( ( Math.log(Math.pow(10,imSize)) / Math.log(2) + (signed ? 1 : 0)) / 8);
 
 		if(floating) return new RealDecl(Integer.toString(8 * imageBitSize), signed);
 		else return new IntegerDecl(Integer.toString(8 * imageBitSize), signed);

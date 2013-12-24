@@ -9,9 +9,9 @@ environment division.
 	object-computer. LLfffffffffffffffffffVM.
 data division.
 	working-storage section.
-		77 a pic s9(19) value 42.
-		77 A pic s9(19) value 42.
-		77 b pic s9(19).
+		77 a pic s9(18) value 42.
+		77 A pic s9(18) value 42.
+		77 b pic s9(18).
 procedure division.
 	main section.
 	start.

@@ -1,15 +1,17 @@
 \section{Semantical Analysis}
 
-Our parser implements a simple semantical analysis. If a semantical error occurs an explicit \emph{SemanticalException} is thrown explaining the error. Here is the list of the errors our parser recognises.
+Besides the type coercion seen in \ref{sec:cast} our parser implements a simple semantical analysis. If a semantical error occurs an explicit \emph{SemanticalException} is thrown explaining the error. Here is the list of the errors our parser recognises.
 
 \begin{itemize}
 
 \item Usage of variables: when a variable is used, in an arithmetic expression or assignation, the analyser checks first if this variable exists.
-\item Variable sizes: for variable declarations the size of the variable is checked to match its new content.
+\item Variable sizes: for variable declarations the size of the variable is checked to match its content, we're talking about physical size, we consider the image type as an indicator about how much memory should be used.
 \item Variable names: we don't let the user define several variables with the same name.
 \item Labels names: we don't let the user define several labels with the same name or with a name already used for a variable.
+\item Usage of labels: when a label is used, the analyser registers this label. If at the end of the compilation, the label is not defined, an exception is thrown.
+\item Start: if the start label is not defined an exception is thrown.
 \item Program ID: the semantical analyser verifies that the program ID's at the beginning and the end of the SCOBOL program match.
 
-\end {itemize}
+\end{itemize}
 
 

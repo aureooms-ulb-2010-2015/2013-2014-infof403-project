@@ -10,7 +10,7 @@ environment division.
 
 data division.
 	working-storage section.
-		77 v pic s9(19) value -1.
+		77 v pic s9(18) value -1.
 		77 i pic 9(19) value 0.
 		77 j pic 9(19).
 		77 p pic 9(19) value 0.

@@ -1,4 +1,5 @@
 \section{Casting temporary variables}
+\label{sec:cast}
 
 In LLVM IR, arithmetic operations cannot operate on variables of different sizes. At each new variable created or computation a cast (truncation or extension) is done when necessary to make sure both operands of the expression have the same size. This is done using \verb!this.ensureDest(var_1, dest);! (when \verb!var_1! needs to fit in \verb!dest!) and \verb!this.ensureSize(var_1, var_2);! (when \verb!var_1! and \verb!var_2! need to be of the same size).
 
