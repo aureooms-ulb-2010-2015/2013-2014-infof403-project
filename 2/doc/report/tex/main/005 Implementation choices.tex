@@ -1,0 +1,43 @@
+\section{Implementation choices}
+
+\subsection{Literals size}
+
+Temporary variables representing SCOBOL literals are created in LLVM IR as signed integer on 64 bits. This is a direct consequence of the language used for our project: Java.
+
+
+\subsection{Labels treated as functions}
+
+In SCOBOL labels can be used. Since we will only consider the main section we chose to translate those labels in LLVM IR as functions. We can do this without loss of generality. The \verb!stop run.\n! instruction is then considered as \verb!exit(0)!.
+
+\subsection{Lazy evaluation}
+
+Composed boolean expressions (with \verb!or! and/or \verb!and!) parts are evaluated only if necessary. This choice makes the execution of the code much faster and allows end users to write composed boolean expressions behaving like if they were written in C or \CXX.
+
+\subsection{Multibytes sized integers}
+
+This is just an arbitrary choice, we could easily modify the code to handle multibits sized integers.
+
+\subsection{User defined functions namespace}
+
+In order to avoid name clashes between SCOBOL language functions (\verb!main!, \verb!display_i64!, etc.) and user defined ones we decided to prepend the prefix \verb!__USER__! in front of every user defined function.
+
+\subsection{Poison values}
+
+In order to match the behaviour of the C and \CXX languages we decided to allow unsigned wrapping and mark signed wrapping as undefined behaviour. In LLVM IR this boils down to adding the \verb!nsw! flag for signed operations.
+This choice concerns only the operators that can cause wrapping (\verb!add!, \verb!sub! and \verb!mul!).
+
+\subsection{IO operations}
+
+For the \verb!accept! and \verb!display! keywords we decided to translate a simple implementation in C to LLVM IR. Using \verb!@printf! / \verb!@scanf! or others already existing C functions would have caused problems because C only allows power-of-2 sized integers.
+
+The \verb!display! function applied on a string will output a trailing \verb!\n! while the \verb!display! function for an integer will only output the integer digits. This choice is a choice of simplicity implied by the early recursive implementation of the \verb!display! function even though it could be changed easily now.
+
+For the \verb!accept! keyword, any character not in $0 \dots 9$ will be interpreted as a delimiter character. An empty input word will be interpreted as $0$.
+
+The C code can be looked at in \ref{src:accept} and \ref{src:display}.
+
+\myinputminted[firstline=11, lastline=29, linenos=false]{c}{../../more/tools/c/cbl/accept.c}{C code for the accept keyword}{src:accept}{0}
+\myinputminted[firstline=14, lastline=35, linenos=false]{c}{../../more/tools/c/cbl/display.c}{C code for the display keyword}{src:display}{0}
+
+
+

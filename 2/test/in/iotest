@@ -1,0 +1,21 @@
+
+identification division.
+	program-id. iotest.
+	author. dfdfd df ddf df .
+	date-written. dfdffd fd df.
+environment division.
+	configuration section.
+	source-computer. ddfffffffffffff.
+	object-computer. LLfffffffffffffffffffVM.
+data division.
+	working-storage section.
+		77 a pic s9(2).
+procedure division.
+	main section.
+	start.
+		accept a.
+		display a.
+		display ''.
+		stop run.
+
+end program iotest.

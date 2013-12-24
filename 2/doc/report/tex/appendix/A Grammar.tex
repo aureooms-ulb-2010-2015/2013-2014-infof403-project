@@ -16,7 +16,7 @@ The production rules that have been modified from the original grammar are shown
 \textcolor{black}{[ 5]                     -> DIVIDE <ASSIGN_TAIL> END_OF_INSTRUCTION}
 \textcolor{black}{[ 6]       <ASSIGN_TAIL> -> <EXPRESSION> COMMA <EXPRESSION> GIVING IDENTIFIER}
 \textcolor{red}{[ 7]              <CALL> -> PERFORM IDENTIFIER <CALL_TAIL>}
-\textcolor{black}{[ 8]         <CALL_TAIL> -> UNTIL <EXPRESSION> END_OF_INSTRUCTION}
+\textcolor{red}{[ 8]         <CALL_TAIL> -> UNTIL <EXPRESSION> END_OF_INSTRUCTION}
 \textcolor{black}{[ 9]                     -> END_OF_INSTRUCTION}
 \textcolor{black}{[10]              <DATA> -> DATA DIVISION END_OF_INSTRUCTION WORKING_STORAGE SECTION}
                             \textcolor{black}{END_OF_INSTRUCTION <VAR_LIST>}
