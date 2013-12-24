@@ -2,7 +2,7 @@
 
 
 c                             : c example files
-ctollvm                       : sh script to generate LLVM IR from c code
+ctollvm                       : sh script to generate LLVM IR from C code
 ll1_action_table.py           : python3 script to generate the action table
 ll1_grammar.json              : SCOBOL grammar in JSON
 ll1_grammar_pretty_printer.py : python3 script to print the grammar
@@ -14,6 +14,8 @@ ll1.py                        : python3 module containing a class to handle ll1 
 
 # USAGE
 
+CTOLLVM
+	./ctollvm c/cbl/display.c
 
 PARSER
 	python3 ll1_parser_generator.py ll1_grammar.json ll1_parser_header.txt
