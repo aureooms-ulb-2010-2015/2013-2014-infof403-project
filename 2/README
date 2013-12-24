@@ -2,6 +2,7 @@
 
 
 doc: 
+	man        : the ASCII manual for scc
 	java       : JAVADOC
 	report.pdf : PDF report
 
